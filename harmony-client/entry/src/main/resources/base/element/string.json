@@ -1,0 +1,20 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Mobile Internet HarmonyOS Application"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Entry ability description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "Mobile Internet"
+    },
+    {
+      "name": "app_name",
+      "value": "Mobile Internet"
+    }
+  ]
+}

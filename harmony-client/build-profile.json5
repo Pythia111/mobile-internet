@@ -1,0 +1,21 @@
+// Top-level build file
+apply plugin: 'com.huawei.ohos.app'
+
+ohos {
+    compileSdkVersion 10
+    defaultConfig {
+        compatibleSdkVersion 10
+    }
+    buildTypes {
+        release {
+            proguardOpt {
+                proguardEnabled false
+                rulesFiles 'proguard-rules.pro'
+            }
+        }
+    }
+}
+
+dependencies {
+    // Add project dependencies here
+}
