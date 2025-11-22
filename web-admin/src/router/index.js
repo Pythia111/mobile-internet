@@ -9,28 +9,22 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
+    path: '/register',
+    name: 'Register',
+    component: () => import('@/views/Register.vue'),
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/',
     component: () => import('@/layouts/MainLayout.vue'),
-    redirect: '/dashboard',
+    redirect: '/profile',
     meta: { requiresAuth: true },
     children: [
       {
-        path: 'dashboard',
-        name: 'Dashboard',
-        component: () => import('@/views/Dashboard.vue'),
-        meta: { title: '数据统计' }
-      },
-      {
-        path: 'users',
-        name: 'UserList',
-        component: () => import('@/views/UserList.vue'),
-        meta: { title: '用户管理' }
-      },
-      {
-        path: 'system',
-        name: 'SystemConfig',
-        component: () => import('@/views/SystemConfig.vue'),
-        meta: { title: '系统设置' }
+        path: 'profile',
+        name: 'Profile',
+        component: () => import('@/views/Profile.vue'),
+        meta: { title: '个人资料' }
       }
     ]
   }
@@ -47,7 +41,7 @@ router.beforeEach((to, from, next) => {
   
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
     next('/login')
-  } else if (to.path === '/login' && authStore.isAuthenticated) {
+  } else if ((to.path === '/login' || to.path === '/register') && authStore.isAuthenticated) {
     next('/')
   } else {
     next()
@@ -55,3 +49,4 @@ router.beforeEach((to, from, next) => {
 })
 
 export default router
+

@@ -1,10 +1,10 @@
 <template>
-  <div class="login-container">
-    <el-card class="login-card">
+  <div class="register-container">
+    <el-card class="register-card">
       <template #header>
         <div class="card-header">
           <h2>营养管理后台</h2>
-          <p>管理员登录</p>
+          <p>管理员注册</p>
         </div>
       </template>
 
@@ -18,11 +18,31 @@
           />
         </el-form-item>
 
+        <el-form-item prop="username">
+          <el-input
+            v-model="form.username"
+            placeholder="请输入用户名"
+            size="large"
+            :prefix-icon="User"
+          />
+        </el-form-item>
+
         <el-form-item prop="password">
           <el-input
             v-model="form.password"
             type="password"
-            placeholder="请输入密码"
+            placeholder="请输入密码（≥6位，含字母+数字）"
+            size="large"
+            :prefix-icon="Lock"
+            show-password
+          />
+        </el-form-item>
+
+        <el-form-item prop="confirmPassword">
+          <el-input
+            v-model="form.confirmPassword"
+            type="password"
+            placeholder="请确认密码"
             size="large"
             :prefix-icon="Lock"
             show-password
@@ -35,14 +55,14 @@
             size="large" 
             :loading="loading"
             style="width: 100%"
-            @click="handleLogin"
+            @click="handleRegister"
           >
-            登录
+            注册
           </el-button>
         </el-form-item>
-        
-        <div class="register-link">
-          <router-link to="/register">没有账号？去注册</router-link>
+
+        <div class="login-link">
+          <router-link to="/login">已有账号？去登录</router-link>
         </div>
       </el-form>
     </el-card>
@@ -53,7 +73,7 @@
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import { Phone, Lock } from '@element-plus/icons-vue'
+import { Phone, Lock, User } from '@element-plus/icons-vue'
 import { useAuthStore } from '@/stores/auth'
 
 const router = useRouter()
@@ -64,22 +84,55 @@ const loading = ref(false)
 
 const form = reactive({
   phone: '',
-  password: ''
+  username: '',
+  password: '',
+  confirmPassword: ''
 })
+
+const validatePassword = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('请输入密码'))
+  } else if (value.length < 6) {
+    callback(new Error('密码长度不能少于6位'))
+  } else if (!/[a-zA-Z]/.test(value) || !/[0-9]/.test(value)) {
+    callback(new Error('密码必须包含字母和数字'))
+  } else {
+    if (form.confirmPassword !== '') {
+      if (!formRef.value) return
+      formRef.value.validateField('confirmPassword', () => null)
+    }
+    callback()
+  }
+}
+
+const validateConfirmPassword = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('请再次输入密码'))
+  } else if (value !== form.password) {
+    callback(new Error('两次输入密码不一致!'))
+  } else {
+    callback()
+  }
+}
 
 const rules = {
   phone: [
     { required: true, message: '请输入手机号', trigger: 'blur' },
     { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }
   ],
+  username: [
+    { required: true, message: '请输入用户名', trigger: 'blur' }
+  ],
   password: [
-    { required: true, message: '请输入密码', trigger: 'blur' },
-    { min: 6, message: '密码至少6位', trigger: 'blur' }
+    { validator: validatePassword, trigger: 'blur' }
+  ],
+  confirmPassword: [
+    { validator: validateConfirmPassword, trigger: 'blur' }
   ]
 }
 
-// 登录
-const handleLogin = async () => {
+// 注册
+const handleRegister = async () => {
   if (!formRef.value) return
 
   await formRef.value.validate(async (valid) => {
@@ -87,11 +140,15 @@ const handleLogin = async () => {
 
     loading.value = true
     try {
-      const result = await authStore.login(form.phone, form.password)
+      const result = await authStore.register({
+        phone: form.phone,
+        username: form.username,
+        password: form.password
+      })
       
       if (result.success) {
-        ElMessage.success('登录成功')
-        router.push('/')
+        ElMessage.success('注册成功，请登录')
+        router.push('/login')
       } else {
         ElMessage.error(result.message)
       }
@@ -103,7 +160,7 @@ const handleLogin = async () => {
 </script>
 
 <style scoped>
-.login-container {
+.register-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,7 +168,7 @@ const handleLogin = async () => {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-.login-card {
+.register-card {
   width: 450px;
   border-radius: 10px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
@@ -133,19 +190,18 @@ const handleLogin = async () => {
   font-size: 14px;
 }
 
-.register-link {
+.login-link {
   text-align: center;
   margin-top: 10px;
 }
 
-.register-link a {
+.login-link a {
   color: #409eff;
   text-decoration: none;
   font-size: 14px;
 }
 
-.register-link a:hover {
+.login-link a:hover {
   text-decoration: underline;
 }
 </style>
-
