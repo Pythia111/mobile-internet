@@ -8,9 +8,9 @@
       <el-menu
         :default-active="activeMenu"
         router
-        background-color="#304156"
+        background-color="#2b3649"
         text-color="#bfcbd9"
-        active-text-color="#409eff"
+        active-text-color="#5e7ce2"
       >
         <el-menu-item index="/profile">
           <el-icon><User /></el-icon>
@@ -101,8 +101,10 @@ const handleLogout = () => {
 }
 
 .layout-aside {
-  background-color: #304156;
+  background-color: var(--sidebar-bg);
   overflow-x: hidden;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+  z-index: 10;
 }
 
 .logo {
@@ -110,13 +112,16 @@ const handleLogout = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #2b3a4b;
+  background-color: var(--sidebar-bg);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 .logo h3 {
   color: #fff;
-  font-size: 16px;
+  font-size: 18px;
   margin: 0;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .el-menu {
@@ -128,8 +133,9 @@ const handleLogout = () => {
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
-  border-bottom: 1px solid #e6e6e6;
+  border-bottom: 1px solid #f0f0f0;
   padding: 0 20px;
+  box-shadow: 0 1px 4px rgba(0,21,41,0.04);
 }
 
 .header-right {
@@ -142,15 +148,23 @@ const handleLogout = () => {
   align-items: center;
   cursor: pointer;
   gap: 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.user-info:hover {
+  background-color: #f5f7fa;
 }
 
 .username {
   margin-left: 8px;
-  color: #303133;
+  color: var(--text-main);
+  font-weight: 500;
 }
 
 .layout-main {
-  background-color: #f0f2f5;
+  background-color: var(--bg-color);
   padding: 20px;
   overflow-y: auto;
 }

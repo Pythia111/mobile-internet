@@ -138,4 +138,15 @@ const handleUpdate = async () => {
 .profile-container {
   padding: 20px;
 }
+
+.el-card {
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+  font-weight: 600;
+  color: var(--text-main);
+}
 </style>

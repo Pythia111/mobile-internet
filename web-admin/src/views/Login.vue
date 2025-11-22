@@ -108,44 +108,49 @@ const handleLogin = async () => {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-color: var(--bg-color);
+  background-image: radial-gradient(circle at 50% 50%, #ffffff 0%, var(--bg-color) 100%);
 }
 
 .login-card {
-  width: 450px;
-  border-radius: 10px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  width: 420px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  border: none;
 }
 
 .card-header {
   text-align: center;
+  padding: 10px 0;
 }
 
 .card-header h2 {
   margin: 0 0 8px 0;
-  color: #303133;
-  font-size: 24px;
+  color: var(--primary-color);
+  font-size: 26px;
+  font-weight: 600;
 }
 
 .card-header p {
   margin: 0;
-  color: #909399;
+  color: var(--text-secondary);
   font-size: 14px;
 }
 
 .register-link {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 16px;
 }
 
 .register-link a {
-  color: #409eff;
+  color: var(--primary-color);
   text-decoration: none;
   font-size: 14px;
+  transition: color 0.3s;
 }
 
 .register-link a:hover {
-  text-decoration: underline;
+  color: var(--primary-light);
 }
 </style>
 
