@@ -16,6 +16,10 @@
           <el-icon><User /></el-icon>
           <span>个人资料</span>
         </el-menu-item>
+        <el-menu-item index="/forum/audit">
+          <el-icon><ChatDotRound /></el-icon>
+          <span>帖子审核</span>
+        </el-menu-item>
       </el-menu>
     </el-aside>
 
@@ -58,7 +62,7 @@
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { User, ArrowDown } from '@element-plus/icons-vue'
+import { User, ArrowDown, ChatDotRound } from '@element-plus/icons-vue'
 import { useAuthStore } from '@/stores/auth'
 
 const router = useRouter()

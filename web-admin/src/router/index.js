@@ -25,6 +25,12 @@ const routes = [
         name: 'Profile',
         component: () => import('@/views/Profile.vue'),
         meta: { title: '个人资料' }
+      },
+      {
+        path: 'forum/audit',
+        name: 'PostAudit',
+        component: () => import('@/views/forum/PostAudit.vue'),
+        meta: { title: '帖子审核' }
       }
     ]
   }
