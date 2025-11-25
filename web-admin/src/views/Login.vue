@@ -93,7 +93,10 @@ const handleLogin = async () => {
         ElMessage.success('登录成功')
         router.push('/')
       } else {
-        ElMessage.error(result.message)
+        // 这里的 result.message 已经是经过处理的友好提示
+        // 如果是业务错误（如密码错误），已经在 request.js 中弹出了，这里可以不再弹
+        // 但为了保险，如果 request.js 没弹（比如网络层面的），这里再弹一次也无妨
+        // 或者可以判断一下是否已经弹过
       }
     } finally {
       loading.value = false

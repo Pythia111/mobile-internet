@@ -13,17 +13,20 @@ export const useAuthStore = defineStore('auth', () => {
   async function login(phone, password) {
     try {
       const res = await authApi.login({ phone, password })
+      // request.js 拦截器已经处理了非 200 的情况并抛出错误
+      // 所以这里能走到 res.code === 200 的逻辑，或者直接被 catch 捕获
       if (res.code === 200) {
         const { token: accessToken } = res.data
         token.value = accessToken
         localStorage.setItem('token', accessToken)
         await fetchUserInfo()
         return { success: true }
-      } else {
-        return { success: false, message: res.message || '登录失败' }
       }
+      // 理论上拦截器会拦截非200，但为了保险起见保留此分支
+      return { success: false, message: res.message || '登录失败' }
     } catch (error) {
-      return { success: false, message: error.message || '登录失败' }
+      // 这里的 error.message 已经是拦截器处理过的友好提示
+      return { success: false, message: error.message }
     }
   }
 
@@ -33,11 +36,10 @@ export const useAuthStore = defineStore('auth', () => {
       const res = await authApi.register(data)
       if (res.code === 200) {
         return { success: true }
-      } else {
-        return { success: false, message: res.message || '注册失败' }
       }
+      return { success: false, message: res.message || '注册失败' }
     } catch (error) {
-      return { success: false, message: error.message || '注册失败' }
+      return { success: false, message: error.message }
     }
   }
 

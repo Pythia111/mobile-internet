@@ -150,7 +150,8 @@ const handleRegister = async () => {
         ElMessage.success('注册成功，请登录')
         router.push('/login')
       } else {
-        ElMessage.error(result.message)
+        // 错误信息已在 request.js 中统一处理，此处仅作为兜底
+        if (!result.message) ElMessage.error('注册失败，请稍后重试')
       }
     } finally {
       loading.value = false
