@@ -5,6 +5,8 @@ import com.example.nutrition.entity.User;
 import com.example.nutrition.repository.RoleRepository;
 import com.example.nutrition.repository.UserRepository;
 import com.example.nutrition.security.JwtAuthenticationFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +30,8 @@ import java.util.Set;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
+    private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtFilter)
             throws Exception {
@@ -35,6 +39,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
+                // 公开接口 - 无需认证
                 .antMatchers("/api/auth/**",
                         "/v3/api-docs/**",
                         "/swagger-ui/**",
@@ -42,7 +47,12 @@ public class SecurityConfig {
                         "/actuator/health",
                         "/uploads/**")
                 .permitAll()
+                // 论坛公开接口 - GET 请求无需认证
+                .antMatchers(HttpMethod.GET, "/api/forum/posts/**", "/api/forum/user/*/posts")
+                .permitAll()
+                // 管理员接口
                 .antMatchers(HttpMethod.GET, "/actuator/**").hasRole("ADMIN")
+                // 其他接口需要认证
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
@@ -84,21 +94,49 @@ public class SecurityConfig {
     public CommandLineRunner initDefaultData(RoleRepository roleRepository, UserRepository userRepository,
             PasswordEncoder encoder) {
         return args -> {
-            Role roleUser = roleRepository.findByName("ROLE_USER")
-                    .orElseGet(() -> roleRepository.save(Role.builder().name("ROLE_USER").build()));
-            Role roleAdmin = roleRepository.findByName("ROLE_ADMIN")
-                    .orElseGet(() -> roleRepository.save(Role.builder().name("ROLE_ADMIN").build()));
+            logger.info("Starting to initialize default data...");
 
-            // 初始化一个管理员账号（仅用于开发环境）
-            userRepository.findByPhone("+8613800000000").orElseGet(() -> {
-                User admin = User.builder()
-                        .phone("+8613800000000")
-                        .name("Admin")
-                        .passwordHash(encoder.encode("Admin@123"))
-                        .roles(new java.util.HashSet<>(java.util.Arrays.asList(roleUser, roleAdmin)))
-                        .build();
-                return userRepository.save(admin);
-            });
+            try {
+                // 初始化角色
+                logger.info("Initializing roles...");
+                Role roleUser = roleRepository.findByName("ROLE_USER")
+                        .orElseGet(() -> {
+                            logger.info("Creating ROLE_USER");
+                            return roleRepository.save(Role.builder().name("ROLE_USER").build());
+                        });
+                Role roleAdmin = roleRepository.findByName("ROLE_ADMIN")
+                        .orElseGet(() -> {
+                            logger.info("Creating ROLE_ADMIN");
+                            return roleRepository.save(Role.builder().name("ROLE_ADMIN").build());
+                        });
+
+                // 初始化一个管理员账号（仅用于开发环境）
+                logger.info("Checking for admin user...");
+                if (!userRepository.findByPhone("+8613800000000").isPresent()) {
+                    logger.info("Creating admin user...");
+                    User admin = User.builder()
+                            .phone("+8613800000000")
+                            .name("Admin")
+                            .passwordHash(encoder.encode("Admin@123"))
+                            .build();
+                    admin = userRepository.save(admin);
+
+                    // 设置角色关联
+                    Set<Role> roles = new java.util.HashSet<>();
+                    roles.add(roleUser);
+                    roles.add(roleAdmin);
+                    admin.setRoles(roles);
+                    userRepository.save(admin);
+                    logger.info("Admin user created successfully");
+                } else {
+                    logger.info("Admin user already exists");
+                }
+
+                logger.info("Default data initialization completed!");
+            } catch (Exception e) {
+                logger.error("Error initializing default data", e);
+                throw e;
+            }
         };
     }
 }

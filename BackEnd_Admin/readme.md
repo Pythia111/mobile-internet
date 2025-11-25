@@ -127,3 +127,183 @@ web用户为管理员
   - 密码需哈希存储。
   - 敏感数据（如密码）不可返回响应。
   - 所有用户输入需验证过滤。
+
+
+模块3：论坛模块
+后端负责人：hly
+- 论坛数据库
+- 获取所有帖子（主页面）
+- 获取一个帖子
+- 获取个人主页
+- 存储帖子
+- 修改帖子状态为所有人可见/仅自己可见（管理员，违规时）/已删除（用户，主动删帖）
+
+3.1 发布帖子
+- 路径: /api/forum/posts
+- 方法: POST
+- 请求参数:
+  {
+  "title": "string",         // 帖子标题
+  "content": "string",       // 帖子内容
+  "images": ["string"],      // 图片URL数组（可选）
+  "creatorName": "string",   // 发帖人名称（必填）
+  "creatorAvatar": "string"  // 发帖人头像URL（必填）
+  }
+- 响应:
+  {
+  "code": 200,
+  "message": "发布成功",
+  "data": {
+  "postId": "string",      // 帖子ID
+  "creatorName": "string", // 发帖人名称
+  "creatorAvatar": "string"// 发帖人头像URL
+  }
+  }
+- 错误响应:
+  {
+  "code": 400,
+  "message": "缺少必要字段/标题内容不能为空"
+  }
+  3.2 获取论坛帖子列表
+- 路径: /api/forum/posts
+- 方法: GET
+- 查询参数:
+    - page (默认1): 页码
+    - status (可选): 0=公开, 1=待审核，2=私密，3=已删除
+- 响应:
+  {
+  "code": 200,
+  "data": {
+  "posts": [
+  {
+  "postId": "string",
+  "title": "string",
+  "userId": "string",
+  "username": "string",
+  "images": ["string"],      // 图片URL数组（可选）
+  "avatar": "string",
+  "status": 0,
+  "likeCount": number
+  }
+  ]
+  }
+  }
+
+3.3 获取帖子详情
+- 路径: /api/forum/posts/{postId}
+- 方法: GET
+- 响应:
+  {
+  "code": 200,
+  "data": {
+  "postId": "string",
+  "title": "string",
+  "content": "string",
+  "images": ["string"],
+  "userId": "string",
+  "username": "string",
+  "avatar": "string",
+  "status": 0,
+  "comments": [
+  {
+  "commentId": "string",
+  "content": "string",
+  "userId": "string",
+  "username": "string"
+  }
+  ]
+  }
+  }
+
+3.4 点赞帖子
+- 路径: /api/forum/posts/{postId}/like
+- 方法: POST
+- 响应:
+  {
+  "code": 200,
+  "message": "操作成功",
+  "data": { "liked": true }
+  }
+
+3.5 评论帖子
+- 路径: /api/forum/posts/{postId}/comments
+- 方法: POST
+- 请求参数:
+  {   
+  "content": "string" ，
+  "username": "string",
+  "avatar": "string",
+  }
+- 响应:
+
+{
+"code": 200,
+"message": "评论成功",
+"data": {
+"commentId": "string",        // 评论ID
+"username": "string",  // 评论人名称
+"avatar": "string" // 评论人头像URL
+}
+}
+
+3.6 管理员-更新帖子状态
+- 路径: /api/forum/posts/{postId}/status
+- 方法: PUT
+- 请求头:
+    - 普通用户：Authorization: Bearer <user_token>
+    - 管理员：Authorization: Bearer <admin_token>
+- 请求参数
+  {
+  "action": "string",    // 操作类型（必填）
+  "reason": "string"     // 操作原因（可选）
+  }
+- 有效操作类型
+
+| 操作类型 | 适用角色 | 状态转换 | 说明 |
+| ------ | ---- | -------- | ---- |
+| delete | 用户 | → 3 | 用户主动删除帖子 |
+|  privatize | 管理员 | → 2 | 管理员隐藏帖子（私密） |
+|  publicize | 管理员 | → 0 | 审核通过公开帖子 |
+
+- 状态码定义
+
+| 状态码 | 名称 | 可见性规则 |
+|-----| ---- | -------- |
+  | 0   |公开|所有用户可见|
+  | 1   |待审核|仅管理员可见|
+ | 2   |私密|仅管理员可见（用户不可见）|
+ | 3   |已删除|所有用户不可见（逻辑删除）|
+
+---
+- 响应结构
+  {
+  "code": 200,
+  "message": "操作成功",
+  "data": {
+  "postId": "string",
+  "newStatus": 3,    // 新状态码
+  "oldStatus": 0,    // 原状态码
+  "operator": {
+  "id": "user123", // 操作者ID
+  "role": "user|admin"
+  },
+  "updatedAt": "2023-11-15T10:30:00Z"
+  }
+  }
+
+3.7 获取用户主页
+- 路径: /api/forum/user/{userId}/posts
+- 方法: GET
+- 响应:
+  {
+  "code": 200,
+  "data": {
+  "userId": "string",
+  "username": "string",
+  "avatar": "string",
+  "posts": [ /* 用户发布的帖子列表 */ ]
+  }
+  }
+
+
+---
