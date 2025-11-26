@@ -1,0 +1,14 @@
+hvigor ERROR: Failed :entry:default@PreviewArkTS... 
+> hvigor ERROR: ArkTS:ERROR File: E:/Grade3/MobileInternet/mobile-internet/HarmonyOS/entry/src/main/ets/pages/Index.ets:15:14
+ 'replaceUrl' can't support crossplatform application.
+ArkTS:ERROR File: E:/Grade3/MobileInternet/mobile-internet/HarmonyOS/entry/src/main/ets/pages/Index.ets:28:12
+ 'replaceUrl' can't support crossplatform application.
+
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --debug option to get more log output.
+
+> hvigor ERROR: BUILD FAILED in 18 s 79 ms 
+
+Process finished with exit code -1

@@ -1,4 +1,4 @@
-import ApiClient from './ApiClient.js';
+import ApiClient from './ApiClient';
 
 export async function login(phone: string, password: string) {
   const body = { phone, password };
