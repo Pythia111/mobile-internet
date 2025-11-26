@@ -1,5 +1,7 @@
 {
   "src": [
+    "pages/auth/Login",
+    "pages/auth/Register",
     "pages/Index"
   ]
 }

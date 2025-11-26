@@ -77,14 +77,16 @@ struct Register {
         TokenManager.setToken(response.data.token);
         
         promptAction.showToast({
-          message: '注册成功',
+          message: '注册成功，正在重定向..',
           duration: 2000
         });
 
-        // 跳转到主页
-        router.pushUrl({
-          url: 'pages/Index'
-        });
+        // 延迟跳转到登录页
+        setTimeout(() => {
+          router.pushUrl({
+            url: 'pages/auth/Login'
+          });
+        }, 1000);
       } else {
         promptAction.showToast({
           message: response.message || '注册失败',
@@ -92,7 +94,7 @@ struct Register {
         });
       }
     } catch (error) {
-      console.error('注册错误:', error);
+      console.error('注册错误:', JSON.stringify(error));
       promptAction.showToast({
         message: '网络错误，请重试',
         duration: 2000
@@ -111,23 +113,24 @@ struct Register {
     Column() {
       // 标题
       Text('饮食记录')
-        .fontSize(32)
-        .fontWeight(FontWeight.Medium)
-        .fontColor('#333333')
-        .margin({ top: 80, bottom: 60 })
+        .fontSize(36)
+        .fontWeight(FontWeight.Bold)
+        .fontColor('#2E7D32') // Dark Green
+        .margin({ top: 80, bottom: 40 })
+        .letterSpacing(2)
 
       // 注册表单
       Column() {
         // 用户名输入框
         Column() {
-          TextInput({ placeholder: '请输入用户名', text: this.username })
+          TextInput({ placeholder: '用户名', text: this.username })
             .height(50)
             .fontSize(16)
             .fontColor('#333333')
-            .backgroundColor('#FFFFFF')
+            .backgroundColor('#FAFAFA')
             .border({
               width: 1,
-              color: this.usernameError ? '#FF4444' : '#E5E5E5',
+              color: this.usernameError ? '#FF4444' : '#E0E0E0',
               radius: 8
             })
             .placeholderColor('#999999')
@@ -146,7 +149,7 @@ struct Register {
               .fontSize(12)
               .fontColor('#FF4444')
               .alignSelf(ItemAlign.Start)
-              .margin({ top: 5 })
+              .margin({ top: 5, left: 5 })
           }
         }
         .width('100%')
@@ -154,14 +157,14 @@ struct Register {
 
         // 手机号输入框
         Column() {
-          TextInput({ placeholder: '请输入手机号', text: this.phone })
+          TextInput({ placeholder: '手机号', text: this.phone })
             .height(50)
             .fontSize(16)
             .fontColor('#333333')
-            .backgroundColor('#FFFFFF')
+            .backgroundColor('#FAFAFA')
             .border({
               width: 1,
-              color: this.phoneError ? '#FF4444' : '#E5E5E5',
+              color: this.phoneError ? '#FF4444' : '#E0E0E0',
               radius: 8
             })
             .placeholderColor('#999999')
@@ -180,7 +183,7 @@ struct Register {
               .fontSize(12)
               .fontColor('#FF4444')
               .alignSelf(ItemAlign.Start)
-              .margin({ top: 5 })
+              .margin({ top: 5, left: 5 })
           }
         }
         .width('100%')
@@ -188,15 +191,15 @@ struct Register {
 
         // 密码输入框
         Column() {
-          TextInput({ placeholder: '请输入密码（字母/数字，至少6位）', text: this.password })
+          TextInput({ placeholder: '密码(字母+数字,至少6位)', text: this.password })
             .type(InputType.Password)
             .height(50)
-            .fontSize(16)
+            .fontSize(14)
             .fontColor('#333333')
-            .backgroundColor('#FFFFFF')
+            .backgroundColor('#FAFAFA')
             .border({
               width: 1,
-              color: this.passwordError ? '#FF4444' : '#E5E5E5',
+              color: this.passwordError ? '#FF4444' : '#E0E0E0',
               radius: 8
             })
             .placeholderColor('#999999')
@@ -215,7 +218,7 @@ struct Register {
               .fontSize(12)
               .fontColor('#FF4444')
               .alignSelf(ItemAlign.Start)
-              .margin({ top: 5 })
+              .margin({ top: 5, left: 5 })
           }
         }
         .width('100%')
@@ -225,15 +228,15 @@ struct Register {
         Row() {
           // 返回按钮
           Button('返回')
-            .width('45%')
+            .width('40%')
             .height(50)
             .fontSize(16)
-            .fontColor('#007AFF')
+            .fontColor('#666666')
             .backgroundColor('#FFFFFF')
             .border({ 
               width: 1,
-              color: '#007AFF',
-              radius: 8
+              color: '#CCCCCC',
+              radius: 25
             })
             .onClick(() => {
               this.goBack();
@@ -241,12 +244,14 @@ struct Register {
 
           // 注册按钮
           Button(this.isLoading ? '注册中...' : '立即注册')
-            .width('45%')
+            .width('55%')
             .height(50)
             .fontSize(16)
+            .fontWeight(FontWeight.Medium)
             .fontColor('#FFFFFF')
-            .backgroundColor(this.isLoading ? '#CCCCCC' : '#007AFF')
-            .border({ radius: 8 })
+            .backgroundColor(this.isLoading ? '#A5D6A7' : '#4CAF50')
+            .border({ radius: 25 })
+            .shadow({ radius: 5, color: '#4CAF5040', offsetY: 5 })
             .enabled(!this.isLoading)
             .onClick(() => {
               this.handleRegister();
@@ -255,21 +260,21 @@ struct Register {
         .width('100%')
         .justifyContent(FlexAlign.SpaceBetween)
       }
-      .width('80%')
-      .padding(30)
+      .width('85%')
+      .padding({ top: 40, bottom: 40, left: 25, right: 25 })
       .backgroundColor('#FFFFFF')
-      .border({ radius: 12 })
+      .border({ radius: 16, width: 1, color: '#EEEEEE' })
       .shadow({
-        radius: 10,
-        color: '#00000010',
+        radius: 20,
+        color: '#0000000A',
         offsetX: 0,
-        offsetY: 5
+        offsetY: 10
       })
     }
     .width('100%')
     .height('100%')
-    .backgroundColor('#F5F5F5')
-    .justifyContent(FlexAlign.Center)
-    .padding({ left: 20, right: 20 })
+    .backgroundColor('#F9F9F9')
+    .justifyContent(FlexAlign.Start)
+    .padding({ top: 20 })
   }
 }

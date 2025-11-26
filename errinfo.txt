@@ -1,14 +1,12 @@
 hvigor ERROR: Failed :entry:default@PreviewArkTS... 
-> hvigor ERROR: ArkTS:ERROR File: E:/Grade3/MobileInternet/mobile-internet/HarmonyOS/entry/src/main/ets/pages/Index.ets:15:14
- 'replaceUrl' can't support crossplatform application.
-ArkTS:ERROR File: E:/Grade3/MobileInternet/mobile-internet/HarmonyOS/entry/src/main/ets/pages/Index.ets:28:12
- 'replaceUrl' can't support crossplatform application.
+> hvigor ERROR: 10605008 ArkTS Compiler Error
+Error Message: Use explicit types instead of "any", "unknown" (arkts-no-any-unknown) At File: E:/Grade3/MobileInternet/mobile-internet/HarmonyOS/entry/src/main/ets/pages/user/Profile.ets:7:20
 
 
 * Try:
 > Run with --stacktrace option to get the stack trace.
 > Run with --debug option to get more log output.
 
-> hvigor ERROR: BUILD FAILED in 18 s 79 ms 
+> hvigor ERROR: BUILD FAILED in 5 s 174 ms 
 
 Process finished with exit code -1

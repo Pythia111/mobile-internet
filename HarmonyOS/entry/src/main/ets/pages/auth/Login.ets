@@ -75,7 +75,7 @@ struct Login {
         });
       }
     } catch (error) {
-      console.error('登录错误:', error);
+      console.error('登录错误:', JSON.stringify(error));
       promptAction.showToast({
         message: '网络错误，请重试',
         duration: 2000
@@ -96,10 +96,11 @@ struct Login {
     Column() {
       // 标题
       Text('饮食记录')
-        .fontSize(32)
-        .fontWeight(FontWeight.Medium)
-        .fontColor('#333333')
-        .margin({ top: 80, bottom: 60 })
+        .fontSize(36)
+        .fontWeight(FontWeight.Bold)
+        .fontColor('#2E7D32') // Dark Green
+        .margin({ top: 80, bottom: 40 })
+        .letterSpacing(2)
 
       // 登录表单
       Column() {
@@ -109,10 +110,10 @@ struct Login {
             .height(50)
             .fontSize(16)
             .fontColor('#333333')
-            .backgroundColor('#FFFFFF')
+            .backgroundColor('#FAFAFA')
             .border({
               width: 1,
-              color: this.phoneError ? '#FF4444' : '#E5E5E5',
+              color: this.phoneError ? '#FF4444' : '#E0E0E0',
               radius: 8
             })
             .placeholderColor('#999999')
@@ -131,7 +132,7 @@ struct Login {
               .fontSize(12)
               .fontColor('#FF4444')
               .alignSelf(ItemAlign.Start)
-              .margin({ top: 5 })
+              .margin({ top: 5, left: 5 })
           }
         }
         .width('100%')
@@ -144,10 +145,10 @@ struct Login {
             .height(50)
             .fontSize(16)
             .fontColor('#333333')
-            .backgroundColor('#FFFFFF')
+            .backgroundColor('#FAFAFA')
             .border({
               width: 1,
-              color: this.passwordError ? '#FF4444' : '#E5E5E5',
+              color: this.passwordError ? '#FF4444' : '#E0E0E0',
               radius: 8
             })
             .placeholderColor('#999999')
@@ -166,57 +167,66 @@ struct Login {
               .fontSize(12)
               .fontColor('#FF4444')
               .alignSelf(ItemAlign.Start)
-              .margin({ top: 5 })
+              .margin({ top: 5, left: 5 })
           }
         }
         .width('100%')
-        .margin({ bottom: 30 })
+        .margin({ bottom: 20 })
 
-        // 注册链接
+        // 注册引导
         Row() {
           Text('没有账号？')
             .fontSize(14)
             .fontColor('#666666')
           
-          Text('立即注册')
+          Button('立即注册')
+            .type(ButtonType.Normal)
             .fontSize(14)
-            .fontColor('#007AFF')
+            .fontColor('#4CAF50')
+            .backgroundColor('transparent')
+            .border({ width: 1, color: '#4CAF50', radius: 4 })
+            .height(30)
+            .width(160)
+            .margin({ left: 10 })
             .onClick(() => {
               this.goToRegister();
             })
         }
         .width('100%')
-        .justifyContent(FlexAlign.Center)
+        .justifyContent(FlexAlign.Start)
+        .alignItems(VerticalAlign.Center)
         .margin({ bottom: 40 })
 
         // 登录按钮
         Button(this.isLoading ? '登录中...' : '登录')
           .width('100%')
           .height(50)
-          .fontSize(16)
+          .fontSize(18)
+          .fontWeight(FontWeight.Medium)
           .fontColor('#FFFFFF')
-          .backgroundColor(this.isLoading ? '#CCCCCC' : '#007AFF')
-          .border({ radius: 8 })
+          .backgroundColor(this.isLoading ? '#A5D6A7' : '#4CAF50') // Green theme
+          .border({ radius: 25 })
+          .shadow({ radius: 5, color: '#4CAF5040', offsetY: 5 })
           .enabled(!this.isLoading)
           .onClick(() => {
             this.handleLogin();
           })
       }
-      .width('80%')
-      .padding(30)
+      .width('85%')
+      .padding({ top: 40, bottom: 40, left: 25, right: 25 })
       .backgroundColor('#FFFFFF')
-      .border({ radius: 12 })
+      .border({ radius: 16, width: 1, color: '#EEEEEE' })
       .shadow({
-        radius: 10,
-        color: '#00000010',
+        radius: 20,
+        color: '#0000000A',
         offsetX: 0,
-        offsetY: 5
+        offsetY: 10
       })
     }
     .width('100%')
     .height('100%')
-    .backgroundColor('#F5F5F5')
-    .justifyContent(FlexAlign.Center)
-    .padding({ left: 20, right: 20 })
+    .backgroundColor('#F9F9F9')
+    .justifyContent(FlexAlign.Start)
+    .padding({ top: 20 })
   }
 }
