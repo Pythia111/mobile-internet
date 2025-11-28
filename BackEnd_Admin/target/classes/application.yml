@@ -38,6 +38,12 @@ app:
   jwt:
     secret: ZGV2X2RlZmF1bHRfc2VjcmV0X2Zvcl9qd3QxMjM0NTY3OA== # base64 key for dev
     expiration-ms: 86400000
+  ai:
+    xfyun:
+      api-key: YOUR_API_KEY_HERE  # 从讯飞星火服务管控页面获取
+      api-base: http://maas-api.cn-huabei-1.xf-yun.com/v1
+      model-id: YOUR_MODEL_ID_HERE  # 从模型服务卡片获取modelId
+      enabled: false  # 设置为true启用AI功能，false则使用模拟数据
 
 # 如需MySQL，示例配置（切换后请注释H2配置）
 # spring:

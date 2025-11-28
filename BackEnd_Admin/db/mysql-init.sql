@@ -70,6 +70,27 @@ SELECT u.id, r.id
 FROM `users` u, `roles` r
 WHERE u.`phone` = '+8613800000000' AND r.`name` IN ('ROLE_USER','ROLE_ADMIN');
 
+-- diet_records: user daily food records
+CREATE TABLE IF NOT EXISTS `diet_records` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT NOT NULL,
+  `food_name` VARCHAR(255) NOT NULL,
+  `calories` DECIMAL(10,2) NOT NULL COMMENT 'Calories in kcal',
+  `protein` DECIMAL(10,2) NOT NULL COMMENT 'Protein in g',
+  `carbohydrates` DECIMAL(10,2) NOT NULL COMMENT 'Carbohydrates in g',
+  `fat` DECIMAL(10,2) NOT NULL COMMENT 'Fat in g',
+  `meal_type` VARCHAR(20) NOT NULL COMMENT 'breakfast, lunch, dinner, snack',
+  `record_date` DATE NOT NULL,
+  `image_url` VARCHAR(512) NULL,
+  `created_at` DATETIME(6) NULL,
+  `updated_at` DATETIME(6) NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_diet_user` (`user_id`),
+  KEY `idx_diet_date` (`record_date`),
+  KEY `idx_diet_user_date` (`user_id`, `record_date`),
+  CONSTRAINT `fk_diet_user` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- 4) Useful checks
 -- SHOW TABLES;
 -- SELECT u.phone, r.name FROM user_roles ur
