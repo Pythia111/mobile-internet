@@ -9,10 +9,10 @@ struct Index {
   @State currentIndex: number = 1; // 默认选中"饮食记录" (中间)
   private controller: TabsController = new TabsController();
 
-  aboutToAppear() {
+  async aboutToAppear() {
     // 检查用户是否已登录
-    const token = TokenManager.getToken();
-    if (!token) {
+    const hasToken = await TokenManager.hasToken();
+    if (!hasToken) {
       router.pushUrl({
         url: 'pages/auth/Login'
       });

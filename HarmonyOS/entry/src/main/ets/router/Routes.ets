@@ -1,3 +1,5 @@
+import router from '@ohos.router';
+
 // 路由常量定义
 export const Routes = {
   // 认证相关页面
