@@ -77,6 +77,7 @@ entry/src/main/
 │   │   │   ├── PostDetail.ets     # 帖子详情页
 │   │   │   ├── CreatePost.ets     # 发帖页面
 │   │   │   ├── UserProfile.ets    # 用户主页
+|   |   |   |—— PostComment.ets    # 帖子详情-评论区页面 
 │   │   │   └── components/        # 论坛组件
 │   │   │       ├── PostItem.ets
 │   │   │       ├── CommentItem.ets

@@ -1,7 +1,25 @@
 import router from '@ohos.router';
 
+// 路由类型定义（显式声明以避免对象字面量检查）
+export interface RouteMap {
+  LOGIN: string;
+  REGISTER: string;
+  INDEX: string;
+  PROFILE: string;
+  EDIT_PROFILE: string;
+  DIET_HOME: string;
+  FOOD_SEARCH: string;
+  FOOD_RECOGNITION: string;
+  ADD_RECORD: string;
+  DIET_HISTORY: string;
+  FORUM_HOME: string;
+  POST_DETAIL: string;
+  CREATE_POST: string;
+  USER_PROFILE: string;
+}
+
 // 路由常量定义
-export const Routes = {
+export const Routes: RouteMap = {
   // 认证相关页面
   LOGIN: 'pages/auth/Login',
   REGISTER: 'pages/auth/Register',

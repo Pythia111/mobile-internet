@@ -2,6 +2,7 @@ import router from '@ohos.router';
 import TokenManager from '../utils/TokenManager';
 import DietHome from './diet/DietHome';
 import Profile from './user/Profile';
+import ForumHome from './forum/ForumHome';
 
 @Entry
 @Component
@@ -16,6 +17,10 @@ struct Index {
       router.pushUrl({
         url: 'pages/auth/Login'
       });
+    } else {
+      // 确保初始选中饮食记录
+      this.currentIndex = 1;
+      this.controller.changeIndex(1);
     }
   }
 
@@ -39,15 +44,7 @@ struct Index {
     Tabs({ barPosition: BarPosition.End, controller: this.controller }) {
       // 社区 Tab
       TabContent() {
-        Column() {
-          Text('社区功能开发中...')
-            .fontSize(20)
-            .fontColor('#999999')
-            .margin({ top: 100 })
-        }
-        .width('100%')
-        .height('100%')
-        .backgroundColor('#F5F5F5')
+        ForumHome()
       }
       .tabBar(this.TabBuilder('社区', 0))
 

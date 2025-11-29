@@ -1,6 +1,7 @@
 import router from '@ohos.router';
 import TokenManager from '../../utils/TokenManager';
 import promptAction from '@ohos.promptAction';
+import RouterManager from '../../router/RouterManager';
 
 interface UserInfo {
   username: string;
@@ -18,20 +19,41 @@ export default struct Profile {
 
   aboutToAppear() {
     // 检查用户是否已登录
-    const token = TokenManager.getToken();
-    if (!token) {
-      // 如果是Tab页，这里跳转可能会有问题，最好在Index页统一处理
-      return;
-    }
-    
-    // 这里可以调用API获取用户信息
-    // 暂时使用模拟数据
+    this.checkLogin();
+    // 加载用户信息
     this.loadUserInfo();
+  }
+
+  async checkLogin() {
+    const hasToken = await TokenManager.hasToken();
+    if (!hasToken) {
+      // 如果未登录，可以在这里处理，或者在Index页统一处理
+    }
   }
 
   loadUserInfo() {
     // 模拟加载用户信息
     // 实际项目中应该调用API获取用户信息
+  }
+
+  // 退出登录
+  async handleLogout() {
+    try {
+      await TokenManager.clear();
+      promptAction.showToast({
+        message: '已退出登录',
+        duration: 2000
+      });
+      
+      // 跳转到登录页（使用 RouterManager 以保证跨平台兼容）
+      RouterManager.goToLogin();
+    } catch (error) {
+      console.error('Logout failed:', error);
+      promptAction.showToast({
+        message: '退出失败',
+        duration: 2000
+      });
+    }
   }
 
   build() {
@@ -118,6 +140,21 @@ export default struct Profile {
       .justifyContent(FlexAlign.SpaceBetween)
       .padding(20)
       .margin({ top: 20 })
+
+      Blank()
+
+      // 退出登录按钮
+      Button('退出登录')
+        .width('90%')
+        .height(50)
+        .fontSize(16)
+        .fontColor('#FFFFFF')
+        .backgroundColor('#FF4444')
+        .margin({ bottom: 30 })
+        .borderRadius(25)
+        .onClick(() => {
+          this.handleLogout();
+        })
     }
     .width('100%')
     .height('100%')

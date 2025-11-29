@@ -31,3 +31,73 @@
 2025-11-29 14:59:16 INFO  [RMI TCP Connection(2)-10.6.1.83] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
 2025-11-29 14:59:16 INFO  [RMI TCP Connection(2)-10.6.1.83] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
 2025-11-29 14:59:16 INFO  [RMI TCP Connection(2)-10.6.1.83] o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2025-11-29 15:13:43 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.5.Final
+2025-11-29 15:13:43 INFO  [main] com.example.nutrition.Application - Starting Application using Java 1.8.0_442 on BPeril with PID 29692 (E:\Grade3\MobileInternet\mobile-internet\BackEnd_Admin\target\classes started by BrownPeril in E:\Grade3\MobileInternet\mobile-internet\BackEnd_Admin)
+2025-11-29 15:13:43 INFO  [main] com.example.nutrition.Application - No active profile set, falling back to 1 default profile: "default"
+2025-11-29 15:13:43 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-29 15:13:43 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34 ms. Found 7 JPA repository interfaces.
+2025-11-29 15:13:44 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2025-11-29 15:13:44 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-11-29 15:13:44 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-29 15:13:44 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2025-11-29 15:13:44 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-29 15:13:44 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1093 ms
+2025-11-29 15:13:44 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-29 15:13:44 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-29 15:13:44 INFO  [main] o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/db'
+2025-11-29 15:13:44 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-29 15:13:44 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2025-11-29 15:13:44 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-11-29 15:13:44 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2025-11-29 15:13:44 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-11-29 15:13:44 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-29 15:13:45 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@57920d6c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@465d1345, org.springframework.security.web.context.SecurityContextPersistenceFilter@22ff11ef, org.springframework.security.web.header.HeaderWriterFilter@225ddf5f, org.springframework.security.web.authentication.logout.LogoutFilter@65ff4b8c, com.example.nutrition.security.JwtAuthenticationFilter@459bf87c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@23d978b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@66dd04e2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@62cf86d6, org.springframework.security.web.session.SessionManagementFilter@8315e4a, org.springframework.security.web.access.ExceptionTranslationFilter@57b3d869, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@301d84f6]
+2025-11-29 15:13:46 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 6 endpoint(s) beneath base path '/actuator'
+2025-11-29 15:13:46 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-11-29 15:13:46 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2025-11-29 15:13:46 INFO  [main] com.example.nutrition.Application - Started Application in 3.356 seconds (JVM running for 3.904)
+2025-11-29 15:13:46 INFO  [main] c.e.nutrition.config.SecurityConfig - Starting to initialize default data...
+2025-11-29 15:13:46 INFO  [main] c.e.nutrition.config.SecurityConfig - Initializing roles...
+2025-11-29 15:13:46 INFO  [main] c.e.nutrition.config.SecurityConfig - Checking for admin user...
+2025-11-29 15:13:46 INFO  [main] c.e.nutrition.config.SecurityConfig - Admin user already exists
+2025-11-29 15:13:46 INFO  [main] c.e.nutrition.config.SecurityConfig - Default data initialization completed!
+2025-11-29 15:13:46 INFO  [RMI TCP Connection(2)-10.6.1.83] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-29 15:13:46 INFO  [RMI TCP Connection(2)-10.6.1.83] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-29 15:13:46 INFO  [RMI TCP Connection(2)-10.6.1.83] o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-11-29 21:05:13 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3h26s432ms665µs400ns).
+2025-11-29 21:23:08 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-29 21:23:08 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-29 21:23:08 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-29 21:23:14 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.5.Final
+2025-11-29 21:23:14 INFO  [main] com.example.nutrition.Application - Starting Application using Java 1.8.0_442 on BPeril with PID 23768 (E:\Grade3\MobileInternet\mobile-internet\BackEnd_Admin\target\classes started by BrownPeril in E:\Grade3\MobileInternet\mobile-internet\BackEnd_Admin)
+2025-11-29 21:23:14 INFO  [main] com.example.nutrition.Application - No active profile set, falling back to 1 default profile: "default"
+2025-11-29 21:23:15 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-29 21:23:15 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 41 ms. Found 7 JPA repository interfaces.
+2025-11-29 21:23:16 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2025-11-29 21:23:16 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-11-29 21:23:16 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-11-29 21:23:16 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2025-11-29 21:23:16 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-11-29 21:23:16 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1680 ms
+2025-11-29 21:23:16 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-29 21:23:16 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-29 21:23:16 INFO  [main] o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/db'
+2025-11-29 21:23:16 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-29 21:23:16 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2025-11-29 21:23:16 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-11-29 21:23:16 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2025-11-29 21:23:18 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-11-29 21:23:18 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-29 21:23:19 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@505a8582, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@57afe44b, org.springframework.security.web.context.SecurityContextPersistenceFilter@6be422da, org.springframework.security.web.header.HeaderWriterFilter@4a6facb0, org.springframework.security.web.authentication.logout.LogoutFilter@1e029a04, com.example.nutrition.security.JwtAuthenticationFilter@1b444b5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@51468039, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@575d48db, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@18887028, org.springframework.security.web.session.SessionManagementFilter@51f4439e, org.springframework.security.web.access.ExceptionTranslationFilter@24435620, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@34f48d1]
+2025-11-29 21:23:20 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 6 endpoint(s) beneath base path '/actuator'
+2025-11-29 21:23:20 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-11-29 21:23:20 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2025-11-29 21:23:20 INFO  [main] com.example.nutrition.Application - Started Application in 5.873 seconds (JVM running for 6.708)
+2025-11-29 21:23:20 INFO  [main] c.e.nutrition.config.SecurityConfig - Starting to initialize default data...
+2025-11-29 21:23:20 INFO  [main] c.e.nutrition.config.SecurityConfig - Initializing roles...
+2025-11-29 21:23:20 INFO  [main] c.e.nutrition.config.SecurityConfig - Checking for admin user...
+2025-11-29 21:23:20 INFO  [main] c.e.nutrition.config.SecurityConfig - Admin user already exists
+2025-11-29 21:23:20 INFO  [main] c.e.nutrition.config.SecurityConfig - Default data initialization completed!
+2025-11-29 21:23:21 INFO  [RMI TCP Connection(4)-10.6.1.83] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-29 21:23:21 INFO  [RMI TCP Connection(4)-10.6.1.83] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-11-29 21:23:21 INFO  [RMI TCP Connection(4)-10.6.1.83] o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms

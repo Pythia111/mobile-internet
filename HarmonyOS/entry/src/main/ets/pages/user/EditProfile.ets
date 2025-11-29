@@ -68,7 +68,7 @@ struct EditProfile {
     try {
       // 这里应该调用API保存用户信息
       // 暂时使用模拟保存
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise<void>(resolve => setTimeout(resolve, 1000));
       
       promptAction.showToast({
         message: '保存成功',
@@ -127,19 +127,20 @@ struct EditProfile {
       Column() {
         // 头像部分
         Column() {
-          Circle({ width: 80, height: 80 })
-            .fill('#E0E0E0')
-            .overlay(
-              Text('头像')
-                .fontSize(14)
-                .fontColor('#999999')
-            )
-            .onClick(() => {
-              promptAction.showToast({
-                message: '头像上传功能开发中...',
-                duration: 2000
-              });
-            })
+          Stack({ alignContent: Alignment.Center }) {
+            Circle({ width: 80, height: 80 })
+              .fill('#E0E0E0')
+            
+            Text('头像')
+              .fontSize(14)
+              .fontColor('#999999')
+          }
+          .onClick(() => {
+            promptAction.showToast({
+              message: '头像上传功能开发中...',
+              duration: 2000
+            });
+          })
           
           Text('点击更换头像')
             .fontSize(14)

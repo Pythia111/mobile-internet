@@ -2,6 +2,11 @@
   "src": [
     "pages/auth/Login",
     "pages/auth/Register",
-    "pages/Index"
+    "pages/Index",
+    "pages/user/EditProfile",
+    "pages/forum/ForumHome",
+    "pages/forum/CreatePost",
+    "pages/forum/PostDetail",
+    "pages/forum/PostComment"
   ]
 }

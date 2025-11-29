@@ -1,12 +1,10 @@
 > hvigor ERROR: Failed :entry:default@PreviewArkTS... 
 > hvigor ERROR: 10605038 ArkTS Compiler Error
-Error Message: Object literal must correspond to some explicitly declared class or interface (arkts-no-untyped-obj-literals) At File: E:/Grade3/MobileInternet/mobile-internet/HarmonyOS/entry/src/main/ets/utils/NetworkTest.ets:16:24
+Error Message: Object literal must correspond to some explicitly declared class or interface (arkts-no-untyped-obj-literals) At File: E:/Grade3/MobileInternet/mobile-internet/HarmonyOS/entry/src/main/ets/pages/forum/PostDetail.ets:91:57
 
 
 * Try:
 > Run with --stacktrace option to get the stack trace.
 > Run with --debug option to get more log output.
 
-> hvigor ERROR: BUILD FAILED in 5 s 719 ms 
-
-Process finished with exit code -1
+> hvigor ERROR: BUILD FAILED in 5 s 769 ms 
