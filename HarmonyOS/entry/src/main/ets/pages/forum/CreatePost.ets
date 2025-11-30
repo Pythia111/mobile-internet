@@ -1,8 +1,20 @@
 import router from '@ohos.router';
 import promptAction from '@ohos.promptAction';
-// import picker from '@ohos.file.picker';
+import picker from '@ohos.file.picker';
+import http from '@ohos.net.http';
+import fs from '@ohos.file.fs';
+import util from '@ohos.util';
+import ApiClient from '../../model/api/ApiClient';
 import { createPost } from '../../model/api/ForumApi';
+import { getUserProfile } from '../../model/api/UserApi';
 import TokenManager from '../../utils/TokenManager';
+import { ApiConfig } from '../../config/ApiConfig';
+
+interface UploadApiResponse {
+  code: number;
+  data?: string;
+  message?: string;
+}
 
 @Entry
 @Component
@@ -16,30 +28,52 @@ struct CreatePost {
 
   // 选择图片
   async pickImages() {
-    promptAction.showToast({
-      message: '图片选择功能暂不可用',
-      duration: 2000
-    });
-    /*
     try {
+      // 弹窗询问用户使用测试图片还是系统相册
+      const dialogRes = await promptAction.showDialog({
+        title: '选择图片方式',
+        message: '预览器环境下无法打开系统相册，建议使用测试图片。',
+        buttons: [
+          { text: '使用测试图片', color: '#007DFF' },
+          { text: '打开系统相册', color: '#333333' }
+        ]
+      });
+
+      if (dialogRes.index === 0) {
+        // 选项1：添加网络测试图片（无需上传，直接可用）
+        const testImages = [
+          'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80',
+          'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80'
+        ];
+        this.images = [...this.images, ...testImages];
+        promptAction.showToast({ message: '已添加测试图片', duration: 1500 });
+        return;
+      }
+
+      // 选项2：原有的系统相册选择逻辑
       const photoPicker = new picker.PhotoViewPicker();
       const result = await photoPicker.select({
         MIMEType: picker.PhotoViewMIMETypes.IMAGE_TYPE,
         maxSelectNumber: 9
       });
-      
-      if (result.photoUris.length > 0) {
-        // 将新选择的图片追加到现有图片列表
+
+      if (result && result.photoUris && result.photoUris.length > 0) {
+        // 追加选择的图片 URI
         this.images = [...this.images, ...result.photoUris];
+      } else {
+        try {
+          promptAction.showToast({ message: '未选择图片', duration: 1500 });
+        } catch (e) {
+          console.warn('showToast failed', e);
+        }
       }
     } catch (error) {
       console.error('Pick image failed:', error);
-      promptAction.showToast({
-        message: '选择图片失败',
-        duration: 2000
-      });
+      // 忽略取消对话框的错误
+      if (error.code !== undefined) { 
+         // 可以在这里处理其他错误
+      }
     }
-    */
   }
 
   // 验证输入
@@ -76,36 +110,120 @@ struct CreatePost {
     this.isLoading = true;
 
     try {
-      // 这里应该先上传图片获取URL，目前直接使用本地URI模拟
-      // 实际开发中需要先调用文件上传接口
-      
+      const uploadedImageUrls: string[] = [];
+
+      for (let i = 0; i < this.images.length; i++) {
+        const uri = this.images[i];
+        // 如果已经是网络地址或后端的上传路径，直接使用
+        if (typeof uri === 'string' && (uri.startsWith('http') || uri.startsWith('/uploads'))) {
+          uploadedImageUrls.push(uri);
+          continue;
+        }
+
+        // 上传图片
+        const uploadedUrl = await this.uploadImage(uri);
+        uploadedImageUrls.push(uploadedUrl);
+      }
+
+      // 获取用户信息
+      let creatorName = 'HarmonyOS User';
+      let creatorAvatar = 'default_avatar';
+      try {
+        const profileResp = await getUserProfile();
+        if (profileResp.code === 200 && profileResp.data) {
+          creatorName = profileResp.data.username || creatorName;
+          creatorAvatar = profileResp.data.avatar || creatorAvatar;
+        }
+      } catch (e) {
+        console.warn('Get profile failed', e);
+      }
+
       const response = await createPost({
         title: this.title,
         content: this.content,
-        images: this.images,
-        creatorAvatar: 'default_avatar' // 暂时使用默认头像
+        images: uploadedImageUrls,
+        creatorName: creatorName,
+        creatorAvatar: creatorAvatar
       });
 
       if (response.code === 200) {
-        promptAction.showToast({
-          message: '发布成功',
-          duration: 2000
-        });
-        router.back();
+        // 使用 setTimeout 确保在 UI 线程执行跳转和提示
+        setTimeout(() => {
+          try { promptAction.showToast({ message: '发布成功', duration: 2000 }); } catch (e) { console.warn('showToast failed', e); }
+          router.back();
+        }, 10);
       } else {
-        promptAction.showToast({
-          message: response.message || '发布失败',
-          duration: 2000
-        });
+        setTimeout(() => {
+          try { promptAction.showToast({ message: response.message || '发布失败', duration: 2000 }); } catch (e) { console.warn('showToast failed', e); }
+        }, 10);
       }
     } catch (error) {
       console.error('Publish post failed:', error);
-      promptAction.showToast({
-        message: '发布失败，请重试',
-        duration: 2000
-      });
+      setTimeout(() => {
+        try { promptAction.showToast({ message: '发布失败，请重试', duration: 2000 }); } catch (e) { console.warn('showToast failed', e); }
+      }, 10);
     } finally {
       this.isLoading = false;
+    }
+  }
+
+  // 上传单张图片
+  async uploadImage(fileUri: string): Promise<string> {
+    try {
+      // 1. 读取文件内容
+      const file = fs.openSync(fileUri, fs.OpenMode.READ_ONLY);
+      const stat = fs.statSync(file.fd);
+      const buffer = new ArrayBuffer(stat.size);
+      fs.readSync(file.fd, buffer);
+      fs.closeSync(file);
+
+      // 2. 构造 Multipart 请求体
+      const boundary = '----WebKitFormBoundary' + new Date().getTime();
+      const filename = 'image.jpg'; 
+      const mimeType = 'image/jpeg'; 
+
+      const prefix = `--${boundary}\r\n` +
+        `Content-Disposition: form-data; name="file"; filename="${filename}"\r\n` +
+        `Content-Type: ${mimeType}\r\n\r\n`;
+      const suffix = `\r\n--${boundary}--\r\n`;
+
+      const textEncoder = new util.TextEncoder();
+      const prefixBuf = textEncoder.encode(prefix);
+      const suffixBuf = textEncoder.encode(suffix);
+
+      // 拼接 ArrayBuffer
+      const totalLen = prefixBuf.byteLength + buffer.byteLength + suffixBuf.byteLength;
+      const resultBuf = new Uint8Array(totalLen);
+      
+      resultBuf.set(prefixBuf, 0);
+      resultBuf.set(new Uint8Array(buffer), prefixBuf.byteLength);
+      resultBuf.set(suffixBuf, prefixBuf.byteLength + buffer.byteLength);
+
+      // 3. 发送请求
+      const url = ApiConfig.getCurrentBaseUrl() + '/api/upload/image';
+      const httpRequest = http.createHttp();
+      
+      const token = await TokenManager.getToken();
+      const response = await httpRequest.request(url, {
+        method: http.RequestMethod.POST,
+        header: {
+          'Content-Type': `multipart/form-data; boundary=${boundary}`,
+          'Authorization': token ? `Bearer ${token}` : ''
+        },
+        extraData: resultBuf.buffer
+      });
+
+      if (response.responseCode === 200) {
+        const result = JSON.parse(response.result as string) as UploadApiResponse;
+        if (result.code === 200 && result.data) {
+          return result.data;
+        }
+      }
+      console.error('Upload failed:', response.result);
+      return fileUri; 
+    } catch (e) {
+      console.error('Upload error:', e);
+      return fileUri;
     }
   }
 

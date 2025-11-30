@@ -1,28 +1,15 @@
-11-30 21:32:48.267   30096-17688   A03d00/JSAPP                                          I     Login: 登录按钮被点击
-11-30 21:32:48.267   30096-17688   A03d00/JSAPP                                          I     Login: 开始登录流程
-11-30 21:32:48.267   30096-17688   A03d00/JSAPP                                          I     Login: 手机号=13344445555
-11-30 21:32:48.267   30096-17688   A03d00/JSAPP                                          I     Login: 开始发起登录请求
-11-30 21:32:48.267   30096-17688   A03d00/JSAPP                                          I     Login: 调用 login API
-11-30 21:32:48.267   30096-17688   A03d00/JSAPP                                          I     ApiClient: 发起请求 http://10.6.1.83:8080/api/auth/login
-11-30 21:32:48.267   30096-17688   A03d00/JSAPP                                          I     ApiClient: 请求参数 {"method":"POST","header":{"Content-Type":"application/json"},"extraData":"{\"phone\":\"13344445555\",\"password\":\"aaa111\"}"}
-11-30 21:32:48.483   30096-17688   A03d00/JSAPP                                          I     ApiClient: 响应状态码 200
-11-30 21:32:48.483   30096-17688   A03d00/JSAPP                                          I     ApiClient: 响应数据 "{\"code\":200,\"message\":\"success\",\"data\":{\"role\":\"ROLE_USER\",\"userId\":12,\"token\":\"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMzM0NDQ0NTU1NSIsImlhdCI6MTc2NDUwOTU2OCwiZXhwIjoxNzY0NTk1OTY4fQ.Jlh39bmO6hjCjmVm5UwBs76WVtIALj47iNKICx0dvmc\"}}"
-11-30 21:32:48.483   30096-17688   A03d00/JSAPP                                          I     Login: 收到响应 {"code":200,"message":"success","data":{"role":"ROLE_USER","userId":12,"token":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMzM0NDQ0NTU1NSIsImlhdCI6MTc2NDUwOTU2OCwiZXhwIjoxNzY0NTk1OTY4fQ.Jlh39bmO6hjCjmVm5UwBs76WVtIALj47iNKICx0dvmc"}}
-11-30 21:32:48.531   30096-17688   A03d00/JSAPP                                          I     TokenManager: Token保存成功
-11-30 21:32:48.531   30096-17688   A03d00/JSAPP                                          I     Login: Token已保存，准备跳转
-11-30 21:32:48.531   30096-17688   A03d00/JSAPP                                          E     Login: 登录错误 {"code":"100001"}
-11-30 21:32:48.532   30096-17688   A03d00/JSAPP                                          I     Login: 登录流程结束
-11-30 21:33:12.490   30096-17688   A03d00/JSAPP                                          I     Register: 注册按钮被点击
-11-30 21:33:12.490   30096-17688   A03d00/JSAPP                                          I     Register: 开始注册流程
-11-30 21:33:12.491   30096-17688   A03d00/JSAPP                                          I     Register: 用户名=111, 手机号=17744445555
-11-30 21:33:12.491   30096-17688   A03d00/JSAPP                                          I     Register: 开始发起注册请求
-11-30 21:33:12.491   30096-17688   A03d00/JSAPP                                          I     Register: 调用 register API
-11-30 21:33:12.491   30096-17688   A03d00/JSAPP                                          I     ApiClient: 发起请求 http://10.6.1.83:8080/api/auth/register
-11-30 21:33:12.491   30096-17688   A03d00/JSAPP                                          I     ApiClient: 请求参数 {"method":"POST","header":{"Content-Type":"application/json"},"extraData":"{\"phone\":\"17744445555\",\"password\":\"aaa111\",\"username\":\"111\"}"}
-11-30 21:33:12.601   30096-17688   A03d00/JSAPP                                          I     ApiClient: 响应状态码 200
-11-30 21:33:12.601   30096-17688   A03d00/JSAPP                                          I     ApiClient: 响应数据 "{\"code\":200,\"message\":\"success\",\"data\":{\"userId\":20,\"token\":\"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNzc0NDQ0NTU1NSIsImlhdCI6MTc2NDUwOTU5MiwiZXhwIjoxNzY0NTk1OTkyfQ.G-qhObsxBs0CxvE5Fxe1Z4jHvi0afmNUeRfSnyTjQWs\"}}"
-11-30 21:33:12.602   30096-17688   A03d00/JSAPP                                          I     Register: 收到响应 {"code":200,"message":"success","data":{"userId":20,"token":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNzc0NDQ0NTU1NSIsImlhdCI6MTc2NDUwOTU5MiwiZXhwIjoxNzY0NTk1OTkyfQ.G-qhObsxBs0CxvE5Fxe1Z4jHvi0afmNUeRfSnyTjQWs"}}
-11-30 21:33:12.633   30096-17688   A03d00/JSAPP                                          I     TokenManager: Token保存成功
-11-30 21:33:12.633   30096-17688   A03d00/JSAPP                                          I     Register: Token已保存，准备跳转
-11-30 21:33:12.633   30096-17688   A03d00/JSAPP                                          E     Register: 注册错误 {"code":"100001"}
-11-30 21:33:12.634   30096-17688   A03d00/JSAPP                                          I     Register: 注册流程结束
+11-30 23:01:21.095   16428-30152   A03d00/JSAPP                                          I     Login: 成功跳转到主页
+11-30 23:01:21.095   16428-30152   A03d00/JSAPP                                          I     TokenManager: Token获取 成功
+11-30 23:01:21.139   16428-30152   A03d00/JSAPP                                          I     TokenManager: Token获取 成功
+11-30 23:01:21.139   16428-30152   A03d00/JSAPP                                          I     ApiClient: 发起请求 http://10.6.1.83:8080/api/forum/posts?status=0
+11-30 23:01:21.139   16428-30152   A03d00/JSAPP                                          I     ApiClient: 请求参数 {"method":"GET","header":{"Authorization":"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMzM0NDQ0NTU1NSIsImlhdCI6MTc2NDUxNDg4MCwiZXhwIjoxNzY0NjAxMjgwfQ.Ehy1-fZyovWwFlcIB6mAzGVPF9fTLemPMhwjzLFEiAw"}}
+11-30 23:01:37.874   16428-30152   A03d00/JSAPP                                          I     ApiClient: 响应状态码 200
+11-30 23:01:37.874   16428-30152   A03d00/JSAPP                                          I     ApiClient: 响应数据 "{\"code\":200,\"message\":\"success\",\"data\":{\"userId\":12,\"phone\":\"13344445555\",\"username\":\"test\",\"avatar\":null,\"role\":\"ROLE_USER\"}}"
+11-30 23:01:37.874   16428-30152   A03d00/JSAPP                                          I     TokenManager: Token获取 成功
+11-30 23:01:37.875   16428-30152   A03d00/JSAPP                                          I     ApiClient: 发起请求 http://10.6.1.83:8080/api/forum/posts
+11-30 23:01:37.875   16428-30152   A03d00/JSAPP                                          I     ApiClient: 请求参数 {"method":"POST","header":{"Content-Type":"application/json","Authorization":"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMzM0NDQ0NTU1NSIsImlhdCI6MTc2NDUxNDg4MCwiZXhwIjoxNzY0NjAxMjgwfQ.Ehy1-fZyovWwFlcIB6mAzGVPF9fTLemPMhwjzLFEiAw"},"extraData":"{\"title\":\"healthy food\",\"content\":\"enjoy it!\",\"images\":[\"https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80\",\"https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80\"],\"creatorName\":\"test\",\"creatorAvatar\":\"default_avatar\"}"}
+11-30 23:01:38.001   16428-30152   A03d00/JSAPP                                          I     ApiClient: 响应状态码 200
+11-30 23:01:38.001   16428-30152   A03d00/JSAPP                                          I     ApiClient: 响应数据 "{\"code\":200,\"message\":\"发布成功\",\"data\":{\"creatorName\":\"test\",\"postId\":\"6\",\"creatorAvatar\":\"default_avatar\"}}"
+11-30 23:01:38.001   16428-30152   A03d00/JSAPP                                          W     showToast failed Error: Internal error. UI execution context not found.
+11-30 23:01:38.003   16428-30152   A03d00/JSAPP                                          E     Publish post failed: Error: Parameter error. UI execution context not found.
+11-30 23:01:38.003   16428-30152   A03d00/JSAPP                                          W     showToast failed Error: Internal error. UI execution context not found.

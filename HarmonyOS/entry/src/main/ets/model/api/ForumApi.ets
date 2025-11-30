@@ -30,6 +30,7 @@ export interface CreatePostRequest {
   title: string;
   content: string;
   images: string[];
+  creatorName: string;
   creatorAvatar: string; // 接口文档要求必填
 }
 

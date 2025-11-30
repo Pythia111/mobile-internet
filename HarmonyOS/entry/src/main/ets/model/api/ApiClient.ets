@@ -1,16 +1,29 @@
 import http from '@ohos.net.http';
 import { ApiConfig } from '../../config/ApiConfig';
+import TokenManager from '../../utils/TokenManager';
 
 export default class ApiClient {
   static async request<T>(path: string, options?: http.HttpRequestOptions): Promise<T> {
     const url = ApiConfig.getCurrentBaseUrl() + path;
     const httpRequest = http.createHttp();
     
+    // 获取 Token 并添加到请求头
+    const token = await TokenManager.getToken();
+    const finalOptions = options || { method: http.RequestMethod.GET };
+    
+    if (!finalOptions.header) {
+      finalOptions.header = {};
+    }
+    
+    if (token) {
+      finalOptions.header['Authorization'] = `Bearer ${token}`;
+    }
+
     console.info(`ApiClient: 发起请求 ${url}`);
-    console.info(`ApiClient: 请求参数`, JSON.stringify(options));
+    console.info(`ApiClient: 请求参数`, JSON.stringify(finalOptions));
     
     try {
-      const response = await httpRequest.request(url, options);
+      const response = await httpRequest.request(url, finalOptions);
       console.info(`ApiClient: 响应状态码 ${response.responseCode}`);
       console.info(`ApiClient: 响应数据`, JSON.stringify(response.result));
       
