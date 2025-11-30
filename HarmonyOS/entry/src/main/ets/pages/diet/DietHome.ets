@@ -1,5 +1,6 @@
 import router from '@ohos.router';
 
+@Entry
 @Component
 export default struct DietHome {
   build() {

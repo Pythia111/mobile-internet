@@ -9,6 +9,7 @@ interface UserInfo {
   avatar: string;
 }
 
+@Entry
 @Component
 export default struct Profile {
   @State userInfo: UserInfo = {

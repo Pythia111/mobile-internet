@@ -14,13 +14,14 @@ struct Index {
     // 检查用户是否已登录
     const hasToken = await TokenManager.hasToken();
     if (!hasToken) {
-      router.pushUrl({
+      // 使用 replaceUrl 避免返回键回到空白页
+      router.replaceUrl({
         url: 'pages/auth/Login'
       });
     } else {
       // 确保初始选中饮食记录
       this.currentIndex = 1;
-      this.controller.changeIndex(1);
+      // 注意：aboutToAppear 中 controller 可能还未准备好，建议在 onPageShow 或 build 中处理初始状态
     }
   }
 

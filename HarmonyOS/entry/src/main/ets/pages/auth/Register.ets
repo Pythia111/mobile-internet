@@ -1,4 +1,5 @@
 import router from '@ohos.router';
+import RouterManager, { Routes } from '../../router/RouterManager';
 import { register } from '../../model/api/AuthApi';
 import TokenManager from '../../utils/TokenManager';
 import promptAction from '@ohos.promptAction';
@@ -13,7 +14,7 @@ struct Register {
   @State usernameError: string = '';
   @State phoneError: string = '';
   @State passwordError: string = '';
-  @State debugMode: boolean = true; // 调试模式
+  @State debugMode: boolean = false; // 调试模式
 
   // 验证用户名
   validateUsername(username: string): string {
@@ -70,14 +71,17 @@ struct Register {
         duration: 2000
       });
       
-      setTimeout(() => {
-        router.pushUrl({
-          url: 'pages/auth/Login'
-        }).then(() => {
-          console.info('Register: 调试模式跳转成功');
-        }).catch((err: Error) => {
-          console.error('Register: 调试模式跳转失败', err.message);
-        });
+      setTimeout(async () => {
+        try {
+          const ok = await RouterManager.safeReplaceTo(Routes.LOGIN);
+          if (ok) {
+            console.info('Register: 调试模式跳转成功');
+          } else {
+            console.warn('Register: 调试模式跳转未成功');
+          }
+        } catch (err) {
+          console.error('Register: 调试模式跳转失败', JSON.stringify(err));
+        }
       }, 1000);
       return;
     }
@@ -96,30 +100,55 @@ struct Register {
     console.info('Register: 开始发起注册请求');
 
     try {
+      console.info('Register: 调用 register API');
       const response = await register(this.phone, this.password, this.username);
-      console.info('Register: 收到响应', JSON.stringify(response));
+      try { console.info('Register: 收到响应', JSON.stringify(response)); } catch(e) { console.info('Register: 收到响应 (非序列化)'); }
       
       if (response.code === 200) {
         // 保存token
-        await TokenManager.setToken(response.data.token);
-        console.info('Register: Token已保存，准备跳转');
+        try {
+          await TokenManager.setToken(response.data.token);
+          console.info('Register: Token已保存，准备跳转');
+        } catch (tokErr) {
+          try { console.error('Register: Token 保存异常', JSON.stringify(tokErr)); } catch(e) { console.error('Register: Token 保存异常', tokErr); }
+          // ArkTS 限制 throw 的类型，确保抛出 Error
+          throw new Error(typeof tokErr === 'string' ? tokErr : (tokErr && tokErr.message) ? tokErr.message : 'Token 保存异常');
+        }
         
-        promptAction.showToast({
-          message: '注册成功，正在重定向..',
-          duration: 2000
-        });
-
-        // 延迟跳转到登录页
-        setTimeout(() => {
+        // 先安排导航任务，保证即使 showToast 抛异常也能执行导航
+        const doNavigate = async () => {
           console.info('Register: 开始跳转到登录页');
-          router.pushUrl({
-            url: 'pages/auth/Login'
-          }).then(() => {
-            console.info('Register: 成功跳转到登录页');
-          }).catch((err: Error) => {
-            console.error('Register: 跳转失败', err.message);
+          console.info('Register: RouterManager 类型检查', typeof RouterManager);
+          console.info('Register: Routes.LOGIN 值', Routes.LOGIN);
+          try {
+            const ok = await RouterManager.safeReplaceTo(Routes.LOGIN);
+            if (ok) {
+              console.info('Register: 成功跳转到登录页');
+            } else {
+              console.warn('Register: 跳转未成功，但已尝试降级处理');
+            }
+          } catch (navErr) {
+            try { console.error('Register: 跳转异常', JSON.stringify(navErr)); } catch(e) { console.error('Register: 跳转异常', navErr); }
+            // 降级方案：直接使用 router.pushUrl
+            try {
+              await router.pushUrl({ url: 'pages/auth/Login' });
+              console.info('Register: 降级跳转成功');
+            } catch (fallbackErr) {
+              try { console.error('Register: 降级跳转也失败', JSON.stringify(fallbackErr)); } catch(e) { console.error('Register: 降级跳转也失败', fallbackErr); }
+            }
+          }
+        };
+
+        setTimeout(doNavigate, 500);
+
+        try {
+          promptAction.showToast({
+            message: '注册成功，正在重定向..',
+            duration: 2000
           });
-        }, 1000);
+        } catch (toastErr) {
+          try { console.warn('Register: showToast failed', JSON.stringify(toastErr)); } catch(e) { console.warn('Register: showToast failed', toastErr); }
+        }
       } else {
         console.warn('Register: 注册失败', response.message);
         promptAction.showToast({
@@ -128,10 +157,22 @@ struct Register {
         });
       }
     } catch (error) {
-      console.error('Register: 注册错误', JSON.stringify(error));
+      try { console.error('Register: 注册错误', JSON.stringify(error)); } catch(e) { console.error('Register: 注册错误', error); }
+      // 更友好的提示：如果 error 是一个对象并包含 message 或 code，显示更具体信息
+      let msg = '网络错误，请重试';
+      try {
+        if (error && typeof error === 'object') {
+          if (error.message) msg = error.message;
+          else if (error.code) msg = `错误代码: ${error.code}`;
+        } else if (typeof error === 'string') {
+          msg = error;
+        }
+      } catch (e) {
+        // ignore
+      }
       promptAction.showToast({
-        message: '网络错误，请重试',
-        duration: 2000
+        message: msg,
+        duration: 3000
       });
     } finally {
       this.isLoading = false;

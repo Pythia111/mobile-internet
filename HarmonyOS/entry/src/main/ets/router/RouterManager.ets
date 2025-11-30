@@ -88,6 +88,40 @@ export default class RouterManager {
       params: params
     });
   }
+
+  // 稳健跳转：优先使用 replaceUrl，失败后回退到 pushUrl，再失败使用 back。
+  static async safeReplaceTo(url: string, params?: object): Promise<boolean> {
+    try {
+      await router.replaceUrl({ url: url, params: params });
+      return true;
+    } catch (err1) {
+      try {
+        console.warn('RouterManager: replaceUrl failed, trying pushUrl', JSON.stringify(err1));
+      } catch (e) {
+        console.warn('RouterManager: replaceUrl failed, trying pushUrl', err1);
+      }
+      try {
+        await router.pushUrl({ url: url, params: params });
+        return true;
+      } catch (err2) {
+        try {
+          console.error('RouterManager: pushUrl also failed', JSON.stringify(err2));
+        } catch (e) {
+          console.error('RouterManager: pushUrl also failed', err2);
+        }
+        try {
+          router.back();
+        } catch (err3) {
+          try {
+            console.error('RouterManager: back also failed', JSON.stringify(err3));
+          } catch (e) {
+            console.error('RouterManager: back also failed', err3);
+          }
+        }
+        return false;
+      }
+    }
+  }
   
   // 兼容旧版本的push方法
   static push(page: string) {

@@ -1,4 +1,5 @@
 import router from '@ohos.router';
+import RouterManager, { Routes } from '../../router/RouterManager';
 import { login } from '../../model/api/AuthApi';
 import TokenManager from '../../utils/TokenManager';
 import promptAction from '@ohos.promptAction';
@@ -13,7 +14,7 @@ struct Login {
   @State isLoading: boolean = false;
   @State phoneError: string = '';
   @State passwordError: string = '';
-  @State debugMode: boolean = true; // 调试模式
+  @State debugMode: boolean = false; // 调试模式
 
   // 验证手机号
   validatePhone(phone: string): string {
@@ -99,14 +100,17 @@ struct Login {
         duration: 2000
       });
       
-      setTimeout(() => {
-        router.pushUrl({
-          url: 'pages/Index'
-        }).then(() => {
-          console.info('Login: 调试模式跳转成功');
-        }).catch((err: Error) => {
-          console.error('Login: 调试模式跳转失败', err.message);
-        });
+      setTimeout(async () => {
+        try {
+          const ok = await RouterManager.safeReplaceTo(Routes.INDEX);
+          if (ok) {
+            console.info('Login: 调试模式跳转成功');
+          } else {
+            console.warn('Login: 调试模式跳转未成功');
+          }
+        } catch (err) {
+          console.error('Login: 调试模式跳转失败', JSON.stringify(err));
+        }
       }, 1000);
       return;
     }
@@ -124,28 +128,55 @@ struct Login {
     console.info('Login: 开始发起登录请求');
 
     try {
+      console.info('Login: 调用 login API');
       const response = await login(this.phone, this.password);
-      console.info('Login: 收到响应', JSON.stringify(response));
+      try { console.info('Login: 收到响应', JSON.stringify(response)); } catch(e) { console.info('Login: 收到响应 (非序列化)'); }
       
       if (response.code === 200) {
         // 保存token
-        await TokenManager.setToken(response.data.token);
-        console.info('Login: Token已保存，准备跳转');
+        try {
+          await TokenManager.setToken(response.data.token);
+          console.info('Login: Token已保存，准备跳转');
+        } catch (tokErr) {
+          try { console.error('Login: Token 保存异常', JSON.stringify(tokErr)); } catch(e) { console.error('Login: Token 保存异常', tokErr); }
+          // ArkTS 限制 throw 的类型，确保抛出 Error
+          throw new Error(typeof tokErr === 'string' ? tokErr : (tokErr && tokErr.message) ? tokErr.message : 'Token 保存异常');
+        }
         
-        promptAction.showToast({
-          message: '登录成功',
-          duration: 2000
-        });
+        // 先安排导航任务，保证即使 showToast 抛异常也能执行导航
+        const doNavigate = async () => {
+          console.info('Login: 开始跳转到主页');
+          console.info('Login: RouterManager 类型检查', typeof RouterManager);
+          console.info('Login: Routes.INDEX 值', Routes.INDEX);
+          try {
+            const ok = await RouterManager.safeReplaceTo(Routes.INDEX);
+            if (ok) {
+              console.info('Login: 成功跳转到主页');
+            } else {
+              console.warn('Login: 跳转未成功，但已尝试降级处理');
+            }
+          } catch (navErr) {
+            try { console.error('Login: 跳转异常', JSON.stringify(navErr)); } catch(e) { console.error('Login: 跳转异常', navErr); }
+            // 降级方案：直接使用 router.pushUrl
+            try {
+              await router.pushUrl({ url: 'pages/Index' });
+              console.info('Login: 降级跳转成功');
+            } catch (fallbackErr) {
+              try { console.error('Login: 降级跳转也失败', JSON.stringify(fallbackErr)); } catch(e) { console.error('Login: 降级跳转也失败', fallbackErr); }
+            }
+          }
+        };
 
-        // 跳转到主页
-        console.info('Login: 开始跳转到主页');
-        router.pushUrl({
-          url: 'pages/Index'
-        }).then(() => {
-          console.info('Login: 成功跳转到主页');
-        }).catch((err: Error) => {
-          console.error('Login: 跳转失败', err.message);
-        });
+        setTimeout(doNavigate, 500);
+
+        try {
+          promptAction.showToast({
+            message: '登录成功',
+            duration: 2000
+          });
+        } catch (toastErr) {
+          try { console.warn('Login: showToast failed', JSON.stringify(toastErr)); } catch(e) { console.warn('Login: showToast failed', toastErr); }
+        }
       } else {
         console.warn('Login: 登录失败', response.message);
         promptAction.showToast({
@@ -154,10 +185,19 @@ struct Login {
         });
       }
     } catch (error) {
-      console.error('Login: 登录错误', JSON.stringify(error));
+      try { console.error('Login: 登录错误', JSON.stringify(error)); } catch(e) { console.error('Login: 登录错误', error); }
+      let msg = '网络错误，请重试';
+      try {
+        if (error && typeof error === 'object') {
+          if (error.message) msg = error.message;
+          else if (error.code) msg = `错误代码: ${error.code}`;
+        } else if (typeof error === 'string') {
+          msg = error;
+        }
+      } catch (e) {}
       promptAction.showToast({
-        message: '网络错误，请重试',
-        duration: 2000
+        message: msg,
+        duration: 3000
       });
     } finally {
       this.isLoading = false;
@@ -167,9 +207,7 @@ struct Login {
 
   // 跳转到注册页面
   goToRegister() {
-    router.pushUrl({
-      url: 'pages/auth/Register'
-    });
+    RouterManager.goToRegister();
   }
 
   build() {
