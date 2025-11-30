@@ -49,7 +49,7 @@ public class ForumService {
                 .user(user)
                 .creatorName(request.getCreatorName())
                 .creatorAvatar(request.getCreatorAvatar())
-                .status(0) // 默认公开
+                .status(1) // 默认待审核
                 .likeCount(0)
                 .commentCount(0)
                 .build();
@@ -170,7 +170,8 @@ public class ForumService {
      * 更新帖子状态
      */
     @Transactional
-    public UpdatePostStatusResponse updatePostStatus(Long postId, Long userId, String userRole, UpdatePostStatusRequest request) {
+    public UpdatePostStatusResponse updatePostStatus(Long postId, Long userId, String userRole,
+            UpdatePostStatusRequest request) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("帖子不存在"));
 
@@ -308,10 +309,10 @@ public class ForumService {
             return new ArrayList<>();
         }
         try {
-            return objectMapper.readValue(json, new TypeReference<List<String>>() {});
+            return objectMapper.readValue(json, new TypeReference<List<String>>() {
+            });
         } catch (JsonProcessingException e) {
             return new ArrayList<>();
         }
     }
 }
-

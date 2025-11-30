@@ -52,6 +52,7 @@ com\example\nutrition\dto\UserSummaryDto.class
 com\example\nutrition\service\SmsCodeService.class
 com\example\nutrition\dto\UserStatsDto.class
 com\example\nutrition\dto\UpdatePostStatusResponse$OperatorInfo$OperatorInfoBuilder.class
+com\example\nutrition\exception\GlobalExceptionHandler.class
 com\example\nutrition\repository\DietRecordRepository.class
 com\example\nutrition\common\ApiResponse.class
 com\example\nutrition\repository\PostLikeRepository.class

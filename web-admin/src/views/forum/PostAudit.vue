@@ -80,8 +80,8 @@
           <el-image 
             v-for="(img, index) in currentPost.images" 
             :key="index" 
-            :src="img" 
-            :preview-src-list="currentPost.images"
+            :src="getImageUrl(img)" 
+            :preview-src-list="currentPost.images.map(getImageUrl)"
             fit="cover"
             class="post-image"
           />
@@ -117,6 +117,15 @@ const total = ref(0)
 
 const dialogVisible = ref(false)
 const currentPost = ref(null)
+
+// 处理图片URL
+const getImageUrl = (url) => {
+  if (!url) return ''
+  if (url.startsWith('http') || url.startsWith('blob:')) return url
+  if (url.startsWith('/')) return url
+  if (url.startsWith('uploads/')) return '/' + url
+  return '/uploads/' + url
+}
 
 // 获取帖子列表
 const fetchPosts = async () => {
@@ -190,7 +199,9 @@ const handleAudit = (row, action) => {
         ElMessage.error(res.message || '操作失败')
       }
     } catch (error) {
-      ElMessage.error('操作失败')
+      console.error('操作失败', error)
+      const msg = error.response?.data?.message || error.message || '操作失败'
+      ElMessage.error(msg)
     }
   }).catch(() => {})
 }
