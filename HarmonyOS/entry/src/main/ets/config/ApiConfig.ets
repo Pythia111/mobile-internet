@@ -1,9 +1,9 @@
 export class ApiConfig {
   // 可用的服务器地址列表
   private static readonly SERVER_ADDRESSES = [
-    'http://10.6.1.83:8080',      // 主要IP地址
+    'http://192.168.142.1:8080',  // 主要IP
     'http://192.168.254.1:8080',  // 备用IP地址1
-    'http://192.168.142.1:8080',  // 备用IP地址2
+    'http://10.6.1.83:8080',      // 备用IP地址2
     'http://172.31.176.1:8080',   // 备用IP地址3
     'http://localhost:8080'       // 本地地址（仅限真机调试）
   ];

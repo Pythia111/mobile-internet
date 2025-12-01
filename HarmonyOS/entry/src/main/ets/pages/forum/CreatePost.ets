@@ -26,9 +26,11 @@ struct CreatePost {
   @State currentImageIndex: number = 0;
   @State showSuccessMessage: boolean = false;
   @State isSuccess: boolean = false;
+  @State isPageActive: boolean = true;
   private swiperController: SwiperController = new SwiperController();
 
   aboutToDisappear() {
+    this.isPageActive = false;
     // 页面即将销毁时清理定时器
     if (this.isSuccess) {
       this.isSuccess = false;
@@ -52,7 +54,7 @@ struct CreatePost {
       if (dialogRes.index === 0) {
         // 选项1：添加网络测试图片（无需上传，直接可用）
         const testImages = [
-          'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80',
+          'https://giraffefoods.com/wp-content/uploads/2024/06/full-table-of-food-dishes-and-snacks-food-in-plates-on-a-stone-background-top-view-2467162989-scaled.jpg',
           'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80'
         ];
         this.images = [...this.images, ...testImages];
@@ -80,8 +82,8 @@ struct CreatePost {
     } catch (error) {
       console.error('Pick image failed:', error);
       // 忽略取消对话框的错误
-      if (error.code !== undefined) { 
-         // 可以在这里处理其他错误
+      if (error.code !== undefined) {
+        // 可以在这里处理其他错误
       }
     }
   }
@@ -89,7 +91,7 @@ struct CreatePost {
   // 验证输入
   validateInput(): boolean {
     const missingFields: string[] = [];
-    
+
     if (this.images.length === 0) {
       missingFields.push('请上传图片');
     }
@@ -157,30 +159,39 @@ struct CreatePost {
       });
 
       if (response.code === 200) {
-        // 尝试直接调用 UI 操作，如果失败则使用 setTimeout
+        if (!this.isPageActive) return;
+
+        const uiContext = this.getUIContext();
+        const prompt = uiContext?.getPromptAction();
+        const routerInstance = uiContext?.getRouter();
+
         try {
-          promptAction.showToast({ message: '发布成功，待审核', duration: 2500 });
+          if (prompt) {
+            prompt.showToast({ message: '发布成功，待审核', duration: 2500 });
+          }
+
           setTimeout(() => {
-            try { router.back(); } catch (e) { console.warn('Router back failed', e); }
+            if (this.isPageActive && routerInstance) {
+              try {
+                routerInstance.back();
+              } catch (e) {
+                console.warn('Router back failed', e);
+              }
+            }
           }, 2500);
         } catch (e) {
-          console.warn('Direct UI operation failed, trying setTimeout', e);
-          // 增加延迟到 500ms，给系统更多时间恢复 UI 上下文
-          setTimeout(() => {
-            try {
-              promptAction.showToast({ message: '发布成功，待审核', duration: 2500 });
-              setTimeout(() => {
-                 try { router.back(); } catch (e) { console.warn('Router back failed', e); }
-              }, 2500);
-            } catch (e) {
-              console.warn('UI operation failed', e);
-            }
-          }, 1000);
+          console.warn('UI operation failed', e);
         }
       } else {
+        if (!this.isPageActive) return;
+        const uiContext = this.getUIContext();
+        const prompt = uiContext?.getPromptAction();
+
         setTimeout(() => {
           try {
-            promptAction.showToast({ message: response.message || '发布失败', duration: 2000 });
+            if (prompt) {
+              prompt.showToast({ message: response.message || '发布失败', duration: 2000 });
+            }
           } catch (e) {
             console.warn('showToast failed', e);
           }
@@ -188,8 +199,18 @@ struct CreatePost {
       }
     } catch (error) {
       console.error('Publish post failed:', error);
+      if (!this.isPageActive) return;
+      const uiContext = this.getUIContext();
+      const prompt = uiContext?.getPromptAction();
+
       setTimeout(() => {
-        try { promptAction.showToast({ message: '发布失败，请重试', duration: 2000 }); } catch (e) { console.warn('showToast failed', e); }
+        try {
+          if (prompt) {
+            prompt.showToast({ message: '发布失败，请重试', duration: 2000 });
+          }
+        } catch (e) {
+          console.warn('showToast failed', e);
+        }
       }, 10);
     } finally {
       this.isLoading = false;
@@ -208,8 +229,8 @@ struct CreatePost {
 
       // 2. 构造 Multipart 请求体
       const boundary = '----WebKitFormBoundary' + new Date().getTime();
-      const filename = 'image.jpg'; 
-      const mimeType = 'image/jpeg'; 
+      const filename = 'image.jpg';
+      const mimeType = 'image/jpeg';
 
       const prefix = `--${boundary}\r\n` +
         `Content-Disposition: form-data; name="file"; filename="${filename}"\r\n` +
@@ -223,7 +244,7 @@ struct CreatePost {
       // 拼接 ArrayBuffer
       const totalLen = prefixBuf.byteLength + buffer.byteLength + suffixBuf.byteLength;
       const resultBuf = new Uint8Array(totalLen);
-      
+
       resultBuf.set(prefixBuf, 0);
       resultBuf.set(new Uint8Array(buffer), prefixBuf.byteLength);
       resultBuf.set(suffixBuf, prefixBuf.byteLength + buffer.byteLength);
@@ -231,7 +252,7 @@ struct CreatePost {
       // 3. 发送请求
       const url = ApiConfig.getCurrentBaseUrl() + '/api/upload/image';
       const httpRequest = http.createHttp();
-      
+
       const token = await TokenManager.getToken();
       const response = await httpRequest.request(url, {
         method: http.RequestMethod.POST,
@@ -249,7 +270,7 @@ struct CreatePost {
         }
       }
       console.error('Upload failed:', response.result);
-      return fileUri; 
+      return fileUri;
     } catch (e) {
       console.error('Upload error:', e);
       return fileUri;
@@ -273,13 +294,13 @@ struct CreatePost {
         .onClick(() => {
           router.back();
         })
-        
+
         Text('发布帖子')
           .fontSize(18)
           .fontWeight(FontWeight.Medium)
           .fontColor('#333333')
           .margin({ left: 20 })
-          
+
         Blank()
       }
       .width('100%')
@@ -315,7 +336,12 @@ struct CreatePost {
                   .fontSize(14)
                   .fontColor('#FFFFFF')
                   .backgroundColor('#00000080')
-                  .padding({ left: 10, right: 10, top: 4, bottom: 4 })
+                  .padding({
+                    left: 10,
+                    right: 10,
+                    top: 4,
+                    bottom: 4
+                  })
                   .borderRadius(12)
                   .margin({ right: 15, bottom: 15 })
               }
@@ -412,30 +438,30 @@ struct CreatePost {
               .height(100)
               .backgroundColor('#4CAF50')
               .borderRadius(12)
-              .justifyContent(FlexAlign.Center)
-              .alignItems(HorizontalAlign.Center)
-              .shadow({ radius: 10, color: '#00000030' })
+              .onClick(() => {
+                // 点击覆盖层可以提前返回
+                this.showSuccessMessage = false;
+                const uiContext = this.getUIContext();
+                const routerInstance = uiContext?.getRouter();
+
+                setTimeout(() => {
+                  try {
+                    if (routerInstance) {
+                      routerInstance.back();
+                    }
+                  } catch (e) {
+                    console.warn('Manual navigation failed', e);
+                  }
+                }, 100);
+              })
             }
-            .width('100%')
-            .height('100%')
-            .backgroundColor('#00000060')
-            .position({ x: 0, y: 0 })
-            .zIndex(999)
-            .onClick(() => {
-              // 点击覆盖层可以提前返回
-              this.showSuccessMessage = false;
-              setTimeout(() => {
-                try { router.back(); } catch (e) { console.warn('Manual navigation failed', e); }
-              }, 100);
-            })
           }
         }
-        .padding(20)
+        .layoutWeight(1)
       }
-      .layoutWeight(1)
+      .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
   }
 }

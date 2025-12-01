@@ -45,6 +45,12 @@ export const Routes: RouteMap = {
   USER_PROFILE: 'pages/forum/UserProfile'
 };
 
+// 路由参数类型定义
+export interface IndexRouteParams {
+  tabIndex?: number;
+  tab?: string;
+}
+
 // 路由管理类
 export default class RouterManager {
   // 跳转到登录页面
@@ -66,6 +72,12 @@ export default class RouterManager {
     router.pushUrl({
       url: Routes.INDEX
     });
+  }
+
+  // 跳转到主页面并可指定要激活的 tabIndex（如果需要保留底部 Tab）
+  static async goToIndexWithTab(tabIndex?: number): Promise<boolean> {
+    const params: IndexRouteParams | undefined = (tabIndex !== undefined) ? { tabIndex: tabIndex } : undefined;
+    return await RouterManager.safeReplaceTo(Routes.INDEX, params as object | undefined);
   }
   
   // 返回上一页

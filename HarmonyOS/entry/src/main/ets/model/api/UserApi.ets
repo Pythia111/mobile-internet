@@ -15,3 +15,16 @@ export async function getUserProfile(): Promise<ApiResponse<UserProfile>> {
     method: http.RequestMethod.GET
   });
 }
+
+export interface UpdateProfileRequest {
+  username?: string;
+  password?: string;
+  avatar?: string;
+}
+
+export async function updateUserProfile(data: UpdateProfileRequest): Promise<ApiResponse<void>> {
+  return await ApiClient.request<ApiResponse<void>>('/api/user/profile', {
+    method: http.RequestMethod.PUT,
+    extraData: data
+  });
+}

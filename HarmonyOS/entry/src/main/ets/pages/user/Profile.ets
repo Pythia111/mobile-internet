@@ -21,6 +21,7 @@ export default struct Profile {
   };
   @State myPosts: Post[] = [];
   @State isLoading: boolean = false;
+  @State isPageActive: boolean = true;
 
   aboutToAppear() {
     // 检查用户是否已登录
@@ -30,7 +31,12 @@ export default struct Profile {
     this.loadMyPosts();
   }
 
+  aboutToDisappear() {
+    this.isPageActive = false;
+  }
+
   onPageShow() {
+    this.loadUserInfo();
     this.loadMyPosts();
   }
 
@@ -75,25 +81,30 @@ export default struct Profile {
     try {
       await TokenManager.clear();
       
+      if (!this.isPageActive) return;
+
+      const uiContext = this.getUIContext();
+      const routerInstance = uiContext?.getRouter();
+      const prompt = uiContext?.getPromptAction();
+
       // 尝试直接调用 UI 操作
       try {
-        promptAction.showToast({ message: '已退出登录', duration: 2000 });
-        RouterManager.goToLogin();
+        if (prompt) {
+          prompt.showToast({ message: '已退出登录', duration: 2000 });
+        }
+        if (routerInstance) {
+          routerInstance.replaceUrl({ url: 'pages/auth/Login' });
+        }
       } catch (e) {
-        console.warn('Direct UI operation failed, trying setTimeout', e);
-        // 增加延迟到 500ms
-        setTimeout(() => {
-          try {
-            promptAction.showToast({ message: '已退出登录', duration: 2000 });
-            RouterManager.goToLogin();
-          } catch (e) {
-            console.warn('UI operation failed', e);
-          }
-        }, 1000);
+        console.warn('Direct UI operation failed', e);
       }
     } catch (error) {
       console.error('Logout failed:', error);
-      try { promptAction.showToast({ message: '退出失败', duration: 2000 }); } catch (e) {}
+      try { 
+        const uiContext = this.getUIContext();
+        const prompt = uiContext?.getPromptAction();
+        if (prompt) prompt.showToast({ message: '退出失败', duration: 2000 }); 
+      } catch (e) {}
     }
   }
 

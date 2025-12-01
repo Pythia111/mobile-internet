@@ -1,16 +1,146 @@
 import router from '@ohos.router';
 import promptAction from '@ohos.promptAction';
+import picker from '@ohos.file.picker';
+import http from '@ohos.net.http';
+import fs from '@ohos.file.fs';
+import util from '@ohos.util';
+import ApiClient from '../../model/api/ApiClient';
+import { getUserProfile, updateUserProfile, UpdateProfileRequest } from '../../model/api/UserApi';
+import TokenManager from '../../utils/TokenManager';
+import RouterManager from '../../router/RouterManager';
+import { ApiConfig } from '../../config/ApiConfig';
+
+interface UploadApiResponse {
+  code: number;
+  data?: string;
+  message?: string;
+}
 
 @Entry
 @Component
 struct EditProfile {
-  @State username: string = '用户名';
+  @State username: string = '';
   @State password: string = '';
   @State confirmPassword: string = '';
+  @State avatar: string = '';
   @State isLoading: boolean = false;
+  @State isPageActive: boolean = true;
+
+  aboutToAppear() {
+    this.loadUserInfo();
+  }
+
+  aboutToDisappear() {
+    this.isPageActive = false;
+  }
+
+  async loadUserInfo() {
+    try {
+      const response = await getUserProfile();
+      if (response.code === 200 && response.data) {
+        this.username = response.data.username;
+        this.avatar = response.data.avatar || '';
+      }
+    } catch (e) {
+      console.error('Load user info failed', e);
+    }
+  }
 
   goBack() {
-    router.back();
+    this.getUIContext()?.getRouter()?.back();
+  }
+
+  // 选择图片
+  async pickImage() {
+    try {
+      const dialogRes = await promptAction.showDialog({
+        title: '更换头像',
+        message: '预览器环境下无法打开系统相册，建议使用测试图片。',
+        buttons: [
+          { text: '使用测试图片', color: '#007DFF' },
+          { text: '打开系统相册', color: '#333333' }
+        ]
+      });
+
+      if (dialogRes.index === 0) {
+        // 测试图片
+        this.avatar = 'https://ts1.tc.mm.bing.net/th/id/R-C.7694252c8a305c3a6f6a51adbb53bb99?rik=b4P4dPg%2b%2bUT7jA&pid=ImgRaw&r=0';
+        promptAction.showToast({ message: '已选择测试图片', duration: 1500 });
+        return;
+      }
+
+      const photoPicker = new picker.PhotoViewPicker();
+      const result = await photoPicker.select({
+        MIMEType: picker.PhotoViewMIMETypes.IMAGE_TYPE,
+        maxSelectNumber: 1
+      });
+
+      if (result && result.photoUris && result.photoUris.length > 0) {
+        this.avatar = result.photoUris[0];
+      }
+    } catch (error) {
+      console.error('Pick image failed:', error);
+    }
+  }
+
+  // 上传图片
+  async uploadImage(fileUri: string): Promise<string> {
+    try {
+      // 如果已经是网络图片，直接返回
+      if (fileUri.startsWith('http')) {
+        return fileUri;
+      }
+
+      const file = fs.openSync(fileUri, fs.OpenMode.READ_ONLY);
+      const stat = fs.statSync(file.fd);
+      const buffer = new ArrayBuffer(stat.size);
+      fs.readSync(file.fd, buffer);
+      fs.closeSync(file);
+
+      const boundary = '----WebKitFormBoundary' + new Date().getTime();
+      const filename = 'avatar.jpg';
+      const mimeType = 'image/jpeg';
+
+      const prefix = `--${boundary}\r\n` +
+        `Content-Disposition: form-data; name="file"; filename="${filename}"\r\n` +
+        `Content-Type: ${mimeType}\r\n\r\n`;
+      const suffix = `\r\n--${boundary}--\r\n`;
+
+      const textEncoder = new util.TextEncoder();
+      const prefixBuf = textEncoder.encode(prefix);
+      const suffixBuf = textEncoder.encode(suffix);
+
+      const totalLen = prefixBuf.byteLength + buffer.byteLength + suffixBuf.byteLength;
+      const resultBuf = new Uint8Array(totalLen);
+      
+      resultBuf.set(prefixBuf, 0);
+      resultBuf.set(new Uint8Array(buffer), prefixBuf.byteLength);
+      resultBuf.set(suffixBuf, prefixBuf.byteLength + buffer.byteLength);
+
+      const url = ApiConfig.getCurrentBaseUrl() + '/api/upload/image';
+      const httpRequest = http.createHttp();
+      
+      const token = await TokenManager.getToken();
+      const response = await httpRequest.request(url, {
+        method: http.RequestMethod.POST,
+        header: {
+          'Content-Type': `multipart/form-data; boundary=${boundary}`,
+          'Authorization': token ? `Bearer ${token}` : ''
+        },
+        extraData: resultBuf.buffer
+      });
+
+      if (response.responseCode === 200) {
+        const result = JSON.parse(response.result as string) as UploadApiResponse;
+        if (result.code === 200 && result.data) {
+          return result.data;
+        }
+      }
+      return fileUri;
+    } catch (e) {
+      console.error('Upload error:', e);
+      return fileUri;
+    }
   }
 
   // 验证用户名
@@ -66,17 +196,56 @@ struct EditProfile {
     this.isLoading = true;
 
     try {
-      // 这里应该调用API保存用户信息
-      // 暂时使用模拟保存
-      await new Promise<void>(resolve => setTimeout(resolve, 1000));
+      // 1. 上传头像
+      let avatarUrl = this.avatar;
+      if (this.avatar && !this.avatar.startsWith('http') && !this.avatar.startsWith('/uploads')) {
+        avatarUrl = await this.uploadImage(this.avatar);
+      }
+
+      // 2. 更新资料
+      const updateData: UpdateProfileRequest = {
+        username: this.username,
+        avatar: avatarUrl
+      };
       
-      promptAction.showToast({
-        message: '保存成功',
-        duration: 2000
-      });
+      if (this.password) {
+        updateData.password = this.password;
+      }
+
+      const response = await updateUserProfile(updateData);
       
-      router.back();
+      if (response.code === 200) {
+        if (!this.isPageActive) return;
+        
+        const uiContext = this.getUIContext();
+        const prompt = uiContext?.getPromptAction();
+        const routerInstance = uiContext?.getRouter();
+
+        if (prompt) {
+          prompt.showToast({
+            message: '保存成功！',
+            duration: 2000
+          });
+        }
+        
+        setTimeout(() => {
+          if (this.isPageActive) {
+            try {
+              // 使用 RouterManager 的统一封装回到 Index 并切到“我”Tab
+              RouterManager.goToIndexWithTab(2);
+            } catch (e) {
+              console.warn('RouterManager.goToIndexWithTab failed', e);
+            }
+          }
+        }, 1000);
+      } else {
+        promptAction.showToast({
+          message: response.message || '保存失败',
+          duration: 2000
+        });
+      }
     } catch (error) {
+      console.error('Save profile failed:', error);
       promptAction.showToast({
         message: '保存失败，请重试',
         duration: 2000
@@ -128,24 +297,31 @@ struct EditProfile {
         // 头像部分
         Column() {
           Stack({ alignContent: Alignment.Center }) {
-            Circle({ width: 80, height: 80 })
-              .fill('#E0E0E0')
-            
-            Text('头像')
-              .fontSize(14)
-              .fontColor('#999999')
+            if (this.avatar) {
+              Image(this.avatar)
+                .width(80)
+                .height(80)
+                .borderRadius(40)
+                .objectFit(ImageFit.Cover)
+            } else {
+              Circle({ width: 80, height: 80 })
+                .fill('#E0E0E0')
+              Text('头像')
+                .fontSize(14)
+                .fontColor('#999999')
+            }
           }
           .onClick(() => {
-            promptAction.showToast({
-              message: '头像上传功能开发中...',
-              duration: 2000
-            });
+            this.pickImage();
           })
           
           Text('点击更换头像')
             .fontSize(14)
             .fontColor('#007AFF')
             .margin({ top: 10 })
+            .onClick(() => {
+              this.pickImage();
+            })
         }
         .width('100%')
         .padding(30)
