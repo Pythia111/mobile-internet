@@ -2,6 +2,8 @@ import router from '@ohos.router';
 import TokenManager from '../../utils/TokenManager';
 import promptAction from '@ohos.promptAction';
 import RouterManager from '../../router/RouterManager';
+import { getUserProfile } from '../../model/api/UserApi';
+import { getMyPosts, Post } from '../../model/api/ForumApi';
 
 interface UserInfo {
   username: string;
@@ -17,12 +19,19 @@ export default struct Profile {
     phone: '138****8888',
     avatar: ''
   };
+  @State myPosts: Post[] = [];
+  @State isLoading: boolean = false;
 
   aboutToAppear() {
     // 检查用户是否已登录
     this.checkLogin();
     // 加载用户信息
     this.loadUserInfo();
+    this.loadMyPosts();
+  }
+
+  onPageShow() {
+    this.loadMyPosts();
   }
 
   async checkLogin() {
@@ -32,28 +41,59 @@ export default struct Profile {
     }
   }
 
-  loadUserInfo() {
-    // 模拟加载用户信息
-    // 实际项目中应该调用API获取用户信息
+  async loadUserInfo() {
+    try {
+      const response = await getUserProfile();
+      if (response.code === 200 && response.data) {
+        this.userInfo = {
+          username: response.data.username,
+          phone: response.data.phone,
+          avatar: response.data.avatar
+        };
+      }
+    } catch (e) {
+      console.error('Load user info failed', e);
+    }
+  }
+
+  async loadMyPosts() {
+    this.isLoading = true;
+    try {
+      const response = await getMyPosts();
+      if (response.code === 200 && response.data) {
+        this.myPosts = response.data;
+      }
+    } catch (e) {
+      console.error('Load my posts failed', e);
+    } finally {
+      this.isLoading = false;
+    }
   }
 
   // 退出登录
   async handleLogout() {
     try {
       await TokenManager.clear();
-      promptAction.showToast({
-        message: '已退出登录',
-        duration: 2000
-      });
       
-      // 跳转到登录页（使用 RouterManager 以保证跨平台兼容）
-      RouterManager.goToLogin();
+      // 尝试直接调用 UI 操作
+      try {
+        promptAction.showToast({ message: '已退出登录', duration: 2000 });
+        RouterManager.goToLogin();
+      } catch (e) {
+        console.warn('Direct UI operation failed, trying setTimeout', e);
+        // 增加延迟到 500ms
+        setTimeout(() => {
+          try {
+            promptAction.showToast({ message: '已退出登录', duration: 2000 });
+            RouterManager.goToLogin();
+          } catch (e) {
+            console.warn('UI operation failed', e);
+          }
+        }, 1000);
+      }
     } catch (error) {
       console.error('Logout failed:', error);
-      promptAction.showToast({
-        message: '退出失败',
-        duration: 2000
-      });
+      try { promptAction.showToast({ message: '退出失败', duration: 2000 }); } catch (e) {}
     }
   }
 
@@ -63,11 +103,12 @@ export default struct Profile {
       Column() {
         Row() {
           // 头像
-          if (this.userInfo.avatar) {
+          if (this.userInfo.avatar && this.userInfo.avatar !== 'default_avatar') {
             Image(this.userInfo.avatar)
               .width(80)
               .height(80)
               .borderRadius(40)
+              .objectFit(ImageFit.Cover)
           } else {
             Stack({ alignContent: Alignment.Center }) {
               Circle({ width: 80, height: 80 })
@@ -110,39 +151,93 @@ export default struct Profile {
       .border({ width: { bottom: 1 }, color: '#F0F0F0' })
 
       // 我的帖子区域
-      Row() {
-        // 帖子1
-        Column() {
-          Text('我的帖子1')
+      Column() {
+        Row() {
+          Text('我的帖子')
             .fontSize(18)
-            .fontColor('#333333')
+            .fontWeight(FontWeight.Bold)
+            .layoutWeight(1)
+          
+          // 刷新按钮
+          Button('刷新')
+            .fontSize(12)
+            .fontColor('#4CAF50')
+            .backgroundColor('transparent')
+            .border({ width: 1, color: '#4CAF50', radius: 4 })
+            .height(28)
+            .onClick(() => {
+              this.loadMyPosts();
+            })
         }
-        .width('45%')
-        .height(200)
-        .backgroundColor('#FFFFFF')
-        .border({ width: 1, color: '#E0E0E0', radius: 8 })
-        .justifyContent(FlexAlign.Center)
-        .alignItems(HorizontalAlign.Center)
+        .width('100%')
+        .margin({ bottom: 10 })
 
-        // 帖子2
-        Column() {
-          Text('我的帖子2')
-            .fontSize(18)
-            .fontColor('#333333')
+        if (this.isLoading) {
+          Text('加载中...')
+            .fontSize(14)
+            .fontColor('#999999')
+            .margin({ top: 20 })
+        } else if (this.myPosts.length === 0) {
+          Column() {
+            Text('暂无帖子')
+              .fontSize(14)
+              .fontColor('#999999')
+              .margin({ top: 20 })
+          }
+          .width('100%')
+          .alignItems(HorizontalAlign.Center)
+        } else {
+          Grid() {
+            ForEach(this.myPosts, (post: Post) => {
+              GridItem() {
+                Stack({ alignContent: Alignment.TopEnd }) {
+                  // 帖子图片（取第一张或默认）
+                  Image(post.images && post.images.length > 0 ? post.images[0] : '')
+                    .width('100%')
+                    .height(120)
+                    .objectFit(ImageFit.Cover)
+                    .borderRadius(8)
+                    .backgroundColor('#F5F5F5')
+
+                  // 待审核标签
+                  if (post.status === 1) {
+                    Text('待审核')
+                      .fontSize(10)
+                      .fontColor('#FFFFFF')
+                      .backgroundColor('#FF9800')
+                      .padding({ left: 6, right: 6, top: 2, bottom: 2 })
+                      .borderRadius({ bottomLeft: 8, topRight: 8 })
+                  }
+
+                  // 标题遮罩
+                  Row() {
+                    Text(post.title)
+                      .fontSize(12)
+                      .fontColor('#FFFFFF')
+                      .maxLines(1)
+                      .textOverflow({ overflow: TextOverflow.Ellipsis })
+                  }
+                  .width('100%')
+                  .padding(6)
+                  .backgroundColor('#00000060')
+                  .borderRadius({ bottomLeft: 8, bottomRight: 8 })
+                  .position({ x: 0, y: 94 }) // 120 - 26 approx
+                }
+                .width('100%')
+                .height(120)
+              }
+            })
+          }
+          .columnsTemplate('1fr 1fr')
+          .columnsGap(10)
+          .rowsGap(10)
+          .layoutWeight(1)
         }
-        .width('45%')
-        .height(200)
-        .backgroundColor('#FFFFFF')
-        .border({ width: 1, color: '#E0E0E0', radius: 8 })
-        .justifyContent(FlexAlign.Center)
-        .alignItems(HorizontalAlign.Center)
       }
       .width('100%')
-      .justifyContent(FlexAlign.SpaceBetween)
+      .layoutWeight(1)
       .padding(20)
-      .margin({ top: 20 })
-
-      Blank()
+      .alignItems(HorizontalAlign.Start)
 
       // 退出登录按钮
       Button('退出登录')

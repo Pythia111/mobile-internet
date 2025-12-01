@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -65,6 +66,17 @@ public class ForumController {
         response.put("currentPage", page);
 
         return ApiResponse.success(response);
+    }
+
+    /**
+     * 3.2.1 获取我的帖子列表
+     */
+    @GetMapping("/my-posts")
+    @Operation(summary = "获取我的帖子列表")
+    public ApiResponse<List<PostDto>> getMyPosts(Authentication authentication) {
+        User user = getCurrentUser(authentication);
+        List<PostDto> posts = forumService.getMyPosts(user.getId());
+        return ApiResponse.success(posts);
     }
 
     /**
@@ -162,4 +174,3 @@ public class ForumController {
         return isAdmin ? "admin" : "user";
     }
 }
-

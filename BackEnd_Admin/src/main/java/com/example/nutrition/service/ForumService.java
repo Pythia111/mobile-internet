@@ -76,6 +76,14 @@ public class ForumService {
     }
 
     /**
+     * 获取我的帖子列表
+     */
+    public List<PostDto> getMyPosts(Long userId) {
+        List<Post> posts = postRepository.findByUserIdOrderByCreatedAtDesc(userId);
+        return posts.stream().map(this::convertToPostDto).collect(Collectors.toList());
+    }
+
+    /**
      * 获取帖子详情
      */
     @Transactional(readOnly = true)

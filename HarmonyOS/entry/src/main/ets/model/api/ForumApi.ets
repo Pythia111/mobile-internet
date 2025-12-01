@@ -44,6 +44,12 @@ export async function getPosts(status: number = 0): Promise<ApiResponse<PostList
   });
 }
 
+export async function getMyPosts(): Promise<ApiResponse<Post[]>> {
+  return await ApiClient.request<ApiResponse<Post[]>>('/api/forum/my-posts', {
+    method: http.RequestMethod.GET
+  });
+}
+
 export async function getPostDetail(postId: string): Promise<ApiResponse<PostDetailData>> {
   return await ApiClient.request<ApiResponse<PostDetailData>>(`/api/forum/posts/${postId}`, {
     method: http.RequestMethod.GET

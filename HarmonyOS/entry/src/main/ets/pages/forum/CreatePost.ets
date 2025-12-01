@@ -24,7 +24,17 @@ struct CreatePost {
   @State images: string[] = [];
   @State isLoading: boolean = false;
   @State currentImageIndex: number = 0;
+  @State showSuccessMessage: boolean = false;
+  @State isSuccess: boolean = false;
   private swiperController: SwiperController = new SwiperController();
+
+  aboutToDisappear() {
+    // 页面即将销毁时清理定时器
+    if (this.isSuccess) {
+      this.isSuccess = false;
+      this.showSuccessMessage = false;
+    }
+  }
 
   // 选择图片
   async pickImages() {
@@ -147,15 +157,34 @@ struct CreatePost {
       });
 
       if (response.code === 200) {
-        // 使用 setTimeout 确保在 UI 线程执行跳转和提示
-        setTimeout(() => {
-          try { promptAction.showToast({ message: '发布成功', duration: 2000 }); } catch (e) { console.warn('showToast failed', e); }
-          router.back();
-        }, 10);
+        // 尝试直接调用 UI 操作，如果失败则使用 setTimeout
+        try {
+          promptAction.showToast({ message: '发布成功，待审核', duration: 2500 });
+          setTimeout(() => {
+            try { router.back(); } catch (e) { console.warn('Router back failed', e); }
+          }, 2500);
+        } catch (e) {
+          console.warn('Direct UI operation failed, trying setTimeout', e);
+          // 增加延迟到 500ms，给系统更多时间恢复 UI 上下文
+          setTimeout(() => {
+            try {
+              promptAction.showToast({ message: '发布成功，待审核', duration: 2500 });
+              setTimeout(() => {
+                 try { router.back(); } catch (e) { console.warn('Router back failed', e); }
+              }, 2500);
+            } catch (e) {
+              console.warn('UI operation failed', e);
+            }
+          }, 1000);
+        }
       } else {
         setTimeout(() => {
-          try { promptAction.showToast({ message: response.message || '发布失败', duration: 2000 }); } catch (e) { console.warn('showToast failed', e); }
-        }, 10);
+          try {
+            promptAction.showToast({ message: response.message || '发布失败', duration: 2000 });
+          } catch (e) {
+            console.warn('showToast failed', e);
+          }
+        }, 100);
       }
     } catch (error) {
       console.error('Publish post failed:', error);
@@ -364,6 +393,42 @@ struct CreatePost {
             .onClick(() => {
               this.handlePublish();
             })
+
+          // 成功提示覆盖层
+          if (this.showSuccessMessage) {
+            Stack({ alignContent: Alignment.Center }) {
+              Column() {
+                Text('发布成功，待审核')
+                  .fontSize(18)
+                  .fontColor('#FFFFFF')
+                  .fontWeight(FontWeight.Medium)
+                  .margin({ bottom: 10 })
+                Text('3秒后自动返回')
+                  .fontSize(14)
+                  .fontColor('#FFFFFF')
+                  .opacity(0.8)
+              }
+              .width(220)
+              .height(100)
+              .backgroundColor('#4CAF50')
+              .borderRadius(12)
+              .justifyContent(FlexAlign.Center)
+              .alignItems(HorizontalAlign.Center)
+              .shadow({ radius: 10, color: '#00000030' })
+            }
+            .width('100%')
+            .height('100%')
+            .backgroundColor('#00000060')
+            .position({ x: 0, y: 0 })
+            .zIndex(999)
+            .onClick(() => {
+              // 点击覆盖层可以提前返回
+              this.showSuccessMessage = false;
+              setTimeout(() => {
+                try { router.back(); } catch (e) { console.warn('Manual navigation failed', e); }
+              }, 100);
+            })
+          }
         }
         .padding(20)
       }
