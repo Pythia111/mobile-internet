@@ -2,6 +2,12 @@ import router from '@ohos.router';
 import RouterManager from '../../router/RouterManager';
 import { Comment } from '../../model/api/ForumApi';
 
+interface UserProfileParams {
+  userId: string;
+  username?: string;
+  avatar?: string;
+}
+
 @Entry
 @Component
 struct PostComment {
@@ -55,6 +61,11 @@ struct PostComment {
                 .borderRadius(20)
                 .margin({ right: 12 })
                 .backgroundColor('#E0E0E0')
+                .onClick(() => {
+                  // 点击评论者头像，跳转到该用户主页
+                  const up: UserProfileParams = { userId: comment.userId, username: comment.username, avatar: comment.avatar };
+                  RouterManager.navigateTo('pages/forum/UserProfile', up);
+                })
 
               // 内容区域
               Column() {

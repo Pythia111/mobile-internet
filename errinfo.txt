@@ -1,16 +1,10 @@
-# 在CreatePost点击“发布帖子”
-12-01 19:10:04.700   4616-30300    A03d00/JSAPP                                          I     TokenManager: Token获取 成功
-12-01 19:10:04.716   4616-30300    A03d00/JSAPP                                          I     ApiClient: 响应状态码 200
-12-01 19:10:04.716   4616-30300    A03d00/JSAPP                                          I     ApiClient: 响应数据 "{\"code\":200,\"message\":\"success\",\"data\":{\"userId\":15,\"phone\":\"13455556666\",\"username\":\"test1\",\"avatar\":null,\"role\":\"ROLE_USER\"}}"
-12-01 19:10:04.732   4616-30300    A03d00/JSAPP                                          I     TokenManager: Token获取 成功
-12-01 19:10:04.732   4616-30300    A03d00/JSAPP                                          I     ApiClient: 发起请求 http://192.168.142.1:8080/api/forum/posts
-12-01 19:10:04.732   4616-30300    A03d00/JSAPP                                          I     ApiClient: 请求参数 {"method":"POST","header":{"Content-Type":"application/json","Authorization":"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMzQ1NTU1NjY2NiIsImlhdCI6MTc2NDU4NzM2MiwiZXhwIjoxNzY0NjczNzYyfQ.mpeMZ7ZmOfJhHGyRmkt8hBquzDmJ0afOqA8hsaL2EeE"},"extraData":"{\"title\":\"7\",\"content\":\"7\",\"images\":[\"https://ts1.tc.mm.bing.net/th/id/R-C.7694252c8a305c3a6f6a51adbb53bb99?rik=b4P4dPg%2b%2bUT7jA&pid=ImgRaw&r=0\",\"https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80\"],\"creatorName\":\"test1\",\"creatorAvatar\":\"default_avatar\"}"}
-12-01 19:10:04.764   4616-30300    A03d00/JSAPP                                          I     ApiClient: 响应状态码 200
-12-01 19:10:04.764   4616-30300    A03d00/JSAPP                                          I     ApiClient: 响应数据 "{\"code\":200,\"message\":\"发布成功\",\"data\":{\"creatorName\":\"test1\",\"postId\":\"29\",\"creatorAvatar\":\"default_avatar\"}}"
-12-01 19:10:04.765   4616-30300    A03d00/JSAPP                                          W     Direct UI operation failed, trying setTimeout Error: Internal error. UI execution context not found.
-12-01 19:10:05.767   4616-30300    A03d00/JSAPP                                          W     UI operation failed Error: Internal error. UI execution context not found.
+> hvigor ERROR: Failed :entry:default@PreviewArkTS... 
+> hvigor ERROR: 10605038 ArkTS Compiler Error
+Error Message: Object literal must correspond to some explicitly declared class or interface (arkts-no-untyped-obj-literals) At File: E:/Grade3/MobileInternet/mobile-internet/HarmonyOS/entry/src/main/ets/pages/forum/PostDetail.ets:119:67
+10605038 ArkTS Compiler Error
+Error Message: Object literal must correspond to some explicitly declared class or interface (arkts-no-untyped-obj-literals) At File: E:/Grade3/MobileInternet/mobile-internet/HarmonyOS/entry/src/main/ets/pages/forum/PostDetail.ets:127:67
+10605038 ArkTS Compiler Error
+Error Message: Object literal must correspond to some explicitly declared class or interface (arkts-no-untyped-obj-literals) At File: E:/Grade3/MobileInternet/mobile-internet/HarmonyOS/entry/src/main/ets/pages/forum/UserProfile.ets:52:54
+10605038 ArkTS Compiler Error
+Error Message: Object literal must correspond to some explicitly declared class or interface (arkts-no-untyped-obj-literals) At File: E:/Grade3/MobileInternet/mobile-internet/HarmonyOS/entry/src/main/ets/pages/forum/PostComment.ets:60:71
 
-# 在Profile点击“退出登录”
-12-01 19:11:03.434   4616-30300    A03d00/JSAPP                                          I     TokenManager: Token清除成功
-12-01 19:11:03.435   4616-30300    A03d00/JSAPP                                          W     Direct UI operation failed, trying setTimeout Error: Internal error. UI execution context not found.
-12-01 19:11:04.445   4616-30300    A03d00/JSAPP                                          W     UI operation failed Error: Internal error. UI execution context not found.

@@ -3,6 +3,16 @@ import promptAction from '@ohos.promptAction';
 import { getPostDetail, likePost, commentPost, PostDetailData, Comment } from '../../model/api/ForumApi';
 import RouterManager from '../../router/RouterManager';
 
+interface UserProfileParams {
+  userId: string;
+  username?: string;
+  avatar?: string;
+}
+
+interface PostCommentParams {
+  comments: Comment[];
+}
+
 @Entry
 @Component
 struct PostDetail {
@@ -88,9 +98,7 @@ struct PostDetail {
 
   navigateToComments() {
     if (!this.post) return;
-    let params: Record<string, Object> = {
-      'comments': this.post.comments
-    };
+    const params: PostCommentParams = { comments: this.post.comments };
     RouterManager.navigateTo('pages/forum/PostComment', params);
   }
 
@@ -108,17 +116,26 @@ struct PostDetail {
           })
 
         if (this.post) {
-          Image(this.post.avatar || $r('app.media.layered_image')) // 默认头像
+            Image(this.post.avatar || $r('app.media.layered_image')) // 默认头像
             .width(32)
             .height(32)
             .borderRadius(16)
             .margin({ right: 8 })
             .backgroundColor('#E0E0E0')
+            .onClick(() => {
+              // 跳转到用户主页，传递 userId/username/avatar
+              const up: UserProfileParams = { userId: this.post!.userId, username: this.post!.username, avatar: this.post!.avatar };
+              RouterManager.navigateTo('pages/forum/UserProfile', up);
+            })
 
-          Text(this.post.username)
+            Text(this.post.username)
             .fontSize(16)
             .fontWeight(FontWeight.Medium)
             .fontColor('#333333')
+            .onClick(() => {
+              const up2: UserProfileParams = { userId: this.post!.userId, username: this.post!.username, avatar: this.post!.avatar };
+              RouterManager.navigateTo('pages/forum/UserProfile', up2);
+            })
         }
       }
       .width('100%')
