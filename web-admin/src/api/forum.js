@@ -4,7 +4,7 @@ export const forumApi = {
   // 获取帖子列表
   getPosts(params) {
     return request({
-      url: '/api/forum/posts',
+      url: '/forum/posts',
       method: 'get',
       params
     })
@@ -13,7 +13,7 @@ export const forumApi = {
   // 获取帖子详情
   getPostDetail(postId) {
     return request({
-      url: `/api/forum/posts/${postId}`,
+      url: `/forum/posts/${postId}`,
       method: 'get'
     })
   },
@@ -21,7 +21,7 @@ export const forumApi = {
   // 更新帖子状态 (管理员)
   updatePostStatus(postId, data) {
     return request({
-      url: `/api/forum/posts/${postId}/status`,
+      url: `/forum/posts/${postId}/status`,
       method: 'put',
       data
     })

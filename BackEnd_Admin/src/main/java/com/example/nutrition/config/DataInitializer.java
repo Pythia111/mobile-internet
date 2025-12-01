@@ -25,7 +25,7 @@ public class DataInitializer {
             // Create roles if they don't exist
             Role roleUser = roleRepository.findByName("ROLE_USER")
                     .orElseGet(() -> roleRepository.save(Role.builder().name("ROLE_USER").build()));
-            
+
             Role roleAdmin = roleRepository.findByName("ROLE_ADMIN")
                     .orElseGet(() -> roleRepository.save(Role.builder().name("ROLE_ADMIN").build()));
 
@@ -46,7 +46,7 @@ public class DataInitializer {
                 Set<Role> adminRoles = new HashSet<>();
                 adminRoles.add(roleUser);
                 adminRoles.add(roleAdmin);
-                
+
                 User adminUser = User.builder()
                         .phone("13900139000")
                         .passwordHash(passwordEncoder.encode("admin123"))
@@ -61,4 +61,3 @@ public class DataInitializer {
         };
     }
 }
-

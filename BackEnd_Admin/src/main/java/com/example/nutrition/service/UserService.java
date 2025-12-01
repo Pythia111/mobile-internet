@@ -18,7 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -27,7 +29,8 @@ public class UserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder,
+            JwtService jwtService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
@@ -40,7 +43,8 @@ public class UserService implements UserDetailsService {
                 .map(user -> org.springframework.security.core.userdetails.User
                         .withUsername(user.getPhone())
                         .password(user.getPasswordHash() == null ? "" : user.getPasswordHash())
-                        .authorities(user.getRoles().stream().map(r -> "ROLE_" + r.getName().replace("ROLE_", "")).toArray(String[]::new))
+                        .authorities(user.getRoles().stream().map(r -> "ROLE_" + r.getName().replace("ROLE_", ""))
+                                .toArray(String[]::new))
                         .build())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
@@ -54,11 +58,19 @@ public class UserService implements UserDetailsService {
         Role roleUser = roleRepository.findByName("ROLE_USER")
                 .orElseGet(() -> roleRepository.save(Role.builder().name("ROLE_USER").build()));
 
+        Role roleAdmin = roleRepository.findByName("ROLE_ADMIN")
+                .orElseGet(() -> roleRepository.save(Role.builder().name("ROLE_ADMIN").build()));
+
+        // Web端用户默认都是管理员
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleUser);
+        roles.add(roleAdmin);
+
         User user = User.builder()
                 .phone(request.getPhone())
                 .passwordHash(passwordEncoder.encode(request.getPassword()))
                 .name(request.getUsername())
-                .roles(Collections.singleton(roleUser))
+                .roles(roles)
                 .build();
 
         user = userRepository.save(user);

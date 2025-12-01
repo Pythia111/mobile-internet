@@ -16,21 +16,21 @@
       </el-tabs>
 
       <el-table :data="postList" v-loading="loading" style="width: 100%">
-        <el-table-column prop="title" label="标题" min-width="150" show-overflow-tooltip />
-        <el-table-column prop="username" label="作者" width="120" />
-        <el-table-column prop="createTime" label="发布时间" width="180">
+        <el-table-column prop="title" label="标题" width="200" show-overflow-tooltip />
+        <el-table-column prop="username" label="作者" width="100" />
+        <el-table-column prop="createTime" label="发布时间" width="160">
            <template #default="scope">
              {{ formatDate(scope.row.createTime) }}
            </template>
         </el-table-column>
-        <el-table-column prop="status" label="状态" width="100">
+        <el-table-column prop="status" label="状态" width="90">
           <template #default="scope">
             <el-tag :type="getStatusType(scope.row.status)">
               {{ getStatusText(scope.row.status) }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column label="操作" width="240" fixed="right">
           <template #default="scope">
             <el-button size="small" @click="handleView(scope.row)">查看详情</el-button>
             <el-button 
@@ -239,17 +239,24 @@ onMounted(() => {
 
 <style scoped>
 .post-audit-container {
-  padding: 20px;
+  padding: 8px;
 }
 
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 4px 0;
+  min-height: 32px;
+}
+
+.card-header span {
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .pagination-container {
-  margin-top: 20px;
+  margin-top: 12px;
   display: flex;
   justify-content: flex-end;
 }
