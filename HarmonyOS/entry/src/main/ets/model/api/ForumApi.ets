@@ -81,3 +81,17 @@ export async function createPost(post: CreatePostRequest): Promise<ApiResponse<R
     extraData: JSON.stringify(post)
   });
 }
+
+export async function updatePostStatus(postId: string, status: number): Promise<ApiResponse<void>> {
+  // 后端接口要求 action 字段，根据 status 转换
+  let action = '';
+  if (status === 2) action = 'privatize';
+  else if (status === 3) action = 'delete';
+  else if (status === 0) action = 'publicize';
+  
+  return await ApiClient.request<ApiResponse<void>>(`/api/forum/posts/${postId}/status`, {
+    method: http.RequestMethod.PUT,
+    header: { 'Content-Type': 'application/json' },
+    extraData: JSON.stringify({ action: action })
+  });
+}

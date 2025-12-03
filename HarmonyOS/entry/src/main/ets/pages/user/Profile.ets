@@ -11,6 +11,10 @@ interface UserInfo {
   avatar: string;
 }
 
+interface PostDetailParams {
+  postId: string;
+}
+
 @Entry
 @Component
 export default struct Profile {
@@ -67,7 +71,8 @@ export default struct Profile {
     try {
       const response = await getMyPosts();
       if (response.code === 200 && response.data) {
-        this.myPosts = response.data;
+        // 过滤掉已删除(status=3)的帖子
+        this.myPosts = response.data.filter(p => p.status !== 3);
       }
     } catch (e) {
       console.error('Load my posts failed', e);
@@ -236,6 +241,10 @@ export default struct Profile {
                 }
                 .width('100%')
                 .height(120)
+                .onClick(() => {
+                  const params: PostDetailParams = { postId: post.postId };
+                  RouterManager.navigateTo('pages/forum/PostDetail', params);
+                })
               }
             })
           }

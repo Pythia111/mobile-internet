@@ -1,10 +1,7 @@
-> hvigor ERROR: Failed :entry:default@PreviewArkTS... 
-> hvigor ERROR: 10605038 ArkTS Compiler Error
-Error Message: Object literal must correspond to some explicitly declared class or interface (arkts-no-untyped-obj-literals) At File: E:/Grade3/MobileInternet/mobile-internet/HarmonyOS/entry/src/main/ets/pages/forum/PostDetail.ets:119:67
-10605038 ArkTS Compiler Error
-Error Message: Object literal must correspond to some explicitly declared class or interface (arkts-no-untyped-obj-literals) At File: E:/Grade3/MobileInternet/mobile-internet/HarmonyOS/entry/src/main/ets/pages/forum/PostDetail.ets:127:67
-10605038 ArkTS Compiler Error
-Error Message: Object literal must correspond to some explicitly declared class or interface (arkts-no-untyped-obj-literals) At File: E:/Grade3/MobileInternet/mobile-internet/HarmonyOS/entry/src/main/ets/pages/forum/UserProfile.ets:52:54
-10605038 ArkTS Compiler Error
-Error Message: Object literal must correspond to some explicitly declared class or interface (arkts-no-untyped-obj-literals) At File: E:/Grade3/MobileInternet/mobile-internet/HarmonyOS/entry/src/main/ets/pages/forum/PostComment.ets:60:71
-
+12-03 18:47:57.826   10024-14976   A03d00/JSAPP                                          I     TokenManager: Token获取 成功
+12-03 18:47:57.826   10024-14976   A03d00/JSAPP                                          I     ApiClient: 发起请求 http://192.168.142.1:8080/api/forum/posts/7/status
+12-03 18:47:57.826   10024-14976   A03d00/JSAPP                                          I     ApiClient: 请求参数 {"method":"PUT","header":{"Content-Type":"application/json","Authorization":"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMzM0NDQ0NTU1NSIsImlhdCI6MTc2NDc1ODg1OSwiZXhwIjoxNzY0ODQ1MjU5fQ.GEHgVzVGEjAMxYB7Ua3NGQ74BCnYwbp66h8-6XYMvPk"},"extraData":"{\"action\":\"review\"}"}
+12-03 18:47:57.842   10024-14976   A03d00/JSAPP                                          I     ApiClient: 响应状态码 400
+12-03 18:47:57.842   10024-14976   A03d00/JSAPP                                          I     ApiClient: 响应数据 "{\"code\":400,\"message\":\"无效的操作类型: review\",\"data\":null}"
+12-03 18:47:57.842   10024-14976   A03d00/JSAPP                                          E     ApiClient: HTTP Error: 400
+12-03 18:47:57.842   10024-14976   A03d00/JSAPP                                          E     ApiClient.request error {}

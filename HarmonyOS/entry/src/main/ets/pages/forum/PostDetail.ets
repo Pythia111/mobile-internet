@@ -1,6 +1,7 @@
 import router from '@ohos.router';
 import promptAction from '@ohos.promptAction';
-import { getPostDetail, likePost, commentPost, PostDetailData, Comment } from '../../model/api/ForumApi';
+import { getPostDetail, likePost, commentPost, PostDetailData, Comment, updatePostStatus } from '../../model/api/ForumApi';
+import { getUserProfile } from '../../model/api/UserApi';
 import RouterManager from '../../router/RouterManager';
 
 interface UserProfileParams {
@@ -13,6 +14,12 @@ interface PostCommentParams {
   comments: Comment[];
 }
 
+// 菜单项类型，匹配 bindMenu 所需的结构
+interface MenuElementItem {
+  value: string;
+  action: () => void;
+}
+
 @Entry
 @Component
 struct PostDetail {
@@ -22,15 +29,28 @@ struct PostDetail {
   @State commentContent: string = '';
   @State isLiking: boolean = false;
   @State isCommenting: boolean = false;
+  @State currentUserId: string = '';
 
   aboutToAppear() {
     const params = router.getParams() as Record<string, Object>;
     if (params && params['postId']) {
       this.postId = params['postId'] as string;
       this.loadPostDetail();
+      this.loadCurrentUser();
     } else {
       promptAction.showToast({ message: '参数错误' });
       RouterManager.goBack();
+    }
+  }
+
+  async loadCurrentUser() {
+    try {
+      const resp = await getUserProfile();
+      if (resp.code === 200 && resp.data) {
+        this.currentUserId = resp.data.userId;
+      }
+    } catch (e) {
+      console.error('Load user profile failed', e);
     }
   }
 
@@ -96,10 +116,122 @@ struct PostDetail {
     }
   }
 
+  async handleSetPrivate() {
+    if (!this.post) return;
+    try {
+      const resp = await updatePostStatus(this.postId, 2);
+      if (resp.code === 200) {
+        promptAction.showToast({ message: '已设为私密！', duration: 1500 });
+        if (this.post) this.post.status = 2;
+      } else {
+        promptAction.showToast({ message: resp.message || '操作失败' });
+      }
+    } catch (e) {
+      promptAction.showToast({ message: '网络错误' });
+    }
+  }
+
+  checkAndSetPrivate() {
+    if (!this.post) return;
+    if (this.post.status === 1) {
+      AlertDialog.show({
+        message: '审核中，不能执行该操作',
+        confirm: {
+          value: '确定',
+          action: () => {}
+        }
+      });
+      return;
+    }
+    this.handleSetPrivate();
+  }
+
+  handleSetPublic() {
+    AlertDialog.show({
+      message: '确定要将该帖子公开吗？',
+      primaryButton: {
+        value: '取消',
+        action: () => {}
+      },
+      secondaryButton: {
+        value: '确定',
+        action: () => {
+          this.confirmSetPublic();
+        }
+      }
+    });
+  }
+
+  async confirmSetPublic() {
+    if (!this.post) return;
+    try {
+      const resp = await updatePostStatus(this.postId, 0);
+      if (resp.code === 200) {
+        promptAction.showToast({ message: '已设为公开！', duration: 1500 });
+        if (this.post) this.post.status = 0;
+      } else {
+        promptAction.showToast({ message: resp.message || '操作失败' });
+      }
+    } catch (e) {
+      promptAction.showToast({ message: '网络错误' });
+    }
+  }
+
+  handleDelete() {
+    AlertDialog.show({
+      title: '确定删除？',
+      message: '该操作不可撤销',
+      primaryButton: {
+        value: '取消',
+        action: () => {}
+      },
+      secondaryButton: {
+        value: '确定',
+        action: () => {
+          this.confirmDelete();
+        }
+      }
+    });
+  }
+
+  async confirmDelete() {
+    if (!this.post) return;
+    try {
+      const resp = await updatePostStatus(this.postId, 3);
+      if (resp.code === 200) {
+        promptAction.showToast({ message: '已删除！', duration: 1500 });
+        if (this.post) this.post.status = 3;
+        setTimeout(() => {
+          try {
+            // 尝试使用 UIContext 的 router 返回，避免上下文丢失问题
+            this.getUIContext().getRouter().back();
+          } catch (e) {
+            RouterManager.goBack();
+          }
+        }, 1500);
+      } else {
+        promptAction.showToast({ message: resp.message || '删除失败' });
+      }
+    } catch (e) {
+      promptAction.showToast({ message: '网络错误' });
+    }
+  }
+
   navigateToComments() {
     if (!this.post) return;
     const params: PostCommentParams = { comments: this.post.comments };
     RouterManager.navigateTo('pages/forum/PostComment', params);
+  }
+
+  getMenuOptions(): MenuElementItem[] {
+    const options: MenuElementItem[] = [];
+    if (this.post && this.post.status === 2) {
+      options.push({ value: '设为公开', action: (): void => { this.handleSetPublic(); } });
+    } else {
+      options.push({ value: '设为私密', action: (): void => { this.checkAndSetPrivate(); } });
+    }
+    options.push({ value: '删除帖子', action: (): void => { this.handleDelete(); } });
+    return options;
   }
 
   build() {
@@ -128,14 +260,34 @@ struct PostDetail {
               RouterManager.navigateTo('pages/forum/UserProfile', up);
             })
 
-            Text(this.post.username)
-            .fontSize(16)
-            .fontWeight(FontWeight.Medium)
-            .fontColor('#333333')
-            .onClick(() => {
-              const up2: UserProfileParams = { userId: this.post!.userId, username: this.post!.username, avatar: this.post!.avatar };
-              RouterManager.navigateTo('pages/forum/UserProfile', up2);
-            })
+            Column() {
+              Text(this.post.username)
+                .fontSize(16)
+                .fontWeight(FontWeight.Medium)
+                .fontColor('#333333')
+                .onClick(() => {
+                  const up2: UserProfileParams = { userId: this.post!.userId, username: this.post!.username, avatar: this.post!.avatar };
+                  RouterManager.navigateTo('pages/forum/UserProfile', up2);
+                })
+              
+              if (this.post.status === 2) {
+                Text('当前帖子为私密状态')
+                  .fontSize(10)
+                  .fontColor('#FF9800')
+                  .margin({ top: 2 })
+              }
+            }
+            .alignItems(HorizontalAlign.Start)
+
+            // 使用 String() 转换确保类型一致，避免因后端返回类型差异导致比较失败
+            if (String(this.post.userId) === String(this.currentUserId)) {
+              Blank()
+              Text('...')
+                .fontSize(24)
+                .fontWeight(FontWeight.Bold)
+                .padding({ left: 10, right: 10 })
+                .bindMenu(this.getMenuOptions())
+            }
         }
       }
       .width('100%')
