@@ -1,6 +1,7 @@
 import router from '@ohos.router';
 import RouterManager from '../../router/RouterManager';
-import { Comment } from '../../model/api/ForumApi';
+import { Comment, getPostDetail } from '../../model/api/ForumApi';
+import promptAction from '@ohos.promptAction';
 
 interface UserProfileParams {
   userId: string;
@@ -12,11 +13,34 @@ interface UserProfileParams {
 @Component
 struct PostComment {
   @State comments: Comment[] = [];
+  @State postId: string = '';
+  @State isLoading: boolean = false;
 
   aboutToAppear() {
     const params = router.getParams() as Record<string, Object>;
-    if (params && params['comments']) {
-      this.comments = params['comments'] as Comment[];
+    if (params) {
+      if (params['comments']) {
+        this.comments = params['comments'] as Comment[];
+      }
+      if (params['postId']) {
+        this.postId = params['postId'] as string;
+      }
+    }
+  }
+
+  async refreshComments() {
+    if (!this.postId) return;
+    this.isLoading = true;
+    try {
+      const resp = await getPostDetail(this.postId);
+      if (resp.code === 200 && resp.data) {
+        this.comments = resp.data.comments;
+        promptAction.showToast({ message: '刷新成功' });
+      }
+    } catch (e) {
+      promptAction.showToast({ message: '刷新失败' });
+    } finally {
+      this.isLoading = false;
     }
   }
 
@@ -39,9 +63,13 @@ struct PostComment {
           .layoutWeight(1)
           .textAlign(TextAlign.Center)
           
-        // 占位，保持标题居中
-        Blank()
-          .width(40)
+        // 刷新按钮
+        Text('刷新')
+          .fontSize(14)
+          .fontColor('#007AFF')
+          .onClick(() => {
+            this.refreshComments();
+          })
       }
       .width('100%')
       .height(56)
@@ -69,10 +97,20 @@ struct PostComment {
 
               // 内容区域
               Column() {
-                Text(comment.username)
-                  .fontSize(14)
-                  .fontColor('#666666')
-                  .margin({ bottom: 4 })
+                Row() {
+                  Text(comment.username)
+                    .fontSize(14)
+                    .fontColor('#666666')
+                    .layoutWeight(1)
+                  
+                  if (comment.createdAt) {
+                    Text(comment.createdAt.substring(0, 16).replace('T', ' ').replace(/-/g, '/'))
+                      .fontSize(12)
+                      .fontColor('#999999')
+                  }
+                }
+                .width('100%')
+                .margin({ bottom: 4 })
                 
                 Text(comment.content)
                   .fontSize(16)

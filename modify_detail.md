@@ -1,94 +1,66 @@
-在页面跳转逻辑已正确使用`UIContext`后仍出现相同错误，可能涉及以下深层问题及解决方案：
+在鸿蒙应用中设置图标未显示的问题，通常涉及以下几个关键检查点，请按照以下步骤排查：
 
-**一、主线程未正确调度（核心问题）**
-1. **异步回调中的线程问题**
-   ```typescript
-   // 错误示例：未保证主线程执行
-   handlePublish().then(() => {
-     this.getUIContext()?.getRouter()?.back() // 可能处于非UI线程
-   })
+一、图标资源类型确认
 
-   // 正确写法
-   import { TaskDispatcher } from '@kit.ArkTS';
-   handlePublish().then(() => {
-     TaskDispatcher.getMainTaskDispatcher().dispatch(() => {
-       this.getUIContext()?.getRouter()?.back()
-     })
-   })
-   ```
-   *在Promise回调、网络请求响应等异步场景中，必须通过`TaskDispatcher`强制切回主线程*
+图标字体(iconFont)使用场景：
+若采用图标字体方案，需在font.json中正确注册字体文件（参考以下配置）：
+{
+  "font": [
+    {
+      "name": "iconfont",
+      "src": "/common/fonts/iconfont.ttf"
+    }
+  ]
+}
+在Text组件中使用时应采用\uXXXX格式的Unicode码，并指定fontFamily属性：
+Text('\ue001') // 假设\ue001是图标对应编码
+  .fontFamily('iconfont')
+  .fontSize(24)
+  .fontColor(Color.Blue)
+图片资源使用场景：
+若使用系统预置图标资源，需通过$r('app.media.ic_public_like')方式引用
+图片资源应存放在resources/base/media/目录下，并确认文件名拼写准确性
+二、布局与样式排查
 
-**二、上下文绑定异常**
-1. **@Component未正确绑定**
-   ```typescript
-   // 错误示例：匿名函数导致this丢失
-   onClick(() => { 
-     this.getUIContext()?.getRouter()?.back() // this指向错误
-   })
+可见性检查：
 
-   // 正确写法（使用箭头函数绑定this）
-   @Component
-   struct MyComponent {
-     private handleBack = () => {
-       this.getUIContext()?.getRouter()?.back() 
-     }
+确保父容器（如Flex/Stack）未设置clip属性导致内容裁剪
+检查visibility属性是否为Visibility.Visible
+确认opacity值未设置为0导致完全透明
+尺寸与间距设置：
 
-     build() {
-       Button('Back').onClick(this.handleBack)
-     }
-   }
-   ```
+至少设置一个维度尺寸（如.width(24).height(24)）
+父容器需提供足够的布局空间，可通过设置背景色辅助调试
+三、常见问题排查
 
-**三、路由配置验证**
-1. **路由路径合法性检查**
-   ```json
-   // module.json5 必须包含目标路径声明
-   {
-     "pages": [
-       "pages/auth/Login",
-       "pages/CreatePost",
-       // 其他页面路径...
-     ]
-   }
-   ```
-   *未声明的路由路径将导致跳转静默失败*
+字体兼容性问题：
 
-**四、上下文生命周期管理**
-1. **组件卸载后操作拦截**
-   ```typescript
-   // 添加生命周期状态保护
-   @State isPageActive: boolean = true
+确认ttf文件包含目标图标且编码正确（可用字体查看工具验证）
+检查鸿蒙API版本是否支持当前字体特性（如API12+支持更多文本特性）
+资源加载问题：
 
-   aboutToDisappear() {
-     this.isPageActive = false
-   }
+查看DevEco Studio控制台是否有字体加载失败警告
+对图片资源尝试添加错误回调：
+Image($r('app.media.ic_public_like'))
+  .onError(() => {
+    console.error('图片加载失败');
+  })
+四、调试建议
 
-   handlePublish() {
-     if (!this.isPageActive) return
-     // 执行路由操作...
-   }
-   ```
-   *避免在组件销毁后继续执行UI操作*
+基础测试：
 
-**五、调试建议**
-1. **添加调试日志**
-   ```typescript
-   const currentRouter = this.getUIContext()?.getRouter()
-   console.log('[DEBUG] Router instance:', currentRouter ? 'Exist' : 'Null')
-   currentRouter?.replaceUrl({ url: 'pages/auth/Login' })
-   ```
-   *通过日志确认UIContext是否成功获取*
+在Text组件中临时添加普通文本，确认组件基础渲染功能正常
+尝试单独渲染图标组件，排除其他布局干扰
+日志分析：
 
-2. **全局路由监控（开发阶段）**
-   ```typescript
-   // 在App.ets中监听路由状态
-   AppStorage.setOrCreate('routerState', {})
-   @Watch('routerState')
-   function onRouterChange() {
-     console.log('Current route:', AppStorage.get('routerState'))
-   }
-   ```
+添加位置标记日志，确认代码执行路径：
+Text('\ue001')
+  .onAppear(() => {
+    console.info('图标组件已渲染');
+  })
+若以上步骤仍未解决问题，建议提供以下信息以便进一步分析：
 
-若以上方案仍未解决问题，建议检查以下内容：
-1. 应用是否使用`loadDocument`创建了多个窗口，导致上下文隔离
-2. 是否存在未捕获的异常提前中断了路由操作
+图标资源类型（字体/图片）
+相关代码片段（包含资源声明与组件使用）
+DevEco Studio控制台错误日志
+预览器/真机运行效果对比

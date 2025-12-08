@@ -87,7 +87,10 @@ public class ForumService {
      * 获取帖子详情
      */
     @Transactional(readOnly = true)
-    public PostDetailDto getPostDetail(Long postId) {
+    /**
+     * 获取帖子详情
+     */
+    public PostDetailDto getPostDetail(Long postId, Long currentUserId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("帖子不存在"));
 
@@ -100,6 +103,11 @@ public class ForumService {
                 .map(this::convertToCommentDto)
                 .collect(Collectors.toList());
 
+        boolean isLiked = false;
+        if (currentUserId != null) {
+            isLiked = postLikeRepository.findByPostIdAndUserId(postId, currentUserId).isPresent();
+        }
+
         return PostDetailDto.builder()
                 .postId(post.getId().toString())
                 .title(post.getTitle())
@@ -110,6 +118,7 @@ public class ForumService {
                 .avatar(post.getCreatorAvatar())
                 .status(post.getStatus())
                 .likeCount(post.getLikeCount())
+                .isLiked(isLiked)
                 .comments(comments)
                 .build();
     }

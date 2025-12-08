@@ -1,7 +1,5 @@
-12-03 18:47:57.826   10024-14976   A03d00/JSAPP                                          I     TokenManager: Token获取 成功
-12-03 18:47:57.826   10024-14976   A03d00/JSAPP                                          I     ApiClient: 发起请求 http://192.168.142.1:8080/api/forum/posts/7/status
-12-03 18:47:57.826   10024-14976   A03d00/JSAPP                                          I     ApiClient: 请求参数 {"method":"PUT","header":{"Content-Type":"application/json","Authorization":"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMzM0NDQ0NTU1NSIsImlhdCI6MTc2NDc1ODg1OSwiZXhwIjoxNzY0ODQ1MjU5fQ.GEHgVzVGEjAMxYB7Ua3NGQ74BCnYwbp66h8-6XYMvPk"},"extraData":"{\"action\":\"review\"}"}
-12-03 18:47:57.842   10024-14976   A03d00/JSAPP                                          I     ApiClient: 响应状态码 400
-12-03 18:47:57.842   10024-14976   A03d00/JSAPP                                          I     ApiClient: 响应数据 "{\"code\":400,\"message\":\"无效的操作类型: review\",\"data\":null}"
-12-03 18:47:57.842   10024-14976   A03d00/JSAPP                                          E     ApiClient: HTTP Error: 400
-12-03 18:47:57.842   10024-14976   A03d00/JSAPP                                          E     ApiClient.request error {}
+12-08 10:35:58.998   14424-38952   A03d00/JSAPP                                          I     TokenManager: Token获取 成功
+12-08 10:35:58.998   14424-38952   A03d00/JSAPP                                          I     ApiClient: 发起请求 http://192.168.142.1:8080/api/forum/posts/7/comments
+12-08 10:35:58.998   14424-38952   A03d00/JSAPP                                          I     ApiClient: 请求参数 {"method":"POST","header":{"Content-Type":"application/json","Authorization":"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMzM0NDQ0NTU1NSIsImlhdCI6MTc2NTE2MTMxNiwiZXhwIjoxNzY1MjQ3NzE2fQ.6NUDdK5B2ufIiYsL4JT3Jrm_d7lJUvIQNiYYDcOlnxA"},"extraData":"{\"content\":\"looks yummyyy\",\"username\":\"当前用户\",\"avatar\":\"default_avatar\"}"}
+12-08 10:35:59.163   14424-38952   A03d00/JSAPP                                          I     ApiClient: 响应状态码 200
+12-08 10:35:59.163   14424-38952   A03d00/JSAPP                                          I     ApiClient: 响应数据 "{\"code\":200,\"message\":\"评论成功\",\"data\":{\"commentId\":\"8\",\"avatar\":\"default_avatar\",\"username\":\"当前用户\"}}"

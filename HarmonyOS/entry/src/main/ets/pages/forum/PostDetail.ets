@@ -12,6 +12,7 @@ interface UserProfileParams {
 
 interface PostCommentParams {
   comments: Comment[];
+  postId: string; // 新增 postId 用于刷新
 }
 
 // 菜单项类型，匹配 bindMenu 所需的结构
@@ -30,6 +31,7 @@ struct PostDetail {
   @State isLiking: boolean = false;
   @State isCommenting: boolean = false;
   @State currentUserId: string = '';
+  @State isCrtUserLiked: boolean = false;
 
   aboutToAppear() {
     const params = router.getParams() as Record<string, Object>;
@@ -60,6 +62,7 @@ struct PostDetail {
       const response = await getPostDetail(this.postId);
       if (response.code === 200) {
         this.post = response.data;
+        this.isCrtUserLiked = response.data.isLiked || false;
       } else {
         promptAction.showToast({ message: response.message || '加载失败' });
       }
@@ -73,14 +76,40 @@ struct PostDetail {
 
   async handleLike() {
     if (this.isLiking || !this.post) return;
+    
+    // 乐观更新：立即切换状态
+    const previousLikedState = this.isCrtUserLiked;
+    this.isCrtUserLiked = !this.isCrtUserLiked;
+    if (this.isCrtUserLiked) {
+      this.post.likeCount++;
+    } else {
+      this.post.likeCount--;
+    }
+
     this.isLiking = true;
     try {
       const response = await likePost(this.postId);
       if (response.code === 200) {
-        this.post.likeCount += 1; // 简单模拟点赞数增加
-        promptAction.showToast({ message: '点赞成功' });
+        // 实际状态以服务器为准（可选，这里假设服务器逻辑一致）
+        // promptAction.showToast({ message: this.isCrtUserLiked ? '点赞成功' : '已取消点赞' });
+      } else {
+        // 失败回滚
+        this.isCrtUserLiked = previousLikedState;
+        if (this.isCrtUserLiked) {
+          this.post.likeCount++;
+        } else {
+          this.post.likeCount--;
+        }
+        promptAction.showToast({ message: '操作失败' });
       }
     } catch (error) {
+      // 失败回滚
+      this.isCrtUserLiked = previousLikedState;
+      if (this.isCrtUserLiked) {
+        this.post.likeCount++;
+      } else {
+        this.post.likeCount--;
+      }
       promptAction.showToast({ message: '操作失败' });
     } finally {
       this.isLiking = false;
@@ -165,10 +194,10 @@ struct PostDetail {
   async confirmSetPublic() {
     if (!this.post) return;
     try {
-      const resp = await updatePostStatus(this.postId, 0);
+      const resp = await updatePostStatus(this.postId, 1);
       if (resp.code === 200) {
-        promptAction.showToast({ message: '已设为公开！', duration: 1500 });
-        if (this.post) this.post.status = 0;
+        promptAction.showToast({ message: '已设为公开！待审核通过', duration: 1500 });
+        if (this.post) this.post.status = 1;
       } else {
         promptAction.showToast({ message: resp.message || '操作失败' });
       }
@@ -219,7 +248,7 @@ struct PostDetail {
 
   navigateToComments() {
     if (!this.post) return;
-    const params: PostCommentParams = { comments: this.post.comments };
+    const params: PostCommentParams = { comments: this.post.comments, postId: this.postId };
     RouterManager.navigateTo('pages/forum/PostComment', params);
   }
 
@@ -362,7 +391,7 @@ struct PostDetail {
               .height(32)
               .fontSize(14)
               .fontColor('#FFFFFF')
-              .backgroundColor('#007AFF')
+              .backgroundColor('#228B22')
               .borderRadius(16)
               .margin({ left: 12 })
               .onClick(() => {
@@ -381,9 +410,9 @@ struct PostDetail {
             Row() {
               // 点赞
               Row() {
-                Text('❤') // 替换为点赞图标
-                  .fontSize(20)
-                  .fontColor('#FF4444')
+                Image(this.isCrtUserLiked ? 'https://cdn-icons-png.flaticon.com/128/2107/2107845.png' : 'https://cdn-icons-png.flaticon.com/128/1077/1077035.png')
+                  .width(20)
+                  .height(20)
                   .margin({ right: 4 })
                 Text(this.post.likeCount.toString())
                   .fontSize(14)
@@ -396,9 +425,9 @@ struct PostDetail {
 
               // 评论（点击跳转）
               Row() {
-                Text('💬') // 替换为评论图标
-                  .fontSize(20)
-                  .fontColor('#666666')
+                Image('https://cdn-icons-png.flaticon.com/128/1380/1380338.png') // 评论图标
+                  .width(20)
+                  .height(20)
                   .margin({ right: 4 })
                 Text(this.post.comments ? this.post.comments.length.toString() : '0')
                   .fontSize(14)

@@ -16,6 +16,7 @@ export interface Post {
 export interface PostDetailData extends Post {
   content: string;
   comments: Comment[];
+  isLiked?: boolean; // 当前用户是否已点赞
 }
 
 export interface Comment {
@@ -24,6 +25,7 @@ export interface Comment {
   userId: string;
   username: string;
   avatar?: string; // 补充头像字段
+  createdAt?: string; // 补充创建时间
 }
 
 export interface CreatePostRequest {

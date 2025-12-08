@@ -149,7 +149,7 @@ export default struct Profile {
           Button('编辑资料')
             .fontSize(12)
             .fontColor('#FFFFFF')
-            .backgroundColor('#999999')
+            .backgroundColor('#228B22')
             .height(28)
             .borderRadius(14)
             .onClick(() => {

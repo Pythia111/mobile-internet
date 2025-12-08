@@ -84,8 +84,19 @@ public class ForumController {
      */
     @GetMapping("/posts/{postId}")
     @Operation(summary = "获取帖子详情")
-    public ApiResponse<PostDetailDto> getPostDetail(@PathVariable Long postId) {
-        PostDetailDto post = forumService.getPostDetail(postId);
+    public ApiResponse<PostDetailDto> getPostDetail(
+            Authentication authentication,
+            @PathVariable Long postId) {
+        Long userId = null;
+        if (authentication != null && authentication.isAuthenticated()) {
+            try {
+                User user = getCurrentUser(authentication);
+                userId = user.getId();
+            } catch (Exception e) {
+                // 忽略未登录或用户不存在的情况
+            }
+        }
+        PostDetailDto post = forumService.getPostDetail(postId, userId);
         return ApiResponse.success(post);
     }
 

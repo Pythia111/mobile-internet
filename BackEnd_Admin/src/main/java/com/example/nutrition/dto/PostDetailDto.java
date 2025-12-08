@@ -21,6 +21,6 @@ public class PostDetailDto {
     private String avatar;
     private Integer status;
     private Integer likeCount;
+    private boolean isLiked; // 当前用户是否已点赞
     private List<CommentDto> comments;
 }
-
