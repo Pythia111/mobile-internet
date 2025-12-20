@@ -1,0 +1,631 @@
+{
+	"info": {
+		"_postman_id": "forum-module-test-collection",
+		"name": "模块三：论坛模块接口测试",
+		"description": "论坛模块完整接口测试集合，包含发帖、浏览、点赞、评论、状态管理等功能",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "3.1 发布帖子",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"状态码为 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"返回包含 postId\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data).to.have.property('postId');",
+							"    pm.environment.set('postId', jsonData.data.postId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{userToken}}",
+						"description": "用户JWT令牌"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"健康饮食分享：我的减脂餐\",\n  \"content\": \"今天分享一下我的减脂餐食谱，早餐燕麦粥配鸡蛋，午餐鸡胸肉沙拉，晚餐清蒸鱼配西兰花。坚持一个月已经瘦了5斤！\",\n  \"images\": [\n    \"https://example.com/images/meal1.jpg\",\n    \"https://example.com/images/meal2.jpg\"\n  ],\n  \"creatorName\": \"健康达人小王\",\n  \"creatorAvatar\": \"https://example.com/avatar/user1.jpg\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/forum/posts",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"forum",
+						"posts"
+					]
+				},
+				"description": "发布新帖子，需要用户登录"
+			},
+			"response": []
+		},
+		{
+			"name": "3.2 获取论坛帖子列表（全部）",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"状态码为 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"返回帖子列表\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.posts).to.be.an('array');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/forum/posts?page=1&size=10",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"forum",
+						"posts"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1",
+							"description": "页码"
+						},
+						{
+							"key": "size",
+							"value": "10",
+							"description": "每页数量"
+						}
+					]
+				},
+				"description": "获取论坛帖子列表，默认不显示已删除帖子"
+			},
+			"response": []
+		},
+		{
+			"name": "3.2 获取论坛帖子列表（按状态筛选-公开）",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/forum/posts?page=1&size=10&status=0",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"forum",
+						"posts"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "status",
+							"value": "0",
+							"description": "0=公开"
+						}
+					]
+				},
+				"description": "只获取公开状态的帖子"
+			},
+			"response": []
+		},
+		{
+			"name": "3.2 获取论坛帖子列表（按状态筛选-待审核）",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{adminToken}}",
+						"description": "管理员令牌"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/forum/posts?page=1&size=10&status=1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"forum",
+						"posts"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "status",
+							"value": "1",
+							"description": "1=待审核"
+						}
+					]
+				},
+				"description": "获取待审核的帖子（仅管理员）"
+			},
+			"response": []
+		},
+		{
+			"name": "3.3 获取帖子详情",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"状态码为 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"返回帖子详情\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data).to.have.property('title');",
+							"    pm.expect(jsonData.data).to.have.property('content');",
+							"    pm.expect(jsonData.data).to.have.property('comments');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/forum/posts/{{postId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"forum",
+						"posts",
+						"{{postId}}"
+					]
+				},
+				"description": "获取指定帖子的详细信息，包括评论列表"
+			},
+			"response": []
+		},
+		{
+			"name": "3.4 点赞帖子",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"状态码为 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"返回点赞状态\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data).to.have.property('liked');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{userToken}}",
+						"description": "用户JWT令牌"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/forum/posts/{{postId}}/like",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"forum",
+						"posts",
+						"{{postId}}",
+						"like"
+					]
+				},
+				"description": "点赞或取消点赞帖子（需要登录）"
+			},
+			"response": []
+		},
+		{
+			"name": "3.5 评论帖子",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"状态码为 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"返回评论ID\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data).to.have.property('commentId');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{userToken}}",
+						"description": "用户JWT令牌"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"content\": \"这个减脂餐看起来很健康！我也想试试，请问早餐燕麦粥的比例是多少呢？\",\n  \"username\": \"运动爱好者李明\",\n  \"avatar\": \"https://example.com/avatar/user2.jpg\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/forum/posts/{{postId}}/comments",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"forum",
+						"posts",
+						"{{postId}}",
+						"comments"
+					]
+				},
+				"description": "对帖子发表评论（需要登录）"
+			},
+			"response": []
+		},
+		{
+			"name": "3.6 用户删除帖子",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"状态码为 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"状态已更新为已删除\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.newStatus).to.eql(3);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{userToken}}",
+						"description": "用户JWT令牌（必须是帖子作者）"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"action\": \"delete\",\n  \"reason\": \"不想公开此内容了\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/forum/posts/{{postId}}/status",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"forum",
+						"posts",
+						"{{postId}}",
+						"status"
+					]
+				},
+				"description": "用户删除自己的帖子（状态变为3-已删除）"
+			},
+			"response": []
+		},
+		{
+			"name": "3.6 管理员隐藏帖子（私密化）",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"状态码为 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"状态已更新为私密\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.newStatus).to.eql(2);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{adminToken}}",
+						"description": "管理员JWT令牌"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"action\": \"privatize\",\n  \"reason\": \"内容涉嫌违规，需要隐藏处理\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/forum/posts/{{postId}}/status",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"forum",
+						"posts",
+						"{{postId}}",
+						"status"
+					]
+				},
+				"description": "管理员将帖子设为私密状态（状态变为2-私密）"
+			},
+			"response": []
+		},
+		{
+			"name": "3.6 管理员公开帖子（审核通过）",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"状态码为 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"状态已更新为公开\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.newStatus).to.eql(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{adminToken}}",
+						"description": "管理员JWT令牌"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"action\": \"publicize\",\n  \"reason\": \"审核通过，内容健康\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/forum/posts/{{postId}}/status",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"forum",
+						"posts",
+						"{{postId}}",
+						"status"
+					]
+				},
+				"description": "管理员将帖子设为公开状态（状态变为0-公开）"
+			},
+			"response": []
+		},
+		{
+			"name": "3.6 权限测试-用户尝试隐藏他人帖子（应失败）",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"应返回403或400错误\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400, 403]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{userToken}}",
+						"description": "普通用户令牌"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"action\": \"privatize\",\n  \"reason\": \"测试权限控制\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/forum/posts/{{postId}}/status",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"forum",
+						"posts",
+						"{{postId}}",
+						"status"
+					]
+				},
+				"description": "测试普通用户无权执行管理员操作（应该失败）"
+			},
+			"response": []
+		},
+		{
+			"name": "3.7 获取用户主页及帖子",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"状态码为 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"返回用户信息和帖子列表\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data).to.have.property('userId');",
+							"    pm.expect(jsonData.data).to.have.property('username');",
+							"    pm.expect(jsonData.data).to.have.property('posts');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/forum/user/{{userId}}/posts",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"forum",
+						"user",
+						"{{userId}}",
+						"posts"
+					]
+				},
+				"description": "获取指定用户的主页信息及其发布的帖子列表"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "userToken",
+			"value": "your_user_jwt_token_here",
+			"type": "string"
+		},
+		{
+			"key": "adminToken",
+			"value": "your_admin_jwt_token_here",
+			"type": "string"
+		},
+		{
+			"key": "postId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "userId",
+			"value": "1",
+			"type": "string"
+		}
+	]
+}
+

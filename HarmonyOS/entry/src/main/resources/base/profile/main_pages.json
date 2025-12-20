@@ -1,0 +1,15 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/auth/Login",
+    "pages/auth/Register",
+    "pages/user/Profile",
+    "pages/user/EditProfile",
+    "pages/diet/DietHome",
+    "pages/forum/ForumHome",
+    "pages/forum/PostDetail",
+    "pages/forum/CreatePost",
+    "pages/forum/UserProfile",
+    "pages/forum/PostComment"
+  ]
+}

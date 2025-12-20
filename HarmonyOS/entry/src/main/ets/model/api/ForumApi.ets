@@ -1,0 +1,99 @@
+import ApiClient from './ApiClient';
+import http from '@ohos.net.http';
+import { ApiResponse } from '../response/ApiResponse';
+
+export interface Post {
+  postId: string;
+  title: string;
+  userId: string;
+  username: string;
+  images?: string[];
+  avatar: string;
+  status: number;
+  likeCount: number;
+}
+
+export interface PostDetailData extends Post {
+  content: string;
+  comments: Comment[];
+  isLiked?: boolean; // 当前用户是否已点赞
+}
+
+export interface Comment {
+  commentId: string;
+  content: string;
+  userId: string;
+  username: string;
+  avatar?: string; // 补充头像字段
+  createdAt?: string; // 补充创建时间
+}
+
+export interface CreatePostRequest {
+  title: string;
+  content: string;
+  images: string[];
+  creatorName: string;
+  creatorAvatar: string; // 接口文档要求必填
+}
+
+export interface PostListResponse {
+  posts: Post[];
+}
+
+export async function getPosts(status: number = 0): Promise<ApiResponse<PostListResponse>> {
+  return await ApiClient.request<ApiResponse<PostListResponse>>(`/api/forum/posts?status=${status}`, {
+    method: http.RequestMethod.GET
+  });
+}
+
+export async function getMyPosts(): Promise<ApiResponse<Post[]>> {
+  return await ApiClient.request<ApiResponse<Post[]>>('/api/forum/my-posts', {
+    method: http.RequestMethod.GET
+  });
+}
+
+export async function getPostDetail(postId: string): Promise<ApiResponse<PostDetailData>> {
+  return await ApiClient.request<ApiResponse<PostDetailData>>(`/api/forum/posts/${postId}`, {
+    method: http.RequestMethod.GET
+  });
+}
+
+export interface LikeResponse {
+  liked: boolean;
+}
+
+export async function likePost(postId: string): Promise<ApiResponse<LikeResponse>> {
+  return await ApiClient.request<ApiResponse<LikeResponse>>(`/api/forum/posts/${postId}/like`, {
+    method: http.RequestMethod.POST
+  });
+}
+
+export async function commentPost(postId: string, content: string, username: string, avatar: string): Promise<ApiResponse<Comment>> {
+  return await ApiClient.request<ApiResponse<Comment>>(`/api/forum/posts/${postId}/comments`, {
+    method: http.RequestMethod.POST,
+    header: { 'Content-Type': 'application/json' },
+    extraData: JSON.stringify({ content, username, avatar })
+  });
+}
+
+export async function createPost(post: CreatePostRequest): Promise<ApiResponse<Record<string, Object>>> {
+  return await ApiClient.request<ApiResponse<Record<string, Object>>>('/api/forum/posts', {
+    method: http.RequestMethod.POST,
+    header: { 'Content-Type': 'application/json' },
+    extraData: JSON.stringify(post)
+  });
+}
+
+export async function updatePostStatus(postId: string, status: number): Promise<ApiResponse<void>> {
+  // 后端接口要求 action 字段，根据 status 转换
+  let action = '';
+  if (status === 2) action = 'privatize';
+  else if (status === 3) action = 'delete';
+  else if (status === 0) action = 'publicize';
+  
+  return await ApiClient.request<ApiResponse<void>>(`/api/forum/posts/${postId}/status`, {
+    method: http.RequestMethod.PUT,
+    header: { 'Content-Type': 'application/json' },
+    extraData: JSON.stringify({ action: action })
+  });
+}
