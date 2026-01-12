@@ -54,8 +54,8 @@ struct CreatePost {
       if (dialogRes.index === 0) {
         // 选项1：添加网络测试图片（无需上传，直接可用）
         const testImages = [
-          'https://giraffefoods.com/wp-content/uploads/2024/06/full-table-of-food-dishes-and-snacks-food-in-plates-on-a-stone-background-top-view-2467162989-scaled.jpg',
-          'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80'
+          'https://pic2.zhimg.com/v2-ffe7e1207e8798000251b6b334ba4223_1200x500.jpg'
+
         ];
         this.images = [...this.images, ...testImages];
         promptAction.showToast({ message: '已添加测试图片', duration: 1500 });

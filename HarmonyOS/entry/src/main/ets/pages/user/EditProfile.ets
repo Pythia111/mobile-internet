@@ -64,7 +64,7 @@ struct EditProfile {
 
       if (dialogRes.index === 0) {
         // 测试图片
-        this.avatar = 'https://ts1.tc.mm.bing.net/th/id/R-C.7694252c8a305c3a6f6a51adbb53bb99?rik=b4P4dPg%2b%2bUT7jA&pid=ImgRaw&r=0';
+        this.avatar = 'https://www.keaitupian.cn/cjpic/frombd/2/253/2139581748/1307183353.jpg';
         promptAction.showToast({ message: '已选择测试图片', duration: 1500 });
         return;
       }

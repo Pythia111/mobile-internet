@@ -1,11 +1,11 @@
 export class ApiConfig {
   // 可用的服务器地址列表
   private static readonly SERVER_ADDRESSES = [
-    'http://10.4.96.144:8080',    // WLAN IP (主要)
-    'http://192.168.35.1:8080',   // VMware Network Adapter VMnet8
-    'http://192.168.221.1:8080',  // VMware Network Adapter VMnet1
-    'http://localhost:8080',      // 本地地址（仅限模拟器调试）
-    'http://127.0.0.1:8080'       // 本地回环地址
+    'http://localhost:8080',
+    'http://192.268.142.1:8080',    // WLAN IP (主要)
+    'http://192.168.254.1:8080',   // VMware Network Adapter VMnet8
+    'http://10.6.1.83:8080',  // VMware Network Adapter VMnet1
+    'http://172.31.176.1:8080'       // 本地回环地址
   ];
 
   // 当前使用的服务器地址索引
