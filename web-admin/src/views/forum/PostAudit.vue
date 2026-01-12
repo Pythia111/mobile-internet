@@ -17,11 +17,6 @@
       <el-table :data="postList" v-loading="loading" style="width: 100%">
         <el-table-column prop="title" label="标题" width="200" show-overflow-tooltip />
         <el-table-column prop="username" label="作者" width="100" />
-        <el-table-column prop="createTime" label="发布时间" width="160">
-           <template #default="scope">
-             {{ formatDate(scope.row.createTime) }}
-           </template>
-        </el-table-column>
         <el-table-column prop="status" label="状态" width="90">
           <template #default="scope">
             <el-tag :type="getStatusType(scope.row.status)">
