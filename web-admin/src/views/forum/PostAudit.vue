@@ -12,7 +12,6 @@
         <el-tab-pane label="待审核" name="1"></el-tab-pane>
         <el-tab-pane label="已发布" name="0"></el-tab-pane>
         <el-tab-pane label="违规/私密" name="2"></el-tab-pane>
-        <el-tab-pane label="已删除" name="3"></el-tab-pane>
       </el-tabs>
 
       <el-table :data="postList" v-loading="loading" style="width: 100%">

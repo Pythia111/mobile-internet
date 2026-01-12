@@ -91,7 +91,7 @@ const handleLogin = async () => {
       
       if (result.success) {
         ElMessage.success('登录成功')
-        router.push('/')
+        router.push('/forum/audit')
       } else {
         // 这里的 result.message 已经是经过处理的友好提示
         // 如果是业务错误（如密码错误），已经在 request.js 中弹出了，这里可以不再弹

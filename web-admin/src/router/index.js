@@ -17,7 +17,7 @@ const routes = [
   {
     path: '/',
     component: () => import('@/layouts/MainLayout.vue'),
-    redirect: '/profile',
+    redirect: '/forum/audit',
     meta: { requiresAuth: true },
     children: [
       {
