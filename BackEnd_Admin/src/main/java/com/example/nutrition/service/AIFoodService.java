@@ -190,9 +190,12 @@ public class AIFoodService {
 
             // 调用API
             String responseText = callXfyunAPI(requestJson.toString());
+            log.info("[搜索食物] API调用成功，开始解析响应");
 
             // 解析响应
-            return parseFoodListFromResponse(responseText);
+            List<FoodInfoDto> result = parseFoodListFromResponse(responseText);
+            log.info("[搜索食物] 解析完成，返回{}条结果", result.size());
+            return result;
 
         } catch (Exception e) {
             log.error("AI搜索食物失败: {}", e.getMessage(), e);
@@ -297,6 +300,7 @@ public class AIFoodService {
      */
     private List<FoodInfoDto> parseFoodListFromResponse(String responseText) {
         try {
+            log.debug("[解析食物列表] 完整响应: {}", responseText);
             JsonObject responseJson = gson.fromJson(responseText, JsonObject.class);
             JsonArray choices = responseJson.getAsJsonArray("choices");
             if (choices != null && choices.size() > 0) {
@@ -304,27 +308,49 @@ public class AIFoodService {
                 JsonObject message = firstChoice.getAsJsonObject("message");
                 String content = message.get("content").getAsString();
 
+                log.info("[解析食物列表] AI返回的content: {}", content);
+
                 // 尝试解析为数组或单个对象
                 try {
+                    log.debug("[解析食物列表] 尝试解析为JSON数组");
                     JsonArray foodArray = gson.fromJson(content, JsonArray.class);
+                    log.info("[解析食物列表] 成功解析为数组，包含{}个元素", foodArray.size());
                     return parseFoodArray(foodArray);
                 } catch (Exception e) {
+                    log.debug("[解析食物列表] 不是数组格式，尝试解析为对象: {}", e.getMessage());
                     // 可能返回的是包含数组的对象
-                    JsonObject contentObj = gson.fromJson(content, JsonObject.class);
-                    if (contentObj.has("foods")) {
-                        JsonArray foodArray = contentObj.getAsJsonArray("foods");
-                        return parseFoodArray(foodArray);
-                    } else if (contentObj.has("results")) {
-                        JsonArray foodArray = contentObj.getAsJsonArray("results");
-                        return parseFoodArray(foodArray);
+                    try {
+                        JsonObject contentObj = gson.fromJson(content, JsonObject.class);
+                        log.debug("[解析食物列表] 成功解析为对象，字段: {}", contentObj.keySet());
+
+                        if (contentObj.has("data")) {
+                            JsonArray foodArray = contentObj.getAsJsonArray("data");
+                            log.info("[解析食物列表] 从'data'字段获取到{}个元素", foodArray.size());
+                            return parseFoodArray(foodArray);
+                        } else if (contentObj.has("foods")) {
+                            JsonArray foodArray = contentObj.getAsJsonArray("foods");
+                            log.info("[解析食物列表] 从'foods'字段获取到{}个元素", foodArray.size());
+                            return parseFoodArray(foodArray);
+                        } else if (contentObj.has("results")) {
+                            JsonArray foodArray = contentObj.getAsJsonArray("results");
+                            log.info("[解析食物列表] 从'results'字段获取到{}个元素", foodArray.size());
+                            return parseFoodArray(foodArray);
+                        } else {
+                            log.warn("[解析食物列表] 对象中未找到'data'/'foods'/'results'字段，实际字段: {}", contentObj.keySet());
+                        }
+                    } catch (Exception e2) {
+                        log.error("[解析食物列表] 解析为对象也失败: {}", e2.getMessage());
                     }
                 }
+            } else {
+                log.warn("[解析食物列表] 响应中没有choices或choices为空");
             }
         } catch (Exception e) {
-            log.error("解析AI响应失败: {}", e.getMessage(), e);
+            log.error("[解析食物列表] 解析AI响应失败: {}", e.getMessage(), e);
         }
 
         // 解析失败时返回本地数据的前3条
+        log.warn("[解析食物列表] 所有解析尝试失败，返回本地模拟数据");
         return FOOD_DATABASE.subList(0, Math.min(3, FOOD_DATABASE.size()));
     }
 

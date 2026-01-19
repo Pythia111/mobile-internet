@@ -70,3 +70,2195 @@
 2025-12-08 11:25:58 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-12-08 11:25:58 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-12-08 11:25:58 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-19 23:25:47 INFO  [main] com.example.nutrition.Application - Starting Application using Java 1.8.0_202 on LAPTOP-U76OTIBE with PID 50080 (D:\2025-Autumn\移动互联网软件工程\mobile-internet\BackEnd_Admin\target\classes started by JNL in D:\2025-Autumn\移动互联网软件工程\mobile-internet\BackEnd_Admin)
+2026-01-19 23:25:47 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.5.Final
+2026-01-19 23:25:47 INFO  [main] com.example.nutrition.Application - The following 1 profile is active: "module2"
+2026-01-19 23:25:48 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-19 23:25:48 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 149 ms. Found 7 JPA repository interfaces.
+2026-01-19 23:25:52 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+2026-01-19 23:25:52 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2026-01-19 23:25:52 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-19 23:25:52 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2026-01-19 23:25:53 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-01-19 23:25:53 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 6041 ms
+2026-01-19 23:25:53 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-19 23:25:53 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-19 23:25:53 INFO  [main] o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/nutrition?useSSL=false&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&createDatabaseIfNotExist=true'
+2026-01-19 23:25:53 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-19 23:25:53 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2026-01-19 23:25:54 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2026-01-19 23:25:54 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2026-01-19 23:25:55 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-19 23:25:55 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-19 23:26:00 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@34fc315d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@34f48d1, org.springframework.security.web.context.SecurityContextPersistenceFilter@3c8758d1, org.springframework.security.web.header.HeaderWriterFilter@16e4db59, org.springframework.security.web.authentication.logout.LogoutFilter@6eded11a, com.example.nutrition.security.JwtAuthenticationFilter@6c519e47, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5da3f32a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@51f4439e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@36a1fd20, org.springframework.security.web.session.SessionManagementFilter@3c9ef37b, org.springframework.security.web.access.ExceptionTranslationFilter@cef885d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@399c408c]
+2026-01-19 23:26:01 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 6 endpoint(s) beneath base path '/actuator'
+2026-01-19 23:26:01 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2026-01-19 23:26:01 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+2026-01-19 23:26:01 INFO  [main] com.example.nutrition.Application - Started Application in 14.996 seconds (JVM running for 15.864)
+2026-01-19 23:26:01 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:26:01 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:26:01 DEBUG [main] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:26:01 DEBUG [main] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:26:01 DEBUG [main] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:26:01 DEBUG [main] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:26:01 INFO  [main] c.e.nutrition.config.SecurityConfig - Starting to initialize default data...
+2026-01-19 23:26:01 INFO  [main] c.e.nutrition.config.SecurityConfig - Initializing roles...
+2026-01-19 23:26:01 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:26:01 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:26:01 INFO  [main] c.e.nutrition.config.SecurityConfig - Checking for admin user...
+2026-01-19 23:26:01 DEBUG [main] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:26:01 DEBUG [main] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:26:01 INFO  [main] c.e.nutrition.config.SecurityConfig - Admin user already exists
+2026-01-19 23:26:01 INFO  [main] c.e.nutrition.config.SecurityConfig - Default data initialization completed!
+2026-01-19 23:27:05 INFO  [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-19 23:27:05 INFO  [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-19 23:27:05 INFO  [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2026-01-19 23:27:05 DEBUG [http-nio-8081-exec-1] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:27:05 DEBUG [http-nio-8081-exec-1] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:27:40 DEBUG [http-nio-8081-exec-3] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:27:40 DEBUG [http-nio-8081-exec-3] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:27:40 DEBUG [http-nio-8081-exec-3] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:27:40 DEBUG [http-nio-8081-exec-3] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:27:40 DEBUG [http-nio-8081-exec-3] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:27:40 DEBUG [http-nio-8081-exec-3] org.hibernate.SQL - 
+    insert 
+    into
+        users
+        (avatar_url, created_at, email, name, password_hash, phone, updated_at) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-01-19 23:27:40 DEBUG [http-nio-8081-exec-3] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:27:40 DEBUG [http-nio-8081-exec-3] org.hibernate.SQL - 
+    insert 
+    into
+        user_roles
+        (user_id, role_id) 
+    values
+        (?, ?)
+2026-01-19 23:27:40 DEBUG [http-nio-8081-exec-3] org.hibernate.SQL - 
+    insert 
+    into
+        user_roles
+        (user_id, role_id) 
+    values
+        (?, ?)
+2026-01-19 23:28:26 DEBUG [http-nio-8081-exec-4] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:28:26 DEBUG [http-nio-8081-exec-4] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:28:26 INFO  [http-nio-8081-exec-4] c.e.nutrition.service.DietService - 搜索食物: 牛肉
+2026-01-19 23:28:26 INFO  [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 牛肉
+2026-01-19 23:28:33 DEBUG [http-nio-8081-exec-5] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:28:33 DEBUG [http-nio-8081-exec-5] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:28:33 INFO  [http-nio-8081-exec-5] c.e.nutrition.service.DietService - 搜索食物: 牛肉
+2026-01-19 23:28:33 INFO  [http-nio-8081-exec-5] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 牛肉
+2026-01-19 23:28:39 DEBUG [http-nio-8081-exec-6] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:28:39 DEBUG [http-nio-8081-exec-6] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:28:39 INFO  [http-nio-8081-exec-6] c.e.nutrition.service.DietService - 搜索食物: 牛肉
+2026-01-19 23:28:39 INFO  [http-nio-8081-exec-6] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 牛肉
+2026-01-19 23:28:47 DEBUG [http-nio-8081-exec-9] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:28:47 DEBUG [http-nio-8081-exec-9] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:28:47 INFO  [http-nio-8081-exec-9] c.e.nutrition.service.DietService - 搜索食物: 牛肉
+2026-01-19 23:28:47 INFO  [http-nio-8081-exec-9] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 牛肉
+2026-01-19 23:28:54 DEBUG [http-nio-8081-exec-10] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:28:54 DEBUG [http-nio-8081-exec-10] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:28:54 INFO  [http-nio-8081-exec-10] c.e.nutrition.service.DietService - 搜索食物: 牛肉
+2026-01-19 23:28:54 INFO  [http-nio-8081-exec-10] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 牛肉
+2026-01-19 23:30:00 DEBUG [http-nio-8081-exec-2] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:30:00 DEBUG [http-nio-8081-exec-2] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:30:00 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.DietService - 搜索食物: 米饭
+2026-01-19 23:30:00 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 米饭
+2026-01-19 23:30:07 DEBUG [http-nio-8081-exec-1] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:30:07 DEBUG [http-nio-8081-exec-1] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:30:07 INFO  [http-nio-8081-exec-1] c.e.nutrition.service.DietService - 搜索食物: 米饭
+2026-01-19 23:30:07 INFO  [http-nio-8081-exec-1] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 米饭
+2026-01-19 23:30:14 DEBUG [http-nio-8081-exec-3] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:30:14 DEBUG [http-nio-8081-exec-3] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:30:14 INFO  [http-nio-8081-exec-3] c.e.nutrition.service.DietService - 搜索食物: 米饭
+2026-01-19 23:30:14 INFO  [http-nio-8081-exec-3] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 米饭
+2026-01-19 23:30:24 DEBUG [http-nio-8081-exec-4] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:30:24 DEBUG [http-nio-8081-exec-4] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:30:24 INFO  [http-nio-8081-exec-4] c.e.nutrition.service.DietService - 搜索食物: 米饭
+2026-01-19 23:30:24 INFO  [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 米饭
+2026-01-19 23:32:55 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.5.Final
+2026-01-19 23:32:55 INFO  [main] com.example.nutrition.Application - Starting Application using Java 1.8.0_202 on LAPTOP-U76OTIBE with PID 58224 (D:\2025-Autumn\移动互联网软件工程\mobile-internet\BackEnd_Admin\target\classes started by JNL in D:\2025-Autumn\移动互联网软件工程\mobile-internet\BackEnd_Admin)
+2026-01-19 23:32:55 INFO  [main] com.example.nutrition.Application - The following 1 profile is active: "module2"
+2026-01-19 23:32:56 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-19 23:32:56 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 101 ms. Found 7 JPA repository interfaces.
+2026-01-19 23:33:01 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+2026-01-19 23:33:01 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2026-01-19 23:33:01 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-19 23:33:01 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2026-01-19 23:33:01 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-01-19 23:33:01 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 6022 ms
+2026-01-19 23:33:01 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-19 23:33:02 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-19 23:33:02 INFO  [main] o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/nutrition?useSSL=false&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&createDatabaseIfNotExist=true'
+2026-01-19 23:33:02 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-19 23:33:02 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2026-01-19 23:33:02 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2026-01-19 23:33:02 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2026-01-19 23:33:03 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-19 23:33:03 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-19 23:33:09 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@543d2ef3, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@399c408c, org.springframework.security.web.context.SecurityContextPersistenceFilter@4feec184, org.springframework.security.web.header.HeaderWriterFilter@33fec21, org.springframework.security.web.authentication.logout.LogoutFilter@7c5ac0, com.example.nutrition.security.JwtAuthenticationFilter@7573c7b5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3278d065, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3c9ef37b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@99223ac, org.springframework.security.web.session.SessionManagementFilter@74231642, org.springframework.security.web.access.ExceptionTranslationFilter@35d4035f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@764db16c]
+2026-01-19 23:33:10 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 6 endpoint(s) beneath base path '/actuator'
+2026-01-19 23:33:10 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2026-01-19 23:33:10 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+2026-01-19 23:33:10 INFO  [main] com.example.nutrition.Application - Started Application in 15.993 seconds (JVM running for 16.98)
+2026-01-19 23:33:10 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:33:10 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:33:10 DEBUG [main] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:33:10 DEBUG [main] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:33:10 DEBUG [main] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:33:10 DEBUG [main] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:33:10 INFO  [main] c.e.nutrition.config.SecurityConfig - Starting to initialize default data...
+2026-01-19 23:33:10 INFO  [main] c.e.nutrition.config.SecurityConfig - Initializing roles...
+2026-01-19 23:33:10 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:33:10 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:33:10 INFO  [main] c.e.nutrition.config.SecurityConfig - Checking for admin user...
+2026-01-19 23:33:10 DEBUG [main] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:33:10 DEBUG [main] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:33:10 INFO  [main] c.e.nutrition.config.SecurityConfig - Admin user already exists
+2026-01-19 23:33:10 INFO  [main] c.e.nutrition.config.SecurityConfig - Default data initialization completed!
+2026-01-19 23:33:11 INFO  [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-19 23:33:11 INFO  [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-19 23:33:11 INFO  [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-01-19 23:33:11 DEBUG [http-nio-8081-exec-2] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:33:11 DEBUG [http-nio-8081-exec-2] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:33:11 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.DietService - 搜索食物: 米饭
+2026-01-19 23:33:11 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 米饭
+2026-01-19 23:33:20 DEBUG [http-nio-8081-exec-4] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:33:20 DEBUG [http-nio-8081-exec-4] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:33:20 INFO  [http-nio-8081-exec-4] c.e.nutrition.service.DietService - 搜索食物: 米饭
+2026-01-19 23:33:20 INFO  [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 米饭
+2026-01-19 23:35:27 DEBUG [http-nio-8081-exec-5] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:35:27 DEBUG [http-nio-8081-exec-5] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:35:27 INFO  [http-nio-8081-exec-5] c.e.nutrition.service.DietService - 搜索食物: 米饭
+2026-01-19 23:35:27 INFO  [http-nio-8081-exec-5] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 米饭
+2026-01-19 23:35:38 DEBUG [http-nio-8081-exec-6] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:35:38 DEBUG [http-nio-8081-exec-6] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:35:38 INFO  [http-nio-8081-exec-6] c.e.nutrition.service.DietService - 搜索食物: 米饭
+2026-01-19 23:35:38 INFO  [http-nio-8081-exec-6] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 米饭
+2026-01-19 23:37:22 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-19 23:37:22 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-19 23:37:22 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-19 23:37:39 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.5.Final
+2026-01-19 23:37:39 INFO  [main] com.example.nutrition.Application - Starting Application using Java 1.8.0_202 on LAPTOP-U76OTIBE with PID 53960 (D:\2025-Autumn\移动互联网软件工程\mobile-internet\BackEnd_Admin\target\classes started by JNL in D:\2025-Autumn\移动互联网软件工程\mobile-internet\BackEnd_Admin)
+2026-01-19 23:37:39 INFO  [main] com.example.nutrition.Application - The following 1 profile is active: "module2"
+2026-01-19 23:37:40 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-19 23:37:40 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 140 ms. Found 7 JPA repository interfaces.
+2026-01-19 23:37:45 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+2026-01-19 23:37:45 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2026-01-19 23:37:45 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-19 23:37:45 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2026-01-19 23:37:45 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-01-19 23:37:45 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 6308 ms
+2026-01-19 23:37:45 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-19 23:37:45 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-19 23:37:46 INFO  [main] o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/nutrition?useSSL=false&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&createDatabaseIfNotExist=true'
+2026-01-19 23:37:46 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-19 23:37:46 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2026-01-19 23:37:46 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2026-01-19 23:37:46 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2026-01-19 23:37:48 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-19 23:37:48 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-19 23:37:53 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@39f68aec, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@65ff4b8c, org.springframework.security.web.context.SecurityContextPersistenceFilter@737ff5c4, org.springframework.security.web.header.HeaderWriterFilter@227b9277, org.springframework.security.web.authentication.logout.LogoutFilter@c6c84fa, com.example.nutrition.security.JwtAuthenticationFilter@1acc873b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@124ff64d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@79777da7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@b81938d, org.springframework.security.web.session.SessionManagementFilter@5018b56b, org.springframework.security.web.access.ExceptionTranslationFilter@55397d15, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@45832b85]
+2026-01-19 23:37:54 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 6 endpoint(s) beneath base path '/actuator'
+2026-01-19 23:37:54 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2026-01-19 23:37:54 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+2026-01-19 23:37:54 INFO  [main] com.example.nutrition.Application - Started Application in 15.886 seconds (JVM running for 16.73)
+2026-01-19 23:37:54 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:37:54 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:37:54 DEBUG [main] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:37:54 DEBUG [main] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:37:54 DEBUG [main] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:37:54 DEBUG [main] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:37:54 INFO  [main] c.e.nutrition.config.SecurityConfig - Starting to initialize default data...
+2026-01-19 23:37:54 INFO  [main] c.e.nutrition.config.SecurityConfig - Initializing roles...
+2026-01-19 23:37:54 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:37:54 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:37:54 INFO  [main] c.e.nutrition.config.SecurityConfig - Checking for admin user...
+2026-01-19 23:37:54 DEBUG [main] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:37:54 DEBUG [main] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:37:54 INFO  [main] c.e.nutrition.config.SecurityConfig - Admin user already exists
+2026-01-19 23:37:54 INFO  [main] c.e.nutrition.config.SecurityConfig - Default data initialization completed!
+2026-01-19 23:37:58 INFO  [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-19 23:37:58 INFO  [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-19 23:37:58 INFO  [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2026-01-19 23:37:58 DEBUG [http-nio-8081-exec-1] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:37:58 DEBUG [http-nio-8081-exec-1] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:37:58 INFO  [http-nio-8081-exec-1] c.e.nutrition.service.DietService - 搜索食物: 米饭
+2026-01-19 23:37:58 INFO  [http-nio-8081-exec-1] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 米饭
+2026-01-19 23:38:03 INFO  [http-nio-8081-exec-1] c.e.nutrition.service.AIFoodService - [搜索食物] API调用成功，开始解析响应
+2026-01-19 23:38:03 INFO  [http-nio-8081-exec-1] c.e.nutrition.service.AIFoodService - [解析食物列表] AI返回的content: {
+  "foods": [
+    {
+      "foodName": "白米",
+      "calories": 126,
+      "protein": 1.3,
+      "carbohydrates": 45.0,
+      "fat": 0.2
+    },
+    {
+      "foodName": "糙米",
+      "calories": 104,
+      "protein": 1.2,
+      "carbohydrates": 43.0,
+      "fat": 0.2
+    },
+    {
+      "foodName": "糯米",
+      "calories": 132,
+      "protein": 1.3,
+      "carbohydrates": 45.0,
+      "fat": 0.2
+    },
+    {
+      "foodName": "意大利面",
+      "calories": 110,
+      "protein": 2.0,
+      "carbohydrates": 45.0,
+      "fat": 0.2
+    },
+    {
+      "foodName": "泰国米",
+      "calories": 112,
+      "protein": 1.3,
+      "carbohydrates": 44.0,
+      "fat": 0.2
+    }
+  ]
+}
+2026-01-19 23:38:03 INFO  [http-nio-8081-exec-1] c.e.nutrition.service.AIFoodService - [解析食物列表] 从'foods'字段获取到5个元素
+2026-01-19 23:38:03 INFO  [http-nio-8081-exec-1] c.e.nutrition.service.AIFoodService - [搜索食物] 解析完成，返回5条结果
+2026-01-19 23:38:31 DEBUG [http-nio-8081-exec-3] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:38:31 DEBUG [http-nio-8081-exec-3] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:38:31 INFO  [http-nio-8081-exec-3] c.e.nutrition.service.DietService - 搜索食物: 米饭
+2026-01-19 23:38:31 INFO  [http-nio-8081-exec-3] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 米饭
+2026-01-19 23:38:34 INFO  [http-nio-8081-exec-3] c.e.nutrition.service.AIFoodService - [搜索食物] API调用成功，开始解析响应
+2026-01-19 23:38:34 INFO  [http-nio-8081-exec-3] c.e.nutrition.service.AIFoodService - [解析食物列表] AI返回的content: {
+  "data": [
+    {
+      "foodName": "白米饭",
+      "calories": 125,
+      "protein": 1.3,
+      "carbohydrates": 45.0,
+      "fat": 0.3
+    },
+    {
+      "foodName": "糙米",
+      "calories": 105,
+      "protein": 1.2,
+      "carbohydrates": 45.0,
+      "fat": 0.3
+    },
+    {
+      "foodName": "意大利面",
+      "calories": 110,
+      "protein": 3.0,
+      "carbohydrates": 45.0,
+      "fat": 0.2
+    },
+    {
+      "foodName": "印度米",
+      "calories": 120,
+      "protein": 1.2,
+      "carbohydrates": 45.0,
+      "fat": 0.3
+    },
+    {
+      "foodName": "印度米（乌尔）",
+      "calories": 120,
+      "protein": 1.2,
+      "carbohydrates": 45.0,
+      "fat": 0.3
+    }
+  ]
+}
+2026-01-19 23:38:34 WARN  [http-nio-8081-exec-3] c.e.nutrition.service.AIFoodService - [解析食物列表] 对象中未找到'foods'或'results'字段，实际字段: [data]
+2026-01-19 23:38:34 WARN  [http-nio-8081-exec-3] c.e.nutrition.service.AIFoodService - [解析食物列表] 所有解析尝试失败，返回本地模拟数据
+2026-01-19 23:38:34 INFO  [http-nio-8081-exec-3] c.e.nutrition.service.AIFoodService - [搜索食物] 解析完成，返回3条结果
+2026-01-19 23:38:36 DEBUG [http-nio-8081-exec-4] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:38:36 DEBUG [http-nio-8081-exec-4] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:38:36 INFO  [http-nio-8081-exec-4] c.e.nutrition.service.DietService - 搜索食物: 米饭
+2026-01-19 23:38:36 INFO  [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 米饭
+2026-01-19 23:38:42 INFO  [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - [搜索食物] API调用成功，开始解析响应
+2026-01-19 23:38:42 INFO  [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - [解析食物列表] AI返回的content: {
+  "data": [
+    {
+      "foodName": "白米饭",
+      "calories": 116,
+      "protein": 1.1,
+      "carbohydrates": 42.6,
+      "fat": 0.3
+    },
+    {
+      "foodName": "糙米饭",
+      "calories": 125,
+      "protein": 1.2,
+      "carbohydrates": 44.5,
+      "fat": 0.3
+    },
+    {
+      "foodName": "东北大米",
+      "calories": 114,
+      "protein": 1.0,
+      "carbohydrates": 42.5,
+      "fat": 0.3
+    },
+    {
+      "foodName": "意大利面",
+      "calories": 110,
+      "protein": 1.2,
+      "carbohydrates": 45.0,
+      "fat": 0.3
+    },
+    {
+      "foodName": "印度米",
+      "calories": 118,
+      "protein": 1.1,
+      "carbohydrates": 43.5,
+      "fat": 0.3
+    }
+  ]
+}
+2026-01-19 23:38:42 WARN  [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - [解析食物列表] 对象中未找到'foods'或'results'字段，实际字段: [data]
+2026-01-19 23:38:42 WARN  [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - [解析食物列表] 所有解析尝试失败，返回本地模拟数据
+2026-01-19 23:38:42 INFO  [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - [搜索食物] 解析完成，返回3条结果
+2026-01-19 23:38:44 DEBUG [http-nio-8081-exec-5] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:38:44 DEBUG [http-nio-8081-exec-5] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:38:44 INFO  [http-nio-8081-exec-5] c.e.nutrition.service.DietService - 搜索食物: 米饭
+2026-01-19 23:38:44 INFO  [http-nio-8081-exec-5] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 米饭
+2026-01-19 23:38:48 INFO  [http-nio-8081-exec-5] c.e.nutrition.service.AIFoodService - [搜索食物] API调用成功，开始解析响应
+2026-01-19 23:38:48 INFO  [http-nio-8081-exec-5] c.e.nutrition.service.AIFoodService - [解析食物列表] AI返回的content: {
+  "data": [
+    {
+      "foodName": "白米饭",
+      "calories": 125,
+      "protein": 1.3,
+      "carbohydrates": 45.2,
+      "fat": 0.3
+    },
+    {
+      "foodName": "糙米",
+      "calories": 105,
+      "protein": 1.8,
+      "carbohydrates": 44.8,
+      "fat": 0.3
+    },
+    {
+      "foodName": "意大利面",
+      "calories": 120,
+      "protein": 3.2,
+      "carbohydrates": 48.0,
+      "fat": 0.2
+    },
+    {
+      "foodName": "印度米（乌尔米）",
+      "calories": 110,
+      "protein": 1.6,
+      "carbohydrates": 45.0,
+      "fat": 0.3
+    },
+    {
+      "foodName": "泰国米（茉莉米）",
+      "calories": 115,
+      "protein": 1.5,
+      "carbohydrates": 46.0,
+      "fat": 0.3
+    }
+  ]
+}
+2026-01-19 23:38:48 WARN  [http-nio-8081-exec-5] c.e.nutrition.service.AIFoodService - [解析食物列表] 对象中未找到'foods'或'results'字段，实际字段: [data]
+2026-01-19 23:38:48 WARN  [http-nio-8081-exec-5] c.e.nutrition.service.AIFoodService - [解析食物列表] 所有解析尝试失败，返回本地模拟数据
+2026-01-19 23:38:48 INFO  [http-nio-8081-exec-5] c.e.nutrition.service.AIFoodService - [搜索食物] 解析完成，返回3条结果
+2026-01-19 23:38:49 DEBUG [http-nio-8081-exec-6] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:38:49 DEBUG [http-nio-8081-exec-6] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:38:49 INFO  [http-nio-8081-exec-6] c.e.nutrition.service.DietService - 搜索食物: 米饭
+2026-01-19 23:38:49 INFO  [http-nio-8081-exec-6] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 米饭
+2026-01-19 23:38:55 INFO  [http-nio-8081-exec-6] c.e.nutrition.service.AIFoodService - [搜索食物] API调用成功，开始解析响应
+2026-01-19 23:38:55 INFO  [http-nio-8081-exec-6] c.e.nutrition.service.AIFoodService - [解析食物列表] AI返回的content: {
+  "data": [
+    {
+      "foodName": "大米",
+      "calories": 125,
+      "protein": 1.3,
+      "carbohydrates": 45.0,
+      "fat": 0.3
+    },
+    {
+      "foodName": "糯米",
+      "calories": 120,
+      "protein": 1.2,
+      "carbohydrates": 45.0,
+      "fat": 0.3
+    },
+    {
+      "foodName": "糙米",
+      "calories": 110,
+      "protein": 1.1,
+      "carbohydrates": 46.0,
+      "fat": 0.3
+    },
+    {
+      "foodName": "意大利面",
+      "calories": 120,
+      "protein": 3.0,
+      "carbohydrates": 45.0,
+      "fat": 0.3
+    },
+    {
+      "foodName": "印度米",
+      "calories": 120,
+      "protein": 1.2,
+      "carbohydrates": 45.0,
+      "fat": 0.3
+    }
+  ]
+}
+2026-01-19 23:38:55 WARN  [http-nio-8081-exec-6] c.e.nutrition.service.AIFoodService - [解析食物列表] 对象中未找到'foods'或'results'字段，实际字段: [data]
+2026-01-19 23:38:55 WARN  [http-nio-8081-exec-6] c.e.nutrition.service.AIFoodService - [解析食物列表] 所有解析尝试失败，返回本地模拟数据
+2026-01-19 23:38:55 INFO  [http-nio-8081-exec-6] c.e.nutrition.service.AIFoodService - [搜索食物] 解析完成，返回3条结果
+2026-01-19 23:39:00 DEBUG [http-nio-8081-exec-7] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:39:00 DEBUG [http-nio-8081-exec-7] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:39:00 INFO  [http-nio-8081-exec-7] c.e.nutrition.service.DietService - 搜索食物: 米饭
+2026-01-19 23:39:00 INFO  [http-nio-8081-exec-7] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 米饭
+2026-01-19 23:39:03 INFO  [http-nio-8081-exec-7] c.e.nutrition.service.AIFoodService - [搜索食物] API调用成功，开始解析响应
+2026-01-19 23:39:03 INFO  [http-nio-8081-exec-7] c.e.nutrition.service.AIFoodService - [解析食物列表] AI返回的content: {
+  "data": [
+    {
+      "foodName": "东北大米",
+      "calories": 106,
+      "protein": 1.3,
+      "carbohydrates": 73.2,
+      "fat": 0.3
+    },
+    {
+      "foodName": "长江中下游大米",
+      "calories": 106,
+      "protein": 1.3,
+      "carbohydrates": 73.2,
+      "fat": 0.3
+    },
+    {
+      "foodName": "泰国香米",
+      "calories": 106,
+      "protein": 1.3,
+      "carbohydrates": 73.2,
+      "fat": 0.3
+    },
+    {
+      "foodName": "日本米",
+      "calories": 106,
+      "protein": 1.3,
+      "carbohydrates": 73.2,
+      "fat": 0.3
+    },
+    {
+      "foodName": "印度米",
+      "calories": 106,
+      "protein": 1.3,
+      "carbohydrates": 73.2,
+      "fat": 0.3
+    }
+  ]
+}
+2026-01-19 23:39:03 WARN  [http-nio-8081-exec-7] c.e.nutrition.service.AIFoodService - [解析食物列表] 对象中未找到'foods'或'results'字段，实际字段: [data]
+2026-01-19 23:39:03 WARN  [http-nio-8081-exec-7] c.e.nutrition.service.AIFoodService - [解析食物列表] 所有解析尝试失败，返回本地模拟数据
+2026-01-19 23:39:03 INFO  [http-nio-8081-exec-7] c.e.nutrition.service.AIFoodService - [搜索食物] 解析完成，返回3条结果
+2026-01-19 23:39:06 DEBUG [http-nio-8081-exec-8] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:39:06 DEBUG [http-nio-8081-exec-8] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:39:06 INFO  [http-nio-8081-exec-8] c.e.nutrition.service.DietService - 搜索食物: 米饭
+2026-01-19 23:39:06 INFO  [http-nio-8081-exec-8] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 米饭
+2026-01-19 23:39:10 INFO  [http-nio-8081-exec-8] c.e.nutrition.service.AIFoodService - [搜索食物] API调用成功，开始解析响应
+2026-01-19 23:39:10 INFO  [http-nio-8081-exec-8] c.e.nutrition.service.AIFoodService - [解析食物列表] AI返回的content: {
+  "foods": [
+    {
+      "foodName": "大米",
+      "calories": 125,
+      "protein": 1.3,
+      "carbohydrates": 45.0,
+      "fat": 0.3
+    },
+    {
+      "foodName": "糯米",
+      "calories": 130,
+      "protein": 1.2,
+      "carbohydrates": 46.0,
+      "fat": 0.3
+    },
+    {
+      "foodName": "糙米",
+      "calories": 110,
+      "protein": 1.1,
+      "carbohydrates": 46.0,
+      "fat": 0.3
+    },
+    {
+      "foodName": "意大利面",
+      "calories": 110,
+      "protein": 3.0,
+      "carbohydrates": 45.0,
+      "fat": 0.3
+    },
+    {
+      "foodName": "印度米",
+      "calories": 120,
+      "protein": 1.2,
+      "carbohydrates": 46.0,
+      "fat": 0.3
+    }
+  ]
+}
+2026-01-19 23:39:10 INFO  [http-nio-8081-exec-8] c.e.nutrition.service.AIFoodService - [解析食物列表] 从'foods'字段获取到5个元素
+2026-01-19 23:39:10 INFO  [http-nio-8081-exec-8] c.e.nutrition.service.AIFoodService - [搜索食物] 解析完成，返回5条结果
+2026-01-19 23:40:12 DEBUG [http-nio-8081-exec-2] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:40:12 DEBUG [http-nio-8081-exec-2] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:40:12 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.DietService - 搜索食物: 米饭
+2026-01-19 23:40:12 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 米饭
+2026-01-19 23:40:18 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [搜索食物] API调用成功，开始解析响应
+2026-01-19 23:40:18 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [解析食物列表] AI返回的content: {
+  "foods": [
+    {
+      "foodName": "白米饭",
+      "calories": 125,
+      "protein": 1.2,
+      "carbohydrates": 45.0,
+      "fat": 0.3
+    },
+    {
+      "foodName": "糙米",
+      "calories": 105,
+      "protein": 1.8,
+      "carbohydrates": 42.0,
+      "fat": 0.3
+    },
+    {
+      "foodName": "意大利面",
+      "calories": 110,
+      "protein": 3.0,
+      "carbohydrates": 45.0,
+      "fat": 0.3
+    },
+    {
+      "foodName": "印度米（如乌尔都米）",
+      "calories": 120,
+      "protein": 1.5,
+      "carbohydrates": 45.0,
+      "fat": 0.3
+    },
+    {
+      "foodName": "日本米（如米糠米）",
+      "calories": 115,
+      "protein": 1.6,
+      "carbohydrates": 44.0,
+      "fat": 0.3
+    }
+  ]
+}
+2026-01-19 23:40:18 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [解析食物列表] 从'foods'字段获取到5个元素
+2026-01-19 23:40:18 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [搜索食物] 解析完成，返回5条结果
+2026-01-19 23:42:20 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-19 23:42:20 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-19 23:42:20 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-19 23:42:35 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.5.Final
+2026-01-19 23:42:35 INFO  [main] com.example.nutrition.Application - Starting Application using Java 1.8.0_202 on LAPTOP-U76OTIBE with PID 44108 (D:\2025-Autumn\移动互联网软件工程\mobile-internet\BackEnd_Admin\target\classes started by JNL in D:\2025-Autumn\移动互联网软件工程\mobile-internet\BackEnd_Admin)
+2026-01-19 23:42:35 INFO  [main] com.example.nutrition.Application - The following 1 profile is active: "module2"
+2026-01-19 23:42:37 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-19 23:42:37 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 104 ms. Found 7 JPA repository interfaces.
+2026-01-19 23:42:42 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+2026-01-19 23:42:42 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2026-01-19 23:42:42 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-19 23:42:42 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2026-01-19 23:42:42 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-01-19 23:42:42 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 7101 ms
+2026-01-19 23:42:43 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-19 23:42:43 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-19 23:42:43 INFO  [main] o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/nutrition?useSSL=false&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&createDatabaseIfNotExist=true'
+2026-01-19 23:42:43 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-19 23:42:43 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2026-01-19 23:42:43 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2026-01-19 23:42:43 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2026-01-19 23:42:45 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-19 23:42:45 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-19 23:42:50 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5ae87de0, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1f85904a, org.springframework.security.web.context.SecurityContextPersistenceFilter@3c62be3c, org.springframework.security.web.header.HeaderWriterFilter@54737322, org.springframework.security.web.authentication.logout.LogoutFilter@575d48db, com.example.nutrition.security.JwtAuthenticationFilter@29aa4bc9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@70ce2fb2, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4d525897, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@514dc5f4, org.springframework.security.web.session.SessionManagementFilter@33fec21, org.springframework.security.web.access.ExceptionTranslationFilter@27746c5e, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3856d0cb]
+2026-01-19 23:42:51 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 6 endpoint(s) beneath base path '/actuator'
+2026-01-19 23:42:51 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2026-01-19 23:42:51 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+2026-01-19 23:42:51 INFO  [main] com.example.nutrition.Application - Started Application in 16.588 seconds (JVM running for 17.69)
+2026-01-19 23:42:51 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:42:51 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:42:51 DEBUG [main] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:42:51 DEBUG [main] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:42:51 DEBUG [main] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:42:51 DEBUG [main] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:42:51 INFO  [main] c.e.nutrition.config.SecurityConfig - Starting to initialize default data...
+2026-01-19 23:42:51 INFO  [main] c.e.nutrition.config.SecurityConfig - Initializing roles...
+2026-01-19 23:42:51 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:42:51 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:42:51 INFO  [main] c.e.nutrition.config.SecurityConfig - Checking for admin user...
+2026-01-19 23:42:51 DEBUG [main] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:42:51 DEBUG [main] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:42:51 INFO  [main] c.e.nutrition.config.SecurityConfig - Admin user already exists
+2026-01-19 23:42:51 INFO  [main] c.e.nutrition.config.SecurityConfig - Default data initialization completed!
+2026-01-19 23:43:03 INFO  [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-19 23:43:03 INFO  [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-19 23:43:03 INFO  [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-01-19 23:43:03 DEBUG [http-nio-8081-exec-2] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:43:03 DEBUG [http-nio-8081-exec-2] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:43:03 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.DietService - 搜索食物: 米饭
+2026-01-19 23:43:03 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 米饭
+2026-01-19 23:43:09 DEBUG [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - API响应: {"id":"cht000bf854@dx19bd6ec8b75ba29700","model":"xop3qwen1b7","object":"chat.completion","created":1768837390,"choices":[{"index":0,"message":{"role":"assistant","content":"{\n  \"data\": [\n    {\n      \"foodName\": \"白米饭\",\n      \"calories\": 116,\n      \"protein\": 1.1,\n      \"carbohydrates\": 45.3,\n      \"fat\": 0.3\n    },\n    {\n      \"foodName\": \"糙米饭\",\n      \"calories\": 124,\n      \"protein\": 1.2,\n      \"carbohydrates\": 46.5,\n      \"fat\": 0.3\n    },\n    {\n      \"foodName\": \"糯米米饭\",\n      \"calories\": 118,\n      \"protein\": 1.1,\n      \"carbohydrates\": 45.8,\n      \"fat\": 0.3\n    },\n    {\n      \"foodName\": \"意大利面\",\n      \"calories\": 100,\n      \"protein\": 3.0,\n      \"carbohydrates\": 45.0,\n      \"fat\": 0.3\n    },\n    {\n      \"foodName\": \"印度米\",\n      \"calories\": 118,\n      \"protein\": 1.2,\n      \"carbohydrates\": 45.5,\n      \"fat\": 0.3\n    }\n  ]\n}","reasoning_content":"","plugins_content":null},"finish_reason":"stop"}],"usage":{"prompt_tokens":95,"completion_tokens":275,"total_tokens":370,"prompt_tokens_details":{"cached_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}
+2026-01-19 23:43:09 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [搜索食物] API调用成功，开始解析响应
+2026-01-19 23:43:09 DEBUG [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [解析食物列表] 完整响应: {"id":"cht000bf854@dx19bd6ec8b75ba29700","model":"xop3qwen1b7","object":"chat.completion","created":1768837390,"choices":[{"index":0,"message":{"role":"assistant","content":"{\n  \"data\": [\n    {\n      \"foodName\": \"白米饭\",\n      \"calories\": 116,\n      \"protein\": 1.1,\n      \"carbohydrates\": 45.3,\n      \"fat\": 0.3\n    },\n    {\n      \"foodName\": \"糙米饭\",\n      \"calories\": 124,\n      \"protein\": 1.2,\n      \"carbohydrates\": 46.5,\n      \"fat\": 0.3\n    },\n    {\n      \"foodName\": \"糯米米饭\",\n      \"calories\": 118,\n      \"protein\": 1.1,\n      \"carbohydrates\": 45.8,\n      \"fat\": 0.3\n    },\n    {\n      \"foodName\": \"意大利面\",\n      \"calories\": 100,\n      \"protein\": 3.0,\n      \"carbohydrates\": 45.0,\n      \"fat\": 0.3\n    },\n    {\n      \"foodName\": \"印度米\",\n      \"calories\": 118,\n      \"protein\": 1.2,\n      \"carbohydrates\": 45.5,\n      \"fat\": 0.3\n    }\n  ]\n}","reasoning_content":"","plugins_content":null},"finish_reason":"stop"}],"usage":{"prompt_tokens":95,"completion_tokens":275,"total_tokens":370,"prompt_tokens_details":{"cached_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}
+2026-01-19 23:43:09 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [解析食物列表] AI返回的content: {
+  "data": [
+    {
+      "foodName": "白米饭",
+      "calories": 116,
+      "protein": 1.1,
+      "carbohydrates": 45.3,
+      "fat": 0.3
+    },
+    {
+      "foodName": "糙米饭",
+      "calories": 124,
+      "protein": 1.2,
+      "carbohydrates": 46.5,
+      "fat": 0.3
+    },
+    {
+      "foodName": "糯米米饭",
+      "calories": 118,
+      "protein": 1.1,
+      "carbohydrates": 45.8,
+      "fat": 0.3
+    },
+    {
+      "foodName": "意大利面",
+      "calories": 100,
+      "protein": 3.0,
+      "carbohydrates": 45.0,
+      "fat": 0.3
+    },
+    {
+      "foodName": "印度米",
+      "calories": 118,
+      "protein": 1.2,
+      "carbohydrates": 45.5,
+      "fat": 0.3
+    }
+  ]
+}
+2026-01-19 23:43:09 DEBUG [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [解析食物列表] 尝试解析为JSON数组
+2026-01-19 23:43:09 DEBUG [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [解析食物列表] 不是数组格式，尝试解析为对象: Expected a com.google.gson.JsonArray but was com.google.gson.JsonObject; at path $
+2026-01-19 23:43:09 DEBUG [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [解析食物列表] 成功解析为对象，字段: [data]
+2026-01-19 23:43:09 WARN  [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [解析食物列表] 对象中未找到'foods'或'results'字段，实际字段: [data]
+2026-01-19 23:43:09 WARN  [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [解析食物列表] 所有解析尝试失败，返回本地模拟数据
+2026-01-19 23:43:09 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [搜索食物] 解析完成，返回3条结果
+2026-01-19 23:44:51 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-19 23:44:51 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-19 23:44:51 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-19 23:45:05 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.5.Final
+2026-01-19 23:45:05 INFO  [main] com.example.nutrition.Application - Starting Application using Java 1.8.0_202 on LAPTOP-U76OTIBE with PID 47488 (D:\2025-Autumn\移动互联网软件工程\mobile-internet\BackEnd_Admin\target\classes started by JNL in D:\2025-Autumn\移动互联网软件工程\mobile-internet\BackEnd_Admin)
+2026-01-19 23:45:05 INFO  [main] com.example.nutrition.Application - The following 1 profile is active: "module2"
+2026-01-19 23:45:07 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-19 23:45:07 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 133 ms. Found 7 JPA repository interfaces.
+2026-01-19 23:45:11 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+2026-01-19 23:45:11 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2026-01-19 23:45:11 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-19 23:45:11 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2026-01-19 23:45:12 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-01-19 23:45:12 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 6291 ms
+2026-01-19 23:45:12 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-19 23:45:12 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-19 23:45:12 INFO  [main] o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/nutrition?useSSL=false&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&createDatabaseIfNotExist=true'
+2026-01-19 23:45:12 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-19 23:45:12 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2026-01-19 23:45:13 INFO  [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2026-01-19 23:45:13 INFO  [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2026-01-19 23:45:14 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-19 23:45:14 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-19 23:45:20 INFO  [main] o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@77a85e76, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2cebf82f, org.springframework.security.web.context.SecurityContextPersistenceFilter@5b895e76, org.springframework.security.web.header.HeaderWriterFilter@54737322, org.springframework.security.web.authentication.logout.LogoutFilter@495e8a3, com.example.nutrition.security.JwtAuthenticationFilter@73da7f08, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4a6facb0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5e055ce1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@34fc315d, org.springframework.security.web.session.SessionManagementFilter@33fec21, org.springframework.security.web.access.ExceptionTranslationFilter@27746c5e, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4bf10fe1]
+2026-01-19 23:45:21 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 6 endpoint(s) beneath base path '/actuator'
+2026-01-19 23:45:21 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2026-01-19 23:45:21 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+2026-01-19 23:45:21 INFO  [main] com.example.nutrition.Application - Started Application in 16.597 seconds (JVM running for 17.612)
+2026-01-19 23:45:21 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:45:21 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:45:21 DEBUG [main] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:45:21 DEBUG [main] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:45:21 DEBUG [main] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:45:21 DEBUG [main] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:45:21 INFO  [main] c.e.nutrition.config.SecurityConfig - Starting to initialize default data...
+2026-01-19 23:45:21 INFO  [main] c.e.nutrition.config.SecurityConfig - Initializing roles...
+2026-01-19 23:45:21 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:45:21 DEBUG [main] org.hibernate.SQL - 
+    select
+        role0_.id as id1_4_,
+        role0_.name as name2_4_ 
+    from
+        roles role0_ 
+    where
+        role0_.name=?
+2026-01-19 23:45:21 INFO  [main] c.e.nutrition.config.SecurityConfig - Checking for admin user...
+2026-01-19 23:45:21 DEBUG [main] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:45:21 DEBUG [main] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:45:21 INFO  [main] c.e.nutrition.config.SecurityConfig - Admin user already exists
+2026-01-19 23:45:21 INFO  [main] c.e.nutrition.config.SecurityConfig - Default data initialization completed!
+2026-01-19 23:45:26 INFO  [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-19 23:45:26 INFO  [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-19 23:45:26 INFO  [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-01-19 23:45:26 DEBUG [http-nio-8081-exec-2] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:45:26 DEBUG [http-nio-8081-exec-2] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:45:26 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.DietService - 搜索食物: 米饭
+2026-01-19 23:45:26 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 米饭
+2026-01-19 23:45:32 DEBUG [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - API响应: {"id":"cht000b6f11@dx19bd6eeb981ba2a700","model":"xop3qwen1b7","object":"chat.completion","created":1768837532,"choices":[{"index":0,"message":{"role":"assistant","content":"{\n  \"foods\": [\n    {\n      \"foodName\": \"白米饭\",\n      \"calories\": 125,\n      \"protein\": 1.3,\n      \"carbohydrates\": 45.7,\n      \"fat\": 0.3\n    },\n    {\n      \"foodName\": \"糙米饭\",\n      \"calories\": 120,\n      \"protein\": 1.2,\n      \"carbohydrates\": 46.5,\n      \"fat\": 0.3\n    },\n    {\n      \"foodName\": \"意大利面\",\n      \"calories\": 120,\n      \"protein\": 1.5,\n      \"carbohydrates\": 46.5,\n      \"fat\": 0.3\n    },\n    {\n      \"foodName\": \"印度米（如乌尔都米）\",\n      \"calories\": 120,\n      \"protein\": 1.2,\n      \"carbohydrates\": 46.5,\n      \"fat\": 0.3\n    },\n    {\n      \"foodName\": \"印度米（如巴吉米）\",\n      \"calories\": 120,\n      \"protein\": 1.2,\n      \"carbohydrates\": 46.5,\n      \"fat\": 0.3\n    }\n  ]\n}","reasoning_content":"","plugins_content":null},"finish_reason":"stop"}],"usage":{"prompt_tokens":95,"completion_tokens":288,"total_tokens":383,"prompt_tokens_details":{"cached_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}
+2026-01-19 23:45:32 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [搜索食物] API调用成功，开始解析响应
+2026-01-19 23:45:32 DEBUG [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [解析食物列表] 完整响应: {"id":"cht000b6f11@dx19bd6eeb981ba2a700","model":"xop3qwen1b7","object":"chat.completion","created":1768837532,"choices":[{"index":0,"message":{"role":"assistant","content":"{\n  \"foods\": [\n    {\n      \"foodName\": \"白米饭\",\n      \"calories\": 125,\n      \"protein\": 1.3,\n      \"carbohydrates\": 45.7,\n      \"fat\": 0.3\n    },\n    {\n      \"foodName\": \"糙米饭\",\n      \"calories\": 120,\n      \"protein\": 1.2,\n      \"carbohydrates\": 46.5,\n      \"fat\": 0.3\n    },\n    {\n      \"foodName\": \"意大利面\",\n      \"calories\": 120,\n      \"protein\": 1.5,\n      \"carbohydrates\": 46.5,\n      \"fat\": 0.3\n    },\n    {\n      \"foodName\": \"印度米（如乌尔都米）\",\n      \"calories\": 120,\n      \"protein\": 1.2,\n      \"carbohydrates\": 46.5,\n      \"fat\": 0.3\n    },\n    {\n      \"foodName\": \"印度米（如巴吉米）\",\n      \"calories\": 120,\n      \"protein\": 1.2,\n      \"carbohydrates\": 46.5,\n      \"fat\": 0.3\n    }\n  ]\n}","reasoning_content":"","plugins_content":null},"finish_reason":"stop"}],"usage":{"prompt_tokens":95,"completion_tokens":288,"total_tokens":383,"prompt_tokens_details":{"cached_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}
+2026-01-19 23:45:32 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [解析食物列表] AI返回的content: {
+  "foods": [
+    {
+      "foodName": "白米饭",
+      "calories": 125,
+      "protein": 1.3,
+      "carbohydrates": 45.7,
+      "fat": 0.3
+    },
+    {
+      "foodName": "糙米饭",
+      "calories": 120,
+      "protein": 1.2,
+      "carbohydrates": 46.5,
+      "fat": 0.3
+    },
+    {
+      "foodName": "意大利面",
+      "calories": 120,
+      "protein": 1.5,
+      "carbohydrates": 46.5,
+      "fat": 0.3
+    },
+    {
+      "foodName": "印度米（如乌尔都米）",
+      "calories": 120,
+      "protein": 1.2,
+      "carbohydrates": 46.5,
+      "fat": 0.3
+    },
+    {
+      "foodName": "印度米（如巴吉米）",
+      "calories": 120,
+      "protein": 1.2,
+      "carbohydrates": 46.5,
+      "fat": 0.3
+    }
+  ]
+}
+2026-01-19 23:45:32 DEBUG [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [解析食物列表] 尝试解析为JSON数组
+2026-01-19 23:45:32 DEBUG [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [解析食物列表] 不是数组格式，尝试解析为对象: Expected a com.google.gson.JsonArray but was com.google.gson.JsonObject; at path $
+2026-01-19 23:45:32 DEBUG [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [解析食物列表] 成功解析为对象，字段: [foods]
+2026-01-19 23:45:32 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [解析食物列表] 从'foods'字段获取到5个元素
+2026-01-19 23:45:32 INFO  [http-nio-8081-exec-2] c.e.nutrition.service.AIFoodService - [搜索食物] 解析完成，返回5条结果
+2026-01-19 23:45:45 DEBUG [http-nio-8081-exec-3] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:45:45 DEBUG [http-nio-8081-exec-3] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:45:45 INFO  [http-nio-8081-exec-3] c.e.nutrition.service.DietService - 搜索食物: 牛肉
+2026-01-19 23:45:45 INFO  [http-nio-8081-exec-3] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 牛肉
+2026-01-19 23:45:51 DEBUG [http-nio-8081-exec-3] c.e.nutrition.service.AIFoodService - API响应: {"id":"cht000b2ab4@dx19bd6ef024cb8aa700","model":"xop3qwen1b7","object":"chat.completion","created":1768837551,"choices":[{"index":0,"message":{"role":"assistant","content":"{\n  \"data\": [\n    {\n      \"foodName\": \"牛肉\",\n      \"calories\": 220,\n      \"protein\": 20,\n      \"carbohydrates\": 0,\n      \"fat\": 12\n    },\n    {\n      \"foodName\": \"牛排\",\n      \"calories\": 220,\n      \"protein\": 20,\n      \"carbohydrates\": 0,\n      \"fat\": 12\n    },\n    {\n      \"foodName\": \"牛肉末\",\n      \"calories\": 220,\n      \"protein\": 20,\n      \"carbohydrates\": 0,\n      \"fat\": 12\n    },\n    {\n      \"foodName\": \"牛肉片\",\n      \"calories\": 220,\n      \"protein\": 20,\n      \"carbohydrates\": 0,\n      \"fat\": 12\n    },\n    {\n      \"foodName\": \"牛肉干\",\n      \"calories\": 200,\n      \"protein\": 10,\n      \"carbohydrates\": 0,\n      \"fat\": 10\n    }\n  ]\n}","reasoning_content":"","plugins_content":null},"finish_reason":"stop"}],"usage":{"prompt_tokens":95,"completion_tokens":249,"total_tokens":344,"prompt_tokens_details":{"cached_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}
+2026-01-19 23:45:51 INFO  [http-nio-8081-exec-3] c.e.nutrition.service.AIFoodService - [搜索食物] API调用成功，开始解析响应
+2026-01-19 23:45:51 DEBUG [http-nio-8081-exec-3] c.e.nutrition.service.AIFoodService - [解析食物列表] 完整响应: {"id":"cht000b2ab4@dx19bd6ef024cb8aa700","model":"xop3qwen1b7","object":"chat.completion","created":1768837551,"choices":[{"index":0,"message":{"role":"assistant","content":"{\n  \"data\": [\n    {\n      \"foodName\": \"牛肉\",\n      \"calories\": 220,\n      \"protein\": 20,\n      \"carbohydrates\": 0,\n      \"fat\": 12\n    },\n    {\n      \"foodName\": \"牛排\",\n      \"calories\": 220,\n      \"protein\": 20,\n      \"carbohydrates\": 0,\n      \"fat\": 12\n    },\n    {\n      \"foodName\": \"牛肉末\",\n      \"calories\": 220,\n      \"protein\": 20,\n      \"carbohydrates\": 0,\n      \"fat\": 12\n    },\n    {\n      \"foodName\": \"牛肉片\",\n      \"calories\": 220,\n      \"protein\": 20,\n      \"carbohydrates\": 0,\n      \"fat\": 12\n    },\n    {\n      \"foodName\": \"牛肉干\",\n      \"calories\": 200,\n      \"protein\": 10,\n      \"carbohydrates\": 0,\n      \"fat\": 10\n    }\n  ]\n}","reasoning_content":"","plugins_content":null},"finish_reason":"stop"}],"usage":{"prompt_tokens":95,"completion_tokens":249,"total_tokens":344,"prompt_tokens_details":{"cached_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}
+2026-01-19 23:45:51 INFO  [http-nio-8081-exec-3] c.e.nutrition.service.AIFoodService - [解析食物列表] AI返回的content: {
+  "data": [
+    {
+      "foodName": "牛肉",
+      "calories": 220,
+      "protein": 20,
+      "carbohydrates": 0,
+      "fat": 12
+    },
+    {
+      "foodName": "牛排",
+      "calories": 220,
+      "protein": 20,
+      "carbohydrates": 0,
+      "fat": 12
+    },
+    {
+      "foodName": "牛肉末",
+      "calories": 220,
+      "protein": 20,
+      "carbohydrates": 0,
+      "fat": 12
+    },
+    {
+      "foodName": "牛肉片",
+      "calories": 220,
+      "protein": 20,
+      "carbohydrates": 0,
+      "fat": 12
+    },
+    {
+      "foodName": "牛肉干",
+      "calories": 200,
+      "protein": 10,
+      "carbohydrates": 0,
+      "fat": 10
+    }
+  ]
+}
+2026-01-19 23:45:51 DEBUG [http-nio-8081-exec-3] c.e.nutrition.service.AIFoodService - [解析食物列表] 尝试解析为JSON数组
+2026-01-19 23:45:51 DEBUG [http-nio-8081-exec-3] c.e.nutrition.service.AIFoodService - [解析食物列表] 不是数组格式，尝试解析为对象: Expected a com.google.gson.JsonArray but was com.google.gson.JsonObject; at path $
+2026-01-19 23:45:51 DEBUG [http-nio-8081-exec-3] c.e.nutrition.service.AIFoodService - [解析食物列表] 成功解析为对象，字段: [data]
+2026-01-19 23:45:51 INFO  [http-nio-8081-exec-3] c.e.nutrition.service.AIFoodService - [解析食物列表] 从'data'字段获取到5个元素
+2026-01-19 23:45:51 INFO  [http-nio-8081-exec-3] c.e.nutrition.service.AIFoodService - [搜索食物] 解析完成，返回5条结果
+2026-01-19 23:46:01 DEBUG [http-nio-8081-exec-4] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:46:01 DEBUG [http-nio-8081-exec-4] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:46:01 INFO  [http-nio-8081-exec-4] c.e.nutrition.service.DietService - 搜索食物: 苹果
+2026-01-19 23:46:01 INFO  [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 苹果
+2026-01-19 23:46:05 DEBUG [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - API响应: {"id":"cht000b0ca7@dx19bd6ef3f1ab992700","model":"xop3qwen1b7","object":"chat.completion","created":1768837565,"choices":[{"index":0,"message":{"role":"assistant","content":"{\n  \"foods\": [\n    {\n      \"foodName\": \"苹果\",\n      \"calories\": 52,\n      \"protein\": 0.3,\n      \"carbohydrates\": 15.5,\n      \"fat\": 0.2\n    },\n    {\n      \"foodName\": \"梨\",\n      \"calories\": 50,\n      \"protein\": 0.3,\n      \"carbohydrates\": 15.5,\n      \"fat\": 0.2\n    },\n    {\n      \"foodName\": \"蟠桃\",\n      \"calories\": 55,\n      \"protein\": 0.3,\n      \"carbohydrates\": 15.5,\n      \"fat\": 0.2\n    },\n    {\n      \"foodName\": \"柑橘\",\n      \"calories\": 45,\n      \"protein\": 0.3,\n      \"carbohydrates\": 12.5,\n      \"fat\": 0.2\n    },\n    {\n      \"foodName\": \"葡萄\",\n      \"calories\": 50,\n      \"protein\": 0.3,\n      \"carbohydrates\": 14.5,\n      \"fat\": 0.2\n    }\n  ]\n}","reasoning_content":"","plugins_content":null},"finish_reason":"stop"}],"usage":{"prompt_tokens":95,"completion_tokens":267,"total_tokens":362,"prompt_tokens_details":{"cached_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}
+2026-01-19 23:46:05 INFO  [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - [搜索食物] API调用成功，开始解析响应
+2026-01-19 23:46:05 DEBUG [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - [解析食物列表] 完整响应: {"id":"cht000b0ca7@dx19bd6ef3f1ab992700","model":"xop3qwen1b7","object":"chat.completion","created":1768837565,"choices":[{"index":0,"message":{"role":"assistant","content":"{\n  \"foods\": [\n    {\n      \"foodName\": \"苹果\",\n      \"calories\": 52,\n      \"protein\": 0.3,\n      \"carbohydrates\": 15.5,\n      \"fat\": 0.2\n    },\n    {\n      \"foodName\": \"梨\",\n      \"calories\": 50,\n      \"protein\": 0.3,\n      \"carbohydrates\": 15.5,\n      \"fat\": 0.2\n    },\n    {\n      \"foodName\": \"蟠桃\",\n      \"calories\": 55,\n      \"protein\": 0.3,\n      \"carbohydrates\": 15.5,\n      \"fat\": 0.2\n    },\n    {\n      \"foodName\": \"柑橘\",\n      \"calories\": 45,\n      \"protein\": 0.3,\n      \"carbohydrates\": 12.5,\n      \"fat\": 0.2\n    },\n    {\n      \"foodName\": \"葡萄\",\n      \"calories\": 50,\n      \"protein\": 0.3,\n      \"carbohydrates\": 14.5,\n      \"fat\": 0.2\n    }\n  ]\n}","reasoning_content":"","plugins_content":null},"finish_reason":"stop"}],"usage":{"prompt_tokens":95,"completion_tokens":267,"total_tokens":362,"prompt_tokens_details":{"cached_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}
+2026-01-19 23:46:05 INFO  [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - [解析食物列表] AI返回的content: {
+  "foods": [
+    {
+      "foodName": "苹果",
+      "calories": 52,
+      "protein": 0.3,
+      "carbohydrates": 15.5,
+      "fat": 0.2
+    },
+    {
+      "foodName": "梨",
+      "calories": 50,
+      "protein": 0.3,
+      "carbohydrates": 15.5,
+      "fat": 0.2
+    },
+    {
+      "foodName": "蟠桃",
+      "calories": 55,
+      "protein": 0.3,
+      "carbohydrates": 15.5,
+      "fat": 0.2
+    },
+    {
+      "foodName": "柑橘",
+      "calories": 45,
+      "protein": 0.3,
+      "carbohydrates": 12.5,
+      "fat": 0.2
+    },
+    {
+      "foodName": "葡萄",
+      "calories": 50,
+      "protein": 0.3,
+      "carbohydrates": 14.5,
+      "fat": 0.2
+    }
+  ]
+}
+2026-01-19 23:46:05 DEBUG [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - [解析食物列表] 尝试解析为JSON数组
+2026-01-19 23:46:05 DEBUG [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - [解析食物列表] 不是数组格式，尝试解析为对象: Expected a com.google.gson.JsonArray but was com.google.gson.JsonObject; at path $
+2026-01-19 23:46:05 DEBUG [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - [解析食物列表] 成功解析为对象，字段: [foods]
+2026-01-19 23:46:05 INFO  [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - [解析食物列表] 从'foods'字段获取到5个元素
+2026-01-19 23:46:05 INFO  [http-nio-8081-exec-4] c.e.nutrition.service.AIFoodService - [搜索食物] 解析完成，返回5条结果
+2026-01-19 23:46:14 DEBUG [http-nio-8081-exec-8] org.hibernate.SQL - 
+    select
+        user0_.id as id1_7_,
+        user0_.avatar_url as avatar_u2_7_,
+        user0_.created_at as created_3_7_,
+        user0_.email as email4_7_,
+        user0_.name as name5_7_,
+        user0_.password_hash as password6_7_,
+        user0_.phone as phone7_7_,
+        user0_.updated_at as updated_8_7_ 
+    from
+        users user0_ 
+    where
+        user0_.phone=?
+2026-01-19 23:46:14 DEBUG [http-nio-8081-exec-8] org.hibernate.SQL - 
+    select
+        roles0_.user_id as user_id1_6_0_,
+        roles0_.role_id as role_id2_6_0_,
+        role1_.id as id1_4_1_,
+        role1_.name as name2_4_1_ 
+    from
+        user_roles roles0_ 
+    inner join
+        roles role1_ 
+            on roles0_.role_id=role1_.id 
+    where
+        roles0_.user_id=?
+2026-01-19 23:46:14 INFO  [http-nio-8081-exec-8] c.e.nutrition.service.DietService - 搜索食物: 猪肉
+2026-01-19 23:46:14 INFO  [http-nio-8081-exec-8] c.e.nutrition.service.AIFoodService - 使用讯飞星火AI搜索食物: 猪肉
+2026-01-19 23:46:22 DEBUG [http-nio-8081-exec-8] c.e.nutrition.service.AIFoodService - API响应: {"id":"cht000b4b8e@dx19bd6ef72a5b87f700","model":"xop3qwen1b7","object":"chat.completion","created":1768837583,"choices":[{"index":0,"message":{"role":"assistant","content":"{\n  \"foods\": [\n    {\n      \"foodName\": \"猪肉\",\n      \"calories\": 179,\n      \"protein\": 20,\n      \"carbohydrates\": 0,\n      \"fat\": 9\n    },\n    {\n      \"foodName\": \"猪肉（猪里脊）\",\n      \"calories\": 179,\n      \"protein\": 20,\n      \"carbohydrates\": 0,\n      \"fat\": 9\n    },\n    {\n      \"foodName\": \"猪肉（猪腿肉）\",\n      \"calories\": 179,\n      \"protein\": 20,\n      \"carbohydrates\": 0,\n      \"fat\": 9\n    },\n    {\n      \"foodName\": \"猪肉（猪肩肉）\",\n      \"calories\": 179,\n      \"protein\": 20,\n      \"carbohydrates\": 0,\n      \"fat\": 9\n    },\n    {\n      \"foodName\": \"猪肉（猪五花肉）\",\n      \"calories\": 179,\n      \"protein\": 20,\n      \"carbohydrates\": 0,\n      \"fat\": 9\n    }\n  ]\n}","reasoning_content":"","plugins_content":null},"finish_reason":"stop"}],"usage":{"prompt_tokens":95,"completion_tokens":261,"total_tokens":356,"prompt_tokens_details":{"cached_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}
+2026-01-19 23:46:22 INFO  [http-nio-8081-exec-8] c.e.nutrition.service.AIFoodService - [搜索食物] API调用成功，开始解析响应
+2026-01-19 23:46:22 DEBUG [http-nio-8081-exec-8] c.e.nutrition.service.AIFoodService - [解析食物列表] 完整响应: {"id":"cht000b4b8e@dx19bd6ef72a5b87f700","model":"xop3qwen1b7","object":"chat.completion","created":1768837583,"choices":[{"index":0,"message":{"role":"assistant","content":"{\n  \"foods\": [\n    {\n      \"foodName\": \"猪肉\",\n      \"calories\": 179,\n      \"protein\": 20,\n      \"carbohydrates\": 0,\n      \"fat\": 9\n    },\n    {\n      \"foodName\": \"猪肉（猪里脊）\",\n      \"calories\": 179,\n      \"protein\": 20,\n      \"carbohydrates\": 0,\n      \"fat\": 9\n    },\n    {\n      \"foodName\": \"猪肉（猪腿肉）\",\n      \"calories\": 179,\n      \"protein\": 20,\n      \"carbohydrates\": 0,\n      \"fat\": 9\n    },\n    {\n      \"foodName\": \"猪肉（猪肩肉）\",\n      \"calories\": 179,\n      \"protein\": 20,\n      \"carbohydrates\": 0,\n      \"fat\": 9\n    },\n    {\n      \"foodName\": \"猪肉（猪五花肉）\",\n      \"calories\": 179,\n      \"protein\": 20,\n      \"carbohydrates\": 0,\n      \"fat\": 9\n    }\n  ]\n}","reasoning_content":"","plugins_content":null},"finish_reason":"stop"}],"usage":{"prompt_tokens":95,"completion_tokens":261,"total_tokens":356,"prompt_tokens_details":{"cached_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}
+2026-01-19 23:46:22 INFO  [http-nio-8081-exec-8] c.e.nutrition.service.AIFoodService - [解析食物列表] AI返回的content: {
+  "foods": [
+    {
+      "foodName": "猪肉",
+      "calories": 179,
+      "protein": 20,
+      "carbohydrates": 0,
+      "fat": 9
+    },
+    {
+      "foodName": "猪肉（猪里脊）",
+      "calories": 179,
+      "protein": 20,
+      "carbohydrates": 0,
+      "fat": 9
+    },
+    {
+      "foodName": "猪肉（猪腿肉）",
+      "calories": 179,
+      "protein": 20,
+      "carbohydrates": 0,
+      "fat": 9
+    },
+    {
+      "foodName": "猪肉（猪肩肉）",
+      "calories": 179,
+      "protein": 20,
+      "carbohydrates": 0,
+      "fat": 9
+    },
+    {
+      "foodName": "猪肉（猪五花肉）",
+      "calories": 179,
+      "protein": 20,
+      "carbohydrates": 0,
+      "fat": 9
+    }
+  ]
+}
+2026-01-19 23:46:22 DEBUG [http-nio-8081-exec-8] c.e.nutrition.service.AIFoodService - [解析食物列表] 尝试解析为JSON数组
+2026-01-19 23:46:22 DEBUG [http-nio-8081-exec-8] c.e.nutrition.service.AIFoodService - [解析食物列表] 不是数组格式，尝试解析为对象: Expected a com.google.gson.JsonArray but was com.google.gson.JsonObject; at path $
+2026-01-19 23:46:22 DEBUG [http-nio-8081-exec-8] c.e.nutrition.service.AIFoodService - [解析食物列表] 成功解析为对象，字段: [foods]
+2026-01-19 23:46:22 INFO  [http-nio-8081-exec-8] c.e.nutrition.service.AIFoodService - [解析食物列表] 从'foods'字段获取到5个元素
+2026-01-19 23:46:22 INFO  [http-nio-8081-exec-8] c.e.nutrition.service.AIFoodService - [搜索食物] 解析完成，返回5条结果
+2026-01-19 23:46:31 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-19 23:46:31 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-19 23:46:31 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
