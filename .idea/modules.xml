@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/mobile-internet.iml" filepath="$PROJECT_DIR$/.idea/mobile-internet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/entry.iml" filepath="$PROJECT_DIR$/.idea/modules/entry.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mobile-internet.iml" filepath="$PROJECT_DIR$/.idea/modules/mobile-internet.iml" />
     </modules>
   </component>
 </project>

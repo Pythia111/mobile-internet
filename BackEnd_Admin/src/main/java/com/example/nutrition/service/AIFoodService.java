@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -30,10 +31,12 @@ public class AIFoodService {
     private final Gson gson = new Gson();
 
     // OkHttp客户端，确保UTF-8编码
+    // 增加超时时间，添加重试机制
     private final OkHttpClient httpClient = new OkHttpClient.Builder()
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(60, TimeUnit.SECONDS)  // 增加连接超时
+            .readTimeout(120, TimeUnit.SECONDS)    // 增加读取超时
+            .writeTimeout(60, TimeUnit.SECONDS)    // 增加写入超时
+            .retryOnConnectionFailure(true)         // 启用连接失败重试
             .build();
 
     // 模拟食物数据库（当AI功能未启用时使用）
@@ -78,6 +81,66 @@ public class AIFoodService {
                     new BigDecimal("2.7")),
             new FoodInfoDto("胡萝卜", new BigDecimal("41"), new BigDecimal("0.9"), new BigDecimal("9.6"),
                     new BigDecimal("0.2")));
+
+    /**
+     * 服务启动时检查AI配置
+     */
+    @PostConstruct
+    public void init() {
+        log.info("=== AI食物服务初始化 ===");
+        log.info("AI功能启用状态: {}", xfyunConfig.isEnabled());
+
+        if (xfyunConfig.isEnabled()) {
+            log.info("AI API地址: {}", xfyunConfig.getApiBase());
+            log.info("AI 模型ID: {}", xfyunConfig.getModelId());
+            log.info("API Key (前10位): {}...",
+                xfyunConfig.getApiKey() != null && xfyunConfig.getApiKey().length() > 10
+                ? xfyunConfig.getApiKey().substring(0, 10)
+                : "未配置");
+
+            // 执行连接测试
+            testAIConnection();
+        } else {
+            log.warn("AI功能未启用，将使用本地数据库和模拟数据");
+        }
+        log.info("=== AI食物服务初始化完成 ===");
+    }
+
+    /**
+     * 测试AI连接
+     */
+    private void testAIConnection() {
+        log.info("开始测试AI服务连接...");
+        try {
+            // 构建一个简单的测试请求
+            JsonObject requestJson = new JsonObject();
+            requestJson.addProperty("model", xfyunConfig.getModelId());
+            requestJson.addProperty("temperature", 0.7);
+            requestJson.addProperty("max_tokens", 100);
+
+            JsonArray messages = new JsonArray();
+            JsonObject userMessage = new JsonObject();
+            userMessage.addProperty("role", "user");
+            userMessage.addProperty("content", "请用一句话介绍你自己");
+            messages.add(userMessage);
+            requestJson.add("messages", messages);
+
+            long startTime = System.currentTimeMillis();
+            String response = callXfyunAPI(requestJson.toString());
+            long elapsedTime = System.currentTimeMillis() - startTime;
+
+            log.info("✓ AI服务连接测试成功！响应时间: {}ms", elapsedTime);
+            log.debug("测试响应: {}", response);
+        } catch (Exception e) {
+            log.error("✗ AI服务连接测试失败: {} - {}", e.getClass().getSimpleName(), e.getMessage());
+            log.error("可能的原因：");
+            log.error("  1. 网络无法访问 {} ", xfyunConfig.getApiBase());
+            log.error("  2. API Key 配置错误");
+            log.error("  3. 防火墙阻止了连接");
+            log.error("  4. 讯飞AI服务暂时不可用");
+            log.error("建议：如果AI服务频繁失败，请考虑在配置中设置 enabled: false");
+        }
+    }
 
     /**
      * AI识别食物
@@ -167,6 +230,7 @@ public class AIFoodService {
                 keyword, keyword);
 
         try {
+            log.info("构建AI搜索请求，关键词: {}", keyword);
             // 构建请求JSON
             JsonObject requestJson = new JsonObject();
             requestJson.addProperty("model", xfyunConfig.getModelId());
@@ -192,10 +256,30 @@ public class AIFoodService {
             String responseText = callXfyunAPI(requestJson.toString());
 
             // 解析响应
-            return parseFoodListFromResponse(responseText);
+            List<FoodInfoDto> results = parseFoodListFromResponse(responseText);
+            log.info("AI搜索成功，返回 {} 条结果", results.size());
+            return results;
 
+        } catch (java.net.SocketTimeoutException e) {
+            log.error("AI搜索超时 - 网络连接或服务响应超时: {}", e.getMessage());
+            log.warn("AI服务不可用，降级到本地数据库搜索: {}", keyword);
+            // 降级：使用本地搜索
+            return searchFoodLocal(keyword);
+        } catch (java.net.UnknownHostException e) {
+            log.error("AI搜索失败 - 无法解析主机名 '{}': {}", xfyunConfig.getApiBase(), e.getMessage());
+            log.warn("AI服务不可用，降级到本地数据库搜索: {}", keyword);
+            return searchFoodLocal(keyword);
+        } catch (java.net.ConnectException e) {
+            log.error("AI搜索失败 - 无法连接到AI服务器 '{}': {}", xfyunConfig.getApiBase(), e.getMessage());
+            log.warn("AI服务不可用，降级到本地数据库搜索: {}", keyword);
+            return searchFoodLocal(keyword);
+        } catch (IOException e) {
+            log.error("AI搜索失败 - IO异常: {}", e.getMessage(), e);
+            log.warn("AI服务不可用，降级到本地数据库搜索: {}", keyword);
+            return searchFoodLocal(keyword);
         } catch (Exception e) {
-            log.error("AI搜索食物失败: {}", e.getMessage(), e);
+            log.error("AI搜索食物失败 - 未知异常: {} - {}", e.getClass().getName(), e.getMessage(), e);
+            log.warn("AI服务不可用，降级到本地数据库搜索: {}", keyword);
             // 降级：使用本地搜索
             return searchFoodLocal(keyword);
         }
@@ -205,6 +289,11 @@ public class AIFoodService {
      * 调用讯飞星火API
      */
     private String callXfyunAPI(String requestBody) throws IOException {
+        log.info("开始调用讯飞AI API, URL: {}", xfyunConfig.getApiBase() + "/chat/completions");
+        log.debug("请求体: {}", requestBody);
+
+        long startTime = System.currentTimeMillis();
+
         // 确保UTF-8编码
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         RequestBody body = RequestBody.create(requestBody.getBytes(java.nio.charset.StandardCharsets.UTF_8), mediaType);
@@ -218,17 +307,25 @@ public class AIFoodService {
                 .build();
 
         try (Response response = httpClient.newCall(request).execute()) {
+            long elapsedTime = System.currentTimeMillis() - startTime;
+            log.info("AI API响应耗时: {}ms, HTTP状态码: {}", elapsedTime, response.code());
+
             if (!response.isSuccessful()) {
                 String errorBody = response.body() != null
                         ? new String(response.body().bytes(), java.nio.charset.StandardCharsets.UTF_8)
                         : "";
                 log.error("API调用失败: HTTP {}, body: {}", response.code(), errorBody);
-                throw new IOException("API调用失败: " + response.code());
+                throw new IOException("API调用失败: HTTP " + response.code() + ", " + errorBody);
             }
 
             String responseBody = new String(response.body().bytes(), java.nio.charset.StandardCharsets.UTF_8);
-            log.debug("API响应: {}", responseBody);
+            log.info("API调用成功，响应长度: {} 字符", responseBody.length());
+            log.debug("API完整响应: {}", responseBody);
             return responseBody;
+        } catch (IOException e) {
+            long elapsedTime = System.currentTimeMillis() - startTime;
+            log.error("AI API调用异常，耗时: {}ms, 错误: {}", elapsedTime, e.getMessage(), e);
+            throw e;
         }
     }
 
@@ -297,6 +394,7 @@ public class AIFoodService {
      */
     private List<FoodInfoDto> parseFoodListFromResponse(String responseText) {
         try {
+            log.debug("开始解析AI响应: {}", responseText);
             JsonObject responseJson = gson.fromJson(responseText, JsonObject.class);
             JsonArray choices = responseJson.getAsJsonArray("choices");
             if (choices != null && choices.size() > 0) {
@@ -304,27 +402,60 @@ public class AIFoodService {
                 JsonObject message = firstChoice.getAsJsonObject("message");
                 String content = message.get("content").getAsString();
 
+                log.info("AI返回的content内容: {}", content);
+
                 // 尝试解析为数组或单个对象
                 try {
                     JsonArray foodArray = gson.fromJson(content, JsonArray.class);
-                    return parseFoodArray(foodArray);
+                    log.info("成功解析为数组，包含 {} 个元素", foodArray.size());
+                    List<FoodInfoDto> results = parseFoodArray(foodArray);
+                    if (!results.isEmpty()) {
+                        log.info("成功解析 {} 条食物数据", results.size());
+                        return results;
+                    }
                 } catch (Exception e) {
+                    log.debug("不是直接数组格式: {}", e.getMessage());
                     // 可能返回的是包含数组的对象
-                    JsonObject contentObj = gson.fromJson(content, JsonObject.class);
-                    if (contentObj.has("foods")) {
-                        JsonArray foodArray = contentObj.getAsJsonArray("foods");
-                        return parseFoodArray(foodArray);
-                    } else if (contentObj.has("results")) {
-                        JsonArray foodArray = contentObj.getAsJsonArray("results");
-                        return parseFoodArray(foodArray);
+                    try {
+                        JsonObject contentObj = gson.fromJson(content, JsonObject.class);
+                        log.info("解析为对象，字段: {}", contentObj.keySet());
+
+                        // 尝试各种可能的字段名
+                        JsonArray foodArray = null;
+                        if (contentObj.has("foods")) {
+                            foodArray = contentObj.getAsJsonArray("foods");
+                            log.info("找到 foods 字段，包含 {} 个元素", foodArray.size());
+                        } else if (contentObj.has("results")) {
+                            foodArray = contentObj.getAsJsonArray("results");
+                            log.info("找到 results 字段，包含 {} 个元素", foodArray.size());
+                        } else if (contentObj.has("data")) {
+                            foodArray = contentObj.getAsJsonArray("data");
+                            log.info("找到 data 字段，包含 {} 个元素", foodArray.size());
+                        } else if (contentObj.has("items")) {
+                            foodArray = contentObj.getAsJsonArray("items");
+                            log.info("找到 items 字段，包含 {} 个元素", foodArray.size());
+                        }
+
+                        if (foodArray != null) {
+                            List<FoodInfoDto> results = parseFoodArray(foodArray);
+                            if (!results.isEmpty()) {
+                                log.info("成功解析 {} 条食物数据", results.size());
+                                return results;
+                            }
+                        } else {
+                            log.warn("未找到食物数组字段，可用字段: {}", contentObj.keySet());
+                        }
+                    } catch (Exception e2) {
+                        log.error("解析为对象也失败: {}", e2.getMessage());
                     }
                 }
             }
         } catch (Exception e) {
-            log.error("解析AI响应失败: {}", e.getMessage(), e);
+            log.error("解析AI响应失败: {} - {}", e.getClass().getSimpleName(), e.getMessage(), e);
         }
 
         // 解析失败时返回本地数据的前3条
+        log.warn("所有解析尝试失败，返回本地数据库前3条");
         return FOOD_DATABASE.subList(0, Math.min(3, FOOD_DATABASE.size()));
     }
 
@@ -333,21 +464,68 @@ public class AIFoodService {
      */
     private List<FoodInfoDto> parseFoodArray(JsonArray foodArray) {
         List<FoodInfoDto> result = new java.util.ArrayList<>();
+        log.info("开始解析食物数组，共 {} 个元素", foodArray.size());
+
         for (int i = 0; i < foodArray.size(); i++) {
             try {
                 JsonObject foodJson = foodArray.get(i).getAsJsonObject();
-                FoodInfoDto food = new FoodInfoDto(
-                        foodJson.get("foodName").getAsString(),
-                        new BigDecimal(foodJson.get("calories").getAsString()),
-                        new BigDecimal(foodJson.get("protein").getAsString()),
-                        new BigDecimal(foodJson.get("carbohydrates").getAsString()),
-                        new BigDecimal(foodJson.get("fat").getAsString()));
+                log.debug("解析第 {} 个食物，字段: {}", i, foodJson.keySet());
+
+                // 提取食物名称（支持多种字段名）
+                String foodName = extractStringField(foodJson, "foodName", "name", "food", "食物名称");
+
+                // 提取营养数据（支持数字或字符串格式）
+                BigDecimal calories = extractNumericField(foodJson, "calories", "热量", "Calories");
+                BigDecimal protein = extractNumericField(foodJson, "protein", "蛋白质", "Protein");
+                BigDecimal carbohydrates = extractNumericField(foodJson, "carbohydrates", "碳水化合物", "carbs", "Carbohydrates");
+                BigDecimal fat = extractNumericField(foodJson, "fat", "脂肪", "Fat");
+
+                FoodInfoDto food = new FoodInfoDto(foodName, calories, protein, carbohydrates, fat);
                 result.add(food);
+                log.info("成功解析食物 {}: {} (热量:{})", i, foodName, calories);
             } catch (Exception e) {
-                log.warn("解析第{}个食物信息失败: {}", i, e.getMessage());
+                log.warn("解析第{}个食物信息失败: {} - {}", i, e.getClass().getSimpleName(), e.getMessage());
+                log.debug("失败的JSON: {}", foodArray.get(i));
             }
         }
+
+        log.info("食物数组解析完成，成功 {} / {} 条", result.size(), foodArray.size());
         return result;
+    }
+
+    /**
+     * 从JSON对象中提取字符串字段（支持多个可能的字段名）
+     */
+    private String extractStringField(JsonObject json, String... possibleKeys) {
+        for (String key : possibleKeys) {
+            if (json.has(key) && !json.get(key).isJsonNull()) {
+                return json.get(key).getAsString();
+            }
+        }
+        return "未知食物";
+    }
+
+    /**
+     * 从JSON对象中提取数值字段（支持数字或字符串格式，以及多个可能的字段名）
+     */
+    private BigDecimal extractNumericField(JsonObject json, String... possibleKeys) {
+        for (String key : possibleKeys) {
+            if (json.has(key) && !json.get(key).isJsonNull()) {
+                try {
+                    if (json.get(key).isJsonPrimitive()) {
+                        String value = json.get(key).getAsString();
+                        // 去除可能的单位
+                        value = value.replaceAll("[^0-9.]", "");
+                        if (!value.isEmpty()) {
+                            return new BigDecimal(value);
+                        }
+                    }
+                } catch (Exception e) {
+                    log.debug("无法解析字段 {}: {}", key, e.getMessage());
+                }
+            }
+        }
+        return BigDecimal.ZERO;
     }
 
     /**

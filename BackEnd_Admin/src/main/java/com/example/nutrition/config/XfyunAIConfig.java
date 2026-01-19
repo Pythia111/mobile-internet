@@ -30,5 +30,5 @@ public class XfyunAIConfig {
     /**
      * 是否启用AI功能
      */
-    private boolean enabled = false;
+    private boolean enabled = true;
 }
